@@ -7,6 +7,8 @@ import numpy as np
 
 def get_ratios(csv_name, fnames):
 
+    print(csv_name)
+
     ms_deconv_df = pd.read_csv(csv_name,header=2, index_col=False)
     ms_deconv_df = ms_deconv_df.dropna(axis='columns', how='all')
     unlabelled_df = ms_deconv_df[ms_deconv_df['Center X'].between(25100,25350, inclusive=True)]
@@ -18,7 +20,7 @@ def get_ratios(csv_name, fnames):
         # Find range of peaks
         start_range_unlabelled = unlabelled_df['Start X'].min()
         end_range_unlabelled = unlabelled_df['End X'].max()
-        range_labelled = end_range_unlabelled - start_range_unlabelled
+        range_unlabelled = end_range_unlabelled - start_range_unlabelled
         peaks_x_range_unlabelled = (unlabelled_df['End X'] - unlabelled_df['Start X']).sum()
 
     if not labelled_df.empty:
@@ -35,6 +37,7 @@ def get_ratios(csv_name, fnames):
         height_ratio = 1
         unlabelled_peak = np.nan
         range_unlabelled = np.nan
+        peaks_x_range_unlabelled = np.nan
 
     elif not unlabelled_df.empty and labelled_df.empty:
         area_ratio = 0
@@ -42,9 +45,10 @@ def get_ratios(csv_name, fnames):
         height_ratio = 0
         labelled_peak = np.nan
         range_labelled = np.nan
+        peaks_x_range_labelled = np.nan
 
     elif unlabelled_df.empty and labelled_df.empty:
-        return np.nan * len(fnames)
+        return [np.nan * len(fnames)]
 
     elif not unlabelled_df.empty and not labelled_df.empty:
         area_ratio = labelled_df['Area'].sum()/unlabelled_df['Area'].sum()
