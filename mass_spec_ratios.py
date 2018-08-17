@@ -2,6 +2,9 @@ import pandas as pd
 import os
 import csv
 import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib
+
 
 #"/hdlocal/home/enelson/mass_spec_ratio/Data/NUDT7-p019-70904_h3d-0_4.CSV"
 
@@ -51,23 +54,63 @@ def get_ratios(csv_name, fnames):
         return [csv_name]
 
     elif not unlabelled_df.empty and not labelled_df.empty:
-        area_ratio = labelled_df['Area'].sum()/unlabelled_df['Area'].sum()
-        peak_area_ratio = labelled_df['Area'].max()/unlabelled_df['Area'].max()
-        height_ratio = labelled_df['Height'].max()/unlabelled_df['Height'].max()
+        area_ratio = labelled_df['Area'].sum()/(unlabelled_df['Area'].sum() + labelled_df['Area'].sum())
+        peak_area_ratio = labelled_df['Area'].max()/(unlabelled_df['Area'].max() + labelled_df['Area'].max())
+        height_ratio = labelled_df['Height'].max()/(unlabelled_df['Height'].max() + labelled_df['Height'].max())
 
     return [csv_name, area_ratio, height_ratio, peak_area_ratio,
             unlabelled_peak, labelled_peak, range_unlabelled,
             range_labelled, peaks_x_range_unlabelled, peaks_x_range_labelled]
 
-fnames = ['csv_names','area_ratio', 'height_ratio', 'peak_area_ratio',
-'unlabelled_peak', 'labelled_peak', 'range_unlabelled',
-'range_labelled', 'peaks_x_range_unlabelled', 'peaks_x_range_labelled']
+
+def get_intended_ratio(csv_name):
+
+    csv = os.path.basename(csv_name)
+    csv = csv.rstrip('_1.CSV')
+    ratio = float(csv.split('-')[-1].replace('_','.'))
+
+    return ratio
 
 data_dir = "/hdlocal/home/enelson/mass_spec_ratio/Data/"
+output_file = "/hdlocal/home/enelson/mass_spec_ratio/Output/ratios.csv"
 
-with open("/hdlocal/home/enelson/mass_spec_ratio/Output/ratios.csv",'w') as csvfile:
+fnames = ['csv_names','area_ratio', 'height_ratio', 'peak_area_ratio',
+'unlabelled_peak', 'labelled_peak', 'range_unlabelled',
+'range_labelled', 'peaks_x_range_unlabelled', 'peaks_x_range_labelled','intended_ratio']
+
+with open(output_file,'w') as csvfile:
     writer = csv.writer(csvfile, delimiter=',')
     writer.writerow(fnames)
-    for file in os.listdir(data_dir):
+    file_gen = (f for f in os.listdir(data_dir) if os.path.isfile(os.path.join(data_dir, f)))
+
+    for file in file_gen:
+        intended_ratio = get_intended_ratio(file)
         ratios = get_ratios(os.path.join(data_dir,file), fnames)
+        ratios.append(intended_ratio)
         writer.writerow(ratios)
+
+df = pd.read_csv(output_file, header=0)
+
+plt.scatter(x=df['intended_ratio'], y=df['height_ratio'], label='Largest Peak Height')
+plt.plot(np.unique(df['intended_ratio']),
+         np.poly1d(np.polyfit(df['intended_ratio'],
+                              df['height_ratio'], 1))
+         (np.unique(df['intended_ratio'])))
+
+plt.scatter(x=df['intended_ratio'], y=df['area_ratio'], label='Area of all adduct peaks')
+plt.plot(np.unique(df['intended_ratio']),
+         np.poly1d(np.polyfit(df['intended_ratio'],
+                              df['area_ratio'], 1))
+         (np.unique(df['intended_ratio'])))
+
+plt.scatter(x=df['intended_ratio'], y=df['peak_area_ratio'], label='Area of largest peak')
+plt.plot(np.unique(df['intended_ratio']),
+         np.poly1d(np.polyfit(df['intended_ratio'],
+                              df['peak_area_ratio'], 1))
+         (np.unique(df['intended_ratio'])))
+
+
+plt.xlabel('Intended Ratio')
+plt.ylabel('Mass Spec Ratio')
+plt.legend(loc='best')
+plt.show()
