@@ -80,11 +80,13 @@ def get_ratios(csv_name, fnames):
 def get_intended_ratio(csv_name):
 
     csv = os.path.basename(csv_name)
-    ratio = float(csv.split('-')[-1][0:3].replace('_','.'))
+    #ratio = float(csv.split('-')[-1][0:3].replace('_','.'))
+    ratio = csv.split('-')[-1][0:3].replace('_','.')
+    print(ratio)
     return ratio
 
-data_dir = "/hdlocal/home/enelson/mass_spec_ratio/Data/"
-output_file = "/hdlocal/home/enelson/mass_spec_ratio/Output/ratios.csv"
+data_dir = "/hdlocal/home/enelson/mass_spec_ratio/Data/Solution/"
+output_file = "/hdlocal/home/enelson/mass_spec_ratio/Output/solution_ratios.csv"
 
 fnames = ['csv_names','area_ratio', 'height_ratio', 'peak_area_ratio',
 'unlabelled_peak', 'labelled_peak', 'range_unlabelled',
@@ -119,20 +121,20 @@ plt.scatter(x=df['intended_ratio'], y=df['height_ratio'], label='Largest Peak He
 #          (np.unique(df['intended_ratio'])))
 
 plt.scatter(x=df['intended_ratio'], y=df['area_ratio'], label='Area of all adduct peaks')
-plt.plot(np.unique(df['intended_ratio']),
-         np.poly1d(np.polyfit(df['intended_ratio'],
-                              df['area_ratio'], 1))
-         (np.unique(df['intended_ratio'])))
+# plt.plot(np.unique(df['intended_ratio']),
+#          np.poly1d(np.polyfit(df['intended_ratio'],
+#                               df['area_ratio'], 1))
+#          (np.unique(df['intended_ratio'])))
 
 plt.scatter(x=df['intended_ratio'], y=df['peak_area_ratio'], label='Area of largest peak')
-plt.plot(np.unique(df['intended_ratio']),
-         np.poly1d(np.polyfit(df['intended_ratio'],
-                              df['peak_area_ratio'], 1))
-         (np.unique(df['intended_ratio'])))
+# plt.plot(np.unique(df['intended_ratio']),
+#          np.poly1d(np.polyfit(df['intended_ratio'],
+#                               df['peak_area_ratio'], 1))
+#          (np.unique(df['intended_ratio'])))
 plt.plot([0,1],[0,1], label='x=y')
-
 
 plt.xlabel('Intended Ratio')
 plt.ylabel('Mass Spec Ratio')
+plt.title('In Solution')
 plt.legend(loc='best')
-plt.show()
+plt.savefig("/hdlocal/home/enelson/mass_spec_ratio/Output/mass_spec_ratios_solution.png", dpi=300)
