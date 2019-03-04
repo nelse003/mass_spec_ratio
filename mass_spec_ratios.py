@@ -6,8 +6,6 @@ import matplotlib.pyplot as plt
 import matplotlib
 from itertools import chain
 
-#"/hdlocal/home/enelson/mass_spec_ratio/Data/NUDT7-p019-70904_h3d-0_4.CSV"
-
 def get_peak_range(df):
 
     start= df['Start X'].min()

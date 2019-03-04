@@ -1,0 +1,6 @@
+name: mass_spec_ratio
+channels:
+  - conda-forge
+  - defaults
+prefix: /home/enelson/.conda/envs/mass_spec_ratio
+
