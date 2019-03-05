@@ -163,6 +163,45 @@ if __name__ == "__main__":
     expected_unlabelled_peaks = np.array([25125, 24218, 23525, 22786])
     expected_labelled_peaks = expected_unlabelled_peaks + 354
 
+    key_ratio_dict = {}
+    for key, df in df_dict.items():
+
+        A_D = ['_A','_B','_C','_D']
+        E_H = ['_E', '_F', '_G', '_H']
+
+        if 'CI074433' in key:
+            if any(s in key for s in A_D):
+                key_ratio_dict[key] = 0
+            if any(s in key for s in E_H):
+                key_ratio_dict[key] = 0.10
+        elif 'CI074436' in key:
+            if any(s in key for s in A_D):
+                key_ratio_dict[key] = 0.20
+            if any(s in key for s in E_H):
+                key_ratio_dict[key] = 0.30
+        elif 'CI074435' in key:
+            if any(s in key for s in A_D):
+                key_ratio_dict[key] = 0.40
+            if any(s in key for s in E_H):
+                key_ratio_dict[key] = 0.50
+        elif 'CI074434' in key:
+            if any(s in key for s in A_D):
+                key_ratio_dict[key] = 0.60
+            if any(s in key for s in E_H):
+                key_ratio_dict[key] = 0.70
+        elif 'CI074438' in key:
+            if any(s in key for s in A_D):
+                key_ratio_dict[key] = 0.80
+            if any(s in key for s in E_H):
+                key_ratio_dict[key] = 0.90
+        elif 'CI074437' in key:
+            if any(s in key for s in A_D):
+                key_ratio_dict[key] = 1.00
+            if any(s in key for s in E_H):
+                key_ratio_dict[key] = 0.75
+        else:
+            print("Fuck: {}".format(key))
+
     for key, df in df_dict.items():
         ratio_df = get_ratios_of_expected_peaks(df,
                                                 expected_unlabelled_peaks,
@@ -181,6 +220,7 @@ if __name__ == "__main__":
         weighted_area_ratio = area_weight * ratio_df['area_ratio']
         weighted_area_ratio = weighted_area_ratio.sum()
 
-        print(key, weighted_height_ratio, weighted_area_ratio)
+        print(key_ratio_dict[key], weighted_height_ratio, weighted_area_ratio)
+
 
 
