@@ -1,6 +1,4 @@
 import os
-from typing import List, Any
-
 import pandas as pd
 import numpy as np
 from scipy.signal import find_peaks
@@ -44,7 +42,6 @@ def read_grouped_csv(csv):
 
     header_re = re.compile("#*")
     split_data = header_re.split(data)
-    #if not 'Point' in split_data[0]:
     split_data.pop(0)
 
     df_dict = {}
@@ -292,10 +289,40 @@ def post_crystal_plot(df):
     plt.title('Post Crystallisation Calibration Curve')
     plt.savefig('Output/post_crystal_ratio.png')
 
+def post_crystal_calibrated_plot(df):
+
+    df = df.convert_objects(convert_numeric=True)
+
+    x = np.array(df['calibrated_ratio'].unique())
+    x.sort()
+
+    y_h_mean = df.groupby('calibrated_ratio')['weighted_height_ratio'].mean()
+    y_a_mean = df.groupby('calibrated_ratio')['weighted_area_ratio'].mean()
+    y_a_std = df.groupby('calibrated_ratio')['weighted_area_ratio'].std()
+    y_h_std = df.groupby('calibrated_ratio')['weighted_height_ratio'].std()
+
+    fig, ax = plt.subplots()
+
+    ax.errorbar(x=x, y=y_h_mean, yerr=y_h_std, color='red',fmt='o', label='Height Ratio (std)')
+    ax.errorbar(x=x, y=y_a_mean, yerr=y_a_std, color='blue',fmt='o', label='Area Ratio (std)')
+    ax.legend()
+
+    plt.ylabel('Measured Ratio of Labelled Species')
+    plt.xlabel('Calibrated Ratio of Labelled Species')
+    plt.title('Post Crystallisation with Calibrated Ratio')
+    plt.savefig('Output/post_crystal_ratio.png')
+
 if __name__ == "__main__":
 
-    data_dir = "/hdlocal/enelson/mass_spec_ratio/NUDT7_Data"
+    """
+    Notes
+    ------
+    conda create --name mass_spec_ratio numpy scipy matplotlib pandas notebook python=3.6
+    """
+
+    #data_dir = "/hdlocal/enelson/mass_spec_ratio/NUDT7_Data"
     #data_dir = "/home/nelse003/PycharmProjects/mass_spec_ratio/NUDT7_Data"
+    data_dir = "/dls/science/groups/i04-1/elliot-dev/mass_spec_ratio/NUDT7_Data"
 
     # Parse all csv in folder to separate into individual deconvolutions by headers
     df_dict = {}
@@ -374,10 +401,19 @@ if __name__ == "__main__":
     pre_crystal_plot(pre_crystal_df)
     post_crystal_plot(post_crystal_df)
 
-    # ax = post_crystal_df.plot(x='intended_ratio',
-    #                           y='weighted_height_ratio',
-    #                           kind='scatter',
-    #                           title="Post crystallisation")
-    #
-    # fig = ax.get_figure()
-    # fig.savefig('Output/post_crystal_intended_ratio.png')
+    # Add calibration from pre crystal to post crystal
+    df = pre_crystal_df[['intended_ratio', 'weighted_height_ratio']]
+    df = df.drop_duplicates()
+    df = df.sort_values(by=['intended_ratio'])
+    intended_ratio = df['intended_ratio']
+    expected_ratio = df['weighted_height_ratio']
+    interp_val = np.interp(0.75, intended_ratio, expected_ratio)
+
+    df1 = pd.DataFrame({'intended_ratio': [0.75, 0],
+                        'weighted_height_ratio': [interp_val, 0]})
+    df = df.append(df1)
+    df = df.sort_values(by=['intended_ratio'])
+    df = df.rename(columns={'weighted_height_ratio': 'calibrated_ratio'})
+    post_crystal_df = pd.merge(post_crystal_df, df, on='intended_ratio')
+
+    post_crystal_calibrated_plot(post_crystal_df)
