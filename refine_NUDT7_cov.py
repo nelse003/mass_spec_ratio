@@ -37,6 +37,10 @@ Checking that these are empty:
 
 Quite a few due to dropped puck (10 missing)
 
+The post refinement steps fail due to not linking to the correct folder. 
+
+NUDT7A-x2146 fails to refine as low-res therefore incorrect spacegroup
+
 """
 
 in_dir = "/dls/labxchem/data/2017/lb18145-49/processing/analysis/initial_model"
