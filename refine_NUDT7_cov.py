@@ -7,6 +7,7 @@ Refine crystals from visits:
 
 mx19301-17 x2074 - x2121
 mx19301-18 x2130 -x2154
+mx19301-20 x2160 - x2232
 
 using the same pdb and cif file, and param file from same folder. 
 Note that the compound numbering has been superseeded in scarab
@@ -64,6 +65,10 @@ for num in range(2074, 2121 + 1):
     xtals.append(xtal_name)
 
 for num in range(2130, 2154 + 1):
+    xtal_name = prefix + "{0:0>4}".format(num)
+    xtals.append(xtal_name)
+
+for num in range(2160, 2232 + 1):
     xtal_name = prefix + "{0:0>4}".format(num)
     xtals.append(xtal_name)
 
