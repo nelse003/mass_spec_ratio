@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append("/dls/science/groups/i04-1/elliot-dev/parse_xchemdb")
-from refinement import write_refmac_csh
+from refinement.prepare_scripts import write_quick_refine_csh
 """
 Refine crystals from visits:
 
@@ -52,7 +52,7 @@ pdb = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/" \
 cif = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/" \
       "covalent_ratios_refine/NUDT7A-x1907/NUDT7A-x1907_LIG_CYS.cif"
 params = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/" \
-         "covalent_ratios_refine/NUDT7A-x1907/refine_0004/input.params"
+	 "covalent_ratios_refine/NUDT7A-x1907/refine_0004/input.params"
 
 if not os.path.exists(out_dir):
     os.makedirs(out_dir)
@@ -85,13 +85,16 @@ for xtal in xtals:
 
     print(mtz)
 
-    write_refmac_csh(crystal=xtal,
-                     pdb=pdb,
+    crystal_dir = os.path.join(out_dir,xtal)
+    if not os.path.exists(crystal_dir):
+        os.makedirs(crystal_dir)
+
+    write_quick_refine_csh(crystal=xtal,
+                     refine_pdb=pdb,
                      cif=cif,
-                     out_dir=out_dir,
+                     out_dir=crystal_dir,
+		     refinement_params=params,
                      refinement_script_dir=refinement_script_dir,
-                     extra_params="NCYC=50",
-                     params=params,
                      free_mtz=mtz)
 
 print(mtz_to_check)
