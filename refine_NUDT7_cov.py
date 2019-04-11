@@ -47,10 +47,9 @@ NUDT7A-x2146 fails to refine as low-res therefore incorrect spacegroup
 in_dir = "/dls/labxchem/data/2017/lb18145-49/processing/analysis/initial_model"
 out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements"
 refinement_script_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/scripts"
-pdb = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/" \
+pdb = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/"\
       "covalent_ratios_refine/NUDT7A-x1907/refine.pdb"
-cif = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/" \
-      "covalent_ratios_refine/NUDT7A-x1907/NUDT7A-x1907_LIG_CYS.cif"
+cif = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/covalent_ratios_refine/NUDT7A-x1907/NUDT7A-x1907_LIG_CYS.cif"
 params = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/" \
 	 "covalent_ratios_refine/NUDT7A-x1907/refine_0004/input.params"
 
