@@ -89,6 +89,7 @@ for xtal in xtals:
     if not os.path.exists(crystal_dir):
         os.makedirs(crystal_dir)
 
+
     write_quick_refine_csh(crystal=xtal,
                      refine_pdb=pdb,
                      cif=cif,
