@@ -7,14 +7,14 @@ from utils.filesystem import parse_refinement_folder
 from tasks.plotting import PlotBoundOccHistogram
 from path_config import Path
 
-refinement_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/"
+refinement_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms"
 refinement_csv = os.path.join(refinement_dir, "NUDT7A_cov_log_pdb_mtz.csv")
 
 parse_refinement_folder(refinement_csv=refinement_csv,
                         refinement_dir=refinement_dir,
                         refinement_type="superposed")
 
-out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements"
+out_dir = refinement_dir
 
 paths = Path()
 paths.log_pdb_mtz = os.path.join(out_dir, 'NUDT7A_cov_log_pdb_mtz.csv')
@@ -41,4 +41,4 @@ luigi.build([
            plot_path=paths.bound_occ_histogram,
            script_path=paths.script_dir)
     ],
-    local_scheduler=False, workers=10)
+    local_scheduler=True, workers=10)

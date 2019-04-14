@@ -1,6 +1,7 @@
+import sys
 sys.path.append("/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search")
 from exhaustive.prepare.copyatoms import copy_atoms
-from copy_phil import copy_phil
+from exhaustive.prepare.copy_phil import copy_phil
 
 """
 Refine crystals from visits:
@@ -33,6 +34,7 @@ copy_params.input.link_record_list =["LINKR        C  CLIG E   1                
                                      "LINKR        D  CLIG E   1                 SG ACYS A  73                LIG-CYS\n"]
 
 copy_params.output.out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms"
+copy_params.input.extra_params="NCYC 50"
 
 copy_atoms(copy_params)
 

@@ -45,8 +45,8 @@ NUDT7A-x2146 fails to refine as low-res therefore incorrect spacegroup
 """
 
 in_dir = "/dls/labxchem/data/2017/lb18145-49/processing/analysis/initial_model"
-out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements"
-refinement_script_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/scripts"
+out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/dimple_cov"
+refinement_script_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/scripts_dimple_cov"
 pdb = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/" \
       "covalent_ratios_refine/NUDT7A-x1907/refine.pdb"
 cif = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/" \
@@ -76,6 +76,11 @@ mtz_to_check = []
 for xtal in xtals:
 
     mtz = os.path.join(in_dir, xtal, "{}.mtz".format(xtal))
+    pdb = os.path.join(in_dir, xtal, "dimple.pdb")
+
+    if not os.path.exists(pdb):
+        print("pdb does not exist: {}".format(pdb))
+        continue
 
 
     if not os.path.exists(mtz):
