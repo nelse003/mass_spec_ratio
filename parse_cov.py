@@ -25,10 +25,6 @@ paths.log_occ_resname = os.path.join(out_dir, 'log_occ_resname.csv')
 paths.occ_state_comment_csv = os.path.join(out_dir, 'occ_state_comment.csv')
 paths.refinement_summary = os.path.join(out_dir, 'refinement_summary.csv')
 paths.occ_correct_csv = os.path.join(out_dir, 'occ_correct.csv')
-#paths.refinement_summary_plot = os.path.join(out_dir, 'refinement_summary.png')
-#paths.convergence_histogram = os.path.join(out_dir, 'convergence_hist.png')
-#paths.occ_conv_scatter = os.path.join(out_dir, 'occ_conv_scatter.png')
-#paths.ground_occ_histogram = os.path.join(out_dir, 'occ_ground_histogram.png')
 paths.bound_occ_histogram = os.path.join(out_dir, 'occ_bound_histogram.png')
 paths.script_dir = "/dls/science/groups/i04-1/elliot-dev/parse_xchemdb"
 
