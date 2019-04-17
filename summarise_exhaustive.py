@@ -3,7 +3,7 @@ import os
 import pandas as pd
 
 sys.path.append("/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search")
-from exhaustive.exhaustive.utils.utils import u_iso_to_b_fac, get_minimum_fofc
+from utils import u_iso_to_b_fac, get_minimum_fofc
 
 out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/" \
           "NUDT7A_mass_spec_refinements/copy_atoms/exhaustive"
