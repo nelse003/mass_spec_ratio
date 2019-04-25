@@ -1,10 +1,11 @@
 import os
 import sys
+
 sys.path.append("/dls/science/groups/i04-1/elliot-dev/parse_xchemdb")
 from refinement.prepare_scripts import write_quick_refine_csh
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     """
     Refine crystals from visits:
@@ -48,17 +49,24 @@ if __name__ == '__main__':
 
     out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms"
 
-    refinement_script_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/scripts"
+    refinement_script_dir = (
+        "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/scripts"
+    )
 
-    pdb = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/" \
-          "covalent_ratios_refine/NUDT7A-x1907/refine.pdb"
+    pdb = (
+        "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/"
+        "covalent_ratios_refine/NUDT7A-x1907/refine.pdb"
+    )
 
-    cif = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/" \
-          "covalent_ratios_refine/NUDT7A-x1907/NUDT7A-x1907_LIG_CYS.cif"
+    cif = (
+        "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/"
+        "covalent_ratios_refine/NUDT7A-x1907/NUDT7A-x1907_LIG_CYS.cif"
+    )
 
-    params = "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/" \
-         "covalent_ratios_refine/NUDT7A-x1907/refine_0004/input.params"
-
+    params = (
+        "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/"
+        "covalent_ratios_refine/NUDT7A-x1907/refine_0004/input.params"
+    )
 
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
@@ -88,17 +96,18 @@ if __name__ == '__main__':
             mtz_to_check.append(xtal)
             continue
 
-        crystal_dir = os.path.join(out_dir,xtal)
+        crystal_dir = os.path.join(out_dir, xtal)
         if not os.path.exists(crystal_dir):
             os.makedirs(crystal_dir)
 
-        write_quick_refine_csh(crystal=xtal,
-                         refine_pdb=pdb,
-                         cif=cif,
-                         out_dir=crystal_dir,
-                         refinement_params=params,
-                         refinement_script_dir=refinement_script_dir,
-                         free_mtz=mtz)
+        write_quick_refine_csh(
+            crystal=xtal,
+            refine_pdb=pdb,
+            cif=cif,
+            out_dir=crystal_dir,
+            refinement_params=params,
+            refinement_script_dir=refinement_script_dir,
+            free_mtz=mtz,
+        )
 
     print(mtz_to_check)
-
