@@ -123,7 +123,7 @@ def peak_height_outside_of_interest(df, min_interest=22000, max_interest=26000):
     return float(ratio_of_peak_outside_area)
 
 
-def peak_area(df, peak, delta=10, left_range=50, right_range=100):
+def get_peak_area(df, peak, delta=10, left_range=50, right_range=100):
     """
     Find peak area
 
@@ -187,10 +187,10 @@ def get_ratios_of_expected_peaks(
     ratio_dict = {}
     for peak, peak_labelled in zip(expected_unlabelled_peaks, expected_labelled_peaks):
 
-        peak_loc, peak_height, peak_area = peak_area(
+        peak_loc, peak_height, peak_area = get_peak_area(
             df, peak, delta=10, left_range=50, right_range=100
         )
-        labelled_peak_loc, labelled_peak_height, labelled_peak_area = peak_area(
+        labelled_peak_loc, labelled_peak_height, labelled_peak_area = get_peak_area(
             df, peak_labelled, delta=10, left_range=50, right_range=100
         )
 
@@ -241,16 +241,62 @@ def ratios_from_filenames(df_dict):
     intended_ratio: dict
         dictionary of intended ratios
 
+    df_dict: dict
+        dictionary of pandas.DataFrames
+        each containing mass spectroscopy data:
+        Y(Counts) vs X(Daltons) data
     """
 
     intended_ratio = {}
 
+    key_to_remove = []
     for key, df in df_dict.items():
 
         A_D = ["_A", "_B", "_C", "_D"]
         E_H = ["_E", "_F", "_G", "_H"]
 
-        if "CI074433" in key:
+        post_diffract_df = pd.read_csv("post_diffraction_ratios.csv")
+
+        if "NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019" in key:
+            well = key.split("_")[-1]
+
+            intended_ratio[key] = float(
+                post_diffract_df.loc[post_diffract_df["Solubilisation Well"] == well][
+                    "Ratio"
+                ].values[0]
+            )
+
+            if np.isnan(intended_ratio[key]):
+                key_to_remove.append(key)
+
+        elif "180425" in key:
+            ratio_str = key.split("1day")[1]
+            if ratio_str == "":
+                if "30min" in key:
+                    intended_ratio[key] = 1.0
+                else:
+                    intended_ratio[key] = 0.0
+            elif "No_cov" in key:
+                intended_ratio[key] = 0.0
+            else:
+                print(ratio_str)
+                print(
+                    ratio_str.split("no_cov")[0]
+                    .lstrip("_")
+                    .rstrip("_")
+                    .replace("_", ".")
+                )
+                intended_ratio[key] = (
+                    float(
+                        ratio_str.split("no_cov")[0]
+                        .lstrip("_")
+                        .rstrip("_")
+                        .replace("_", ".")
+                    )
+                    / 10
+                )
+
+        elif "CI074433" in key:
             if any(s in key for s in A_D):
                 intended_ratio[key] = 0
             if any(s in key for s in E_H):
@@ -322,7 +368,11 @@ def ratios_from_filenames(df_dict):
         else:
             raise ValueError("Key not recognised: {}".format(key))
 
-    return intended_ratio
+    for key in set(key_to_remove):
+        del df_dict[key]
+        del intended_ratio[key]
+
+    return intended_ratio, df_dict
 
 
 def remove_dataset_by_filename_content(df_dict, key_string):
@@ -404,7 +454,7 @@ def string_contains(check_str, match):
     ----------
     check_str: str
         string to checked
-    match: str
+    match: str or list
         str to check for
 
     Returns
@@ -413,7 +463,7 @@ def string_contains(check_str, match):
         True if match is in check_str
         False if match is not in check_str
     """
-    if match in check_str:
+    if any(m in check_str for m in match):
         return True
     else:
         return False
@@ -421,15 +471,26 @@ def string_contains(check_str, match):
 
 def pre_crystal_plot(df):
 
-    x = df["intended_ratio"]
+    df1 = df.loc["190220" in df[key]]
+    df2 = df.loc["190220" not in df[key]]
 
-    y_h = df["weighted_height_ratio"]
-    y_a = df["weighted_area_ratio"]
+    x = df1["intended_ratio"]
+
+    y_h = df1["weighted_height_ratio"]
+    y_a = df1["weighted_area_ratio"]
+
+    x2 = df2["intended_ratio"]
+    y_h2 = df2["weighted_height_ratio"]
+    y_a2 = df2["weighted_area_ratio"]
 
     fig, ax = plt.subplots()
 
     ax.scatter(x, y_h, color="red", label="Height Ratio")
     ax.scatter(x, y_a, color="blue", label="Area Ratio")
+
+    ax.scatter(x2, y_h2, color="red", label="Height Ratio", marker="*")
+    ax.scatter(x2, y_a2, color="blue", label="Area Ratio", marker="*")
+
     ax.legend()
 
     plt.ylabel("Measured Ratio of Labelled Species")
@@ -526,6 +587,24 @@ if __name__ == "__main__":
             csv = os.path.join(data_dir, f)
             df_dict.update(read_grouped_csv(csv))
 
+    # Plot the deconvolution
+    for key, df in df_dict.items():
+
+        interest_plot = "/hdlocal/enelson/mass_spec_ratio/Output/interest_{}.png".format(
+            key
+        )
+        plot = "/hdlocal/enelson/mass_spec_ratio/Output/{}.png".format(key)
+
+        if not os.path.exists(interest_plot):
+            df.plot(x="X(Daltons)", y="Y(Counts)", kind="line", xlim=(22000, 26000))
+            plt.savefig(interest_plot)
+            plt.close()
+
+        if not os.path.exists(plot):
+            df.plot(x="X(Daltons)", y="Y(Counts)", kind="line")
+            plt.savefig(plot)
+            plt.close()
+
     # Remove blank datasets
     df_dict = remove_dataset_by_filename_content(df_dict, key_string="blank")
 
@@ -547,7 +626,7 @@ if __name__ == "__main__":
     # Translate keys (filenames) into ratios
     # Split across two dicitionaries to parse
     # intended ratio and expected ratio
-    intended_ratio_dict = ratios_from_filenames(df_dict)
+    intended_ratio_dict, df_dict = ratios_from_filenames(df_dict)
 
     # Process all deconvolutions to ratios of peaks
     ratio_df_list = []
@@ -588,7 +667,9 @@ if __name__ == "__main__":
     ratio_df = pd.concat(ratio_df_list)
 
     # Split into pre crystallisation and post crystallisation
-    ratio_df["pre_crystal"] = ratio_df["key"].apply(string_contains, match="L_")
+    ratio_df["pre_crystal"] = ratio_df["key"].apply(
+        string_contains, match=["L_", "30min"]
+    )
     pre_crystal_df = ratio_df[ratio_df["pre_crystal"] == True]
     post_crystal_df = ratio_df[ratio_df["pre_crystal"] == False]
 
