@@ -469,30 +469,90 @@ def string_contains(check_str, match):
         return False
 
 
+def marker_match(row, match, marker):
+    """
+    Check that a string contains another string
+
+    Parameters
+    ----------
+    check_str: str
+        string to checked
+    match: str or list
+        str to check for
+
+    Returns
+    -------
+    marker: str
+    """
+    print(row["key"])
+    if any(m in row["key"] for m in match):
+        return marker
+    else:
+        return row["marker"]
+
+
+def mscatter(x, y, ax=None, m=None, **kw):
+    """
+    2D Scatterplot with markers suppliable as list
+    Parameters
+    ----------
+    x
+    y
+    ax
+    m
+    kw
+
+    Returns
+    -------
+
+    Notes
+    -----
+    https://stackoverflow.com/questions/51810492/how-can-i-add-a-list-of-marker-styles-in-matplotlib
+
+    """
+
+    import matplotlib.markers as mmarkers
+
+    ax = ax or plt.gca()
+    sc = ax.scatter(x, y, **kw)
+    if (m is not None) and (len(m) == len(x)):
+        paths = []
+        for marker in m:
+            if isinstance(marker, mmarkers.MarkerStyle):
+                marker_obj = marker
+            else:
+                marker_obj = mmarkers.MarkerStyle(marker)
+            path = marker_obj.get_path().transformed(marker_obj.get_transform())
+            paths.append(path)
+        sc.set_paths(paths)
+    return sc
+
+
 def pre_crystal_plot(df):
 
-    df1 = df.loc["190220" in df[key]]
-    df2 = df.loc["190220" not in df[key]]
+    df["marker"] = "o"
 
-    x = df1["intended_ratio"]
+    date_m = {"190402": "x", "190220": "*", "180425": "+", "190225": "v"}
 
-    y_h = df1["weighted_height_ratio"]
-    y_a = df1["weighted_area_ratio"]
-
-    x2 = df2["intended_ratio"]
-    y_h2 = df2["weighted_height_ratio"]
-    y_a2 = df2["weighted_area_ratio"]
+    for date, marker in date_m.items():
+        df["marker"] = df.apply(marker_match, match=[date], marker=marker, axis=1)
 
     fig, ax = plt.subplots()
 
-    ax.scatter(x, y_h, color="red", label="Height Ratio")
-    ax.scatter(x, y_a, color="blue", label="Area Ratio")
+    for date, marker in date_m.items():
 
-    ax.scatter(x2, y_h2, color="red", label="Height Ratio", marker="*")
-    ax.scatter(x2, y_a2, color="blue", label="Area Ratio", marker="*")
+        df_plot = df[df["marker"] == marker]
+        x = df_plot["intended_ratio"]
+        y_h = df_plot["weighted_height_ratio"]
+        y_a = df_plot["weighted_area_ratio"]
+        ax.scatter(
+            x, y_h, color="red", label="Height Ratio: {}".format(date), marker=marker
+        )
+        ax.scatter(
+            x, y_a, color="blue", label="Area Ratio: {}".format(date), marker=marker
+        )
 
-    ax.legend()
-
+    plt.legend()
     plt.ylabel("Measured Ratio of Labelled Species")
     plt.xlabel("Intended Ratio of Labelled Species")
     plt.title("Pre Crystallisation Calibration Curve")
@@ -519,6 +579,7 @@ def post_crystal_plot(df):
     ax.errorbar(
         x=x, y=y_a_mean, yerr=y_a_std, color="blue", fmt="o", label="Area Ratio (std)"
     )
+
     ax.legend()
 
     plt.ylabel("Measured Ratio of Labelled Species")
@@ -527,9 +588,7 @@ def post_crystal_plot(df):
     plt.savefig("Output/post_crystal_ratio.png")
 
 
-def post_crystal_calibrated_plot(df):
-
-    df = df.convert_objects(convert_numeric=True)
+def calibrated_plot(df, ax, marker, label):
 
     x = np.array(df["calibrated_ratio"].unique())
     x.sort()
@@ -539,14 +598,34 @@ def post_crystal_calibrated_plot(df):
     y_a_std = df.groupby("calibrated_ratio")["weighted_area_ratio"].std()
     y_h_std = df.groupby("calibrated_ratio")["weighted_height_ratio"].std()
 
-    fig, ax = plt.subplots()
+    ax.errorbar(
+        x=x,
+        y=y_h_mean,
+        yerr=y_h_std,
+        color="red",
+        fmt=marker,
+        label="Height Ratio (std): {}".format(label),
+    )
+    ax.errorbar(
+        x=x,
+        y=y_a_mean,
+        yerr=y_a_std,
+        color="blue",
+        fmt=marker,
+        label="Area Ratio (std): {}".format(label),
+    )
 
-    ax.errorbar(
-        x=x, y=y_h_mean, yerr=y_h_std, color="red", fmt="o", label="Height Ratio (std)"
-    )
-    ax.errorbar(
-        x=x, y=y_a_mean, yerr=y_a_std, color="blue", fmt="o", label="Area Ratio (std)"
-    )
+    return ax
+
+
+def post_crystal_calibrated_plot(df, diffract_df):
+
+    df = df.convert_objects(convert_numeric=True)
+
+    fig, ax = plt.subplots()
+    ax = calibrated_plot(df, ax, marker="o", label=" ")
+    ax = calibrated_plot(diffract_df, ax, marker="*", label="post diffraction")
+
     ax.legend()
 
     plt.ylabel("Measured Ratio of Labelled Species")
@@ -595,13 +674,35 @@ if __name__ == "__main__":
         )
         plot = "/hdlocal/enelson/mass_spec_ratio/Output/{}.png".format(key)
 
+        tight_plot = "/hdlocal/enelson/mass_spec_ratio/Output/tight_{}.png".format(key)
+
+        if not os.path.exists(tight_plot):
+            df.plot(
+                x="X(Daltons)",
+                y="Y(Counts)",
+                kind="line",
+                xlim=(24500, 26000),
+                legend=False,
+            )
+            plt.ylabel("Y(Counts)")
+            plt.savefig(tight_plot)
+            plt.close()
+
         if not os.path.exists(interest_plot):
-            df.plot(x="X(Daltons)", y="Y(Counts)", kind="line", xlim=(22000, 26000))
+            df.plot(
+                x="X(Daltons)",
+                y="Y(Counts)",
+                kind="line",
+                xlim=(22000, 26000),
+                legend=False,
+            )
+            plt.ylabel("Y(Counts)")
             plt.savefig(interest_plot)
             plt.close()
 
         if not os.path.exists(plot):
-            df.plot(x="X(Daltons)", y="Y(Counts)", kind="line")
+            df.plot(x="X(Daltons)", y="Y(Counts)", kind="line", legend=False)
+            plt.ylabel("Y(Counts)")
             plt.savefig(plot)
             plt.close()
 
@@ -610,7 +711,39 @@ if __name__ == "__main__":
 
     # Remove un-needed dataset
     df_dict = remove_dataset_by_filename_content(
-        df_dict, key_string="NUDT7A_p026_NU0000308a" "_post_gel_filtration"
+        df_dict, key_string="NUDT7A_p026_NU0000308a"
+    )
+
+    # Manual removal of low signal datasets
+    df_dict = remove_dataset_by_filename_content(
+        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10c"
+    )
+    df_dict = remove_dataset_by_filename_content(
+        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_A11a"
+    )
+    df_dict = remove_dataset_by_filename_content(
+        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_A11c"
+    )
+    df_dict = remove_dataset_by_filename_content(
+        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_B11a"
+    )
+    df_dict = remove_dataset_by_filename_content(
+        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_D10c"
+    )
+    df_dict = remove_dataset_by_filename_content(
+        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_E10c"
+    )
+    df_dict = remove_dataset_by_filename_content(
+        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_F10a"
+    )
+    df_dict = remove_dataset_by_filename_content(
+        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_F10c"
+    )
+    df_dict = remove_dataset_by_filename_content(
+        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_G10a"
+    )
+    df_dict = remove_dataset_by_filename_content(
+        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10c"
     )
 
     # remove datasets that do not pass signal threshold
@@ -696,4 +829,13 @@ if __name__ == "__main__":
     df = df.rename(columns={"weighted_height_ratio": "calibrated_ratio"})
     post_crystal_df = pd.merge(post_crystal_df, df, on="intended_ratio")
 
-    post_crystal_calibrated_plot(post_crystal_df)
+    # Split into two dataframes
+    post_crystal_df["Post_diffraction"] = post_crystal_df["key"].apply(
+        string_contains, match=["Post_diffraction"]
+    )
+    post_diffract_df = post_crystal_df[post_crystal_df["Post_diffraction"] == True]
+    post_crystal_df = post_crystal_df[post_crystal_df["Post_diffraction"] == False]
+
+    post_crystal_calibrated_plot(post_crystal_df, post_diffract_df)
+    post_diffract_df.to_csv("post_diffract_data.csv")
+    post_crystal_df.to_csv("post_crystal_data.csv")
