@@ -365,6 +365,42 @@ def ratios_from_filenames(df_dict):
         elif "100L_0U" in key:
             intended_ratio[key] = 1.00
 
+        elif "0_0" in key:
+            intended_ratio[key] = 0.00
+
+        elif "0_1" in key:
+            intended_ratio[key] = 0.10
+
+        elif "0_2" in key:
+            intended_ratio[key] = 0.20
+
+        elif "0_3" in key:
+            intended_ratio[key] = 0.30
+
+        elif "0_4" in key:
+            intended_ratio[key] = 0.40
+
+        elif "0_5" in key:
+            intended_ratio[key] = 0.50
+
+        elif "0_6" in key:
+            intended_ratio[key] = 0.60
+
+        elif "0_7" in key:
+            intended_ratio[key] = 0.70
+
+        elif "0_8" in key:
+            intended_ratio[key] = 0.80
+
+        elif "0_9" in key:
+            intended_ratio[key] = 0.90
+
+        elif "0_95" in key:
+            intended_ratio[key] = 0.95
+
+        elif "1_0" in key:
+            intended_ratio[key] = 1.00
+
         else:
             raise ValueError("Key not recognised: {}".format(key))
 
@@ -532,7 +568,7 @@ def pre_crystal_plot(df):
 
     df["marker"] = "o"
 
-    date_m = {"190402": "x", "190220": "*", "180425": "+", "190225": "v"}
+    date_m = {"190402": "x", "190220": "*", "180425": "+", "190225": "v", "190506": "s"}
 
     for date, marker in date_m.items():
         df["marker"] = df.apply(marker_match, match=[date], marker=marker, axis=1)
@@ -801,7 +837,7 @@ if __name__ == "__main__":
 
     # Split into pre crystallisation and post crystallisation
     ratio_df["pre_crystal"] = ratio_df["key"].apply(
-        string_contains, match=["L_", "30min"]
+        string_contains, match=["L_", "30min", "190506"]
     )
     pre_crystal_df = ratio_df[ratio_df["pre_crystal"] == True]
     post_crystal_df = ratio_df[ratio_df["pre_crystal"] == False]
