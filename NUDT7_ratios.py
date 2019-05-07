@@ -6,6 +6,7 @@ import re
 from io import StringIO
 
 import matplotlib.pyplot as plt
+import statsmodels.api as sm
 
 plt.rcParams["figure.figsize"] = [10, 10]
 
@@ -369,34 +370,34 @@ def ratios_from_filenames(df_dict):
             intended_ratio[key] = 0.00
 
         elif "0_1" in key:
-            intended_ratio[key] = 0.10
+            intended_ratio[key] = 0.076
 
         elif "0_2" in key:
-            intended_ratio[key] = 0.20
+            intended_ratio[key] = 0.145
 
         elif "0_3" in key:
-            intended_ratio[key] = 0.30
+            intended_ratio[key] = 0.226
 
         elif "0_4" in key:
-            intended_ratio[key] = 0.40
+            intended_ratio[key] = 0.313
 
         elif "0_5" in key:
-            intended_ratio[key] = 0.50
+            intended_ratio[key] = 0.406
 
         elif "0_6" in key:
-            intended_ratio[key] = 0.60
+            intended_ratio[key] = 0.506
 
         elif "0_7" in key:
-            intended_ratio[key] = 0.70
+            intended_ratio[key] = 0.614
 
         elif "0_8" in key:
-            intended_ratio[key] = 0.80
+            intended_ratio[key] = 0.732
 
         elif "0_9" in key:
-            intended_ratio[key] = 0.90
+            intended_ratio[key] = 0.86
 
         elif "0_95" in key:
-            intended_ratio[key] = 0.95
+            intended_ratio[key] = 0.92
 
         elif "1_0" in key:
             intended_ratio[key] = 1.00
@@ -568,14 +569,30 @@ def pre_crystal_plot(df):
 
     df["marker"] = "o"
 
-    date_m = {"190402": "x", "190220": "*", "180425": "+", "190225": "v", "190506": "s"}
+    date_m = {
+        "190402": "x",
+        "190220": "*",
+        "180425": "+",
+        "190225": "v",
+        "190506": "s",
+        "imp": "1",
+    }
 
     for date, marker in date_m.items():
         df["marker"] = df.apply(marker_match, match=[date], marker=marker, axis=1)
 
     fig, ax = plt.subplots()
 
+    summary_df = pd.DataFrame()
     for date, marker in date_m.items():
+
+        # To plot just recent stuff
+        if date == "190506":
+            pass
+        elif date == "imp":
+            pass
+        else:
+            continue
 
         df_plot = df[df["marker"] == marker]
         x = df_plot["intended_ratio"]
@@ -587,6 +604,24 @@ def pre_crystal_plot(df):
         ax.scatter(
             x, y_a, color="blue", label="Area Ratio: {}".format(date), marker=marker
         )
+        if summary_df.empty:
+            summary_df = df_plot
+        else:
+            summary_df = pd.concat([summary_df, df_plot])
+
+    fit_area = sm.OLS(
+        summary_df["weighted_area_ratio"], sm.add_constant(summary_df["intended_ratio"])
+    ).fit()
+
+    print(fit_area.summary())
+
+    print(fit_area.params[0])
+
+    plt.plot(
+        np.linspace(0, 1, 100),
+        np.linspace(0, 1, 100) * fit_area.params[1] + fit_area.params[0],
+        label="y={}x+{}".format(fit_area.params[1], fit_area.params[0]),
+    )
 
     plt.legend()
     plt.ylabel("Measured Ratio of Labelled Species")
@@ -691,6 +726,7 @@ if __name__ == "__main__":
         print(f)
         if os.path.isdir(os.path.join(data_dir, f)):
             for csv in os.listdir(os.path.join(data_dir, f)):
+                print(csv)
                 df_dict.update(
                     {
                         "{}_{}".format(f, csv.rstrip(".CSV")): pd.read_csv(
