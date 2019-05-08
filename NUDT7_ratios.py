@@ -727,6 +727,8 @@ if __name__ == "__main__":
         if os.path.isdir(os.path.join(data_dir, f)):
             for csv in os.listdir(os.path.join(data_dir, f)):
                 print(csv)
+                if csv == "NUDT7A_imp_0_95_a.CSV":
+                    print("AAA")
                 df_dict.update(
                     {
                         "{}_{}".format(f, csv.rstrip(".CSV")): pd.read_csv(
