@@ -713,8 +713,8 @@ if __name__ == "__main__":
     conda create --name mass_spec_ratio numpy scipy matplotlib pandas notebook python=3.6
     """
 
-    data_dir = "/hdlocal/enelson/mass_spec_ratio/NUDT7_Data"
-    # data_dir = "/home/nelse003/PycharmProjects/mass_spec_ratio/NUDT7_Data"
+    #data_dir = "/hdlocal/enelson/mass_spec_ratio/NUDT7_Data"
+    data_dir = "/home/nelse003/PycharmProjects/mass_spec_ratio/NUDT7_Data"
     # data_dir = "/dls/science/groups/i04-1/elliot-dev/mass_spec_ratio/NUDT7_Data"
 
     # Parse csv and folders of csv.

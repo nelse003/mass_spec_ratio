@@ -1,8 +1,8 @@
 import sys
 
 sys.path.append("/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search")
-from copyatoms import copy_atoms
-from copy_phil import copy_phil
+from copy_atoms.copy_atoms import copy_atoms
+from copy_atoms.copy_phil import copy_phil
 
 """
 Refine crystals from visits:
