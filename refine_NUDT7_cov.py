@@ -72,6 +72,10 @@ if __name__ == "__main__":
         "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/"
         "covalent_ratios_refine/NUDT7A-x1907/NUDT7A-x1907_LIG_CYS.cif"
     )
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+
+    os.chdir(out_dir)
 
     if args.program == "refmac":
 
@@ -81,18 +85,18 @@ if __name__ == "__main__":
         )
 
     elif args.program == "buster" or args.program == "phenix":
-        subprocess.call("chdir {}".format(out_dir))
         subprocess.call(
             [
                 "/dls/science/groups/i04-1/elliot-dev/ccp4/ccp4-7.0/bin/giant.make_restraints",
                 pdb,
             ]
         )
+        if args.program == "buster":
+            params = os.path.join(out_dir, args.program, "params.gelly")
 
-    exit()
-
-    if not os.path.exists(out_dir):
-        os.makedirs(out_dir)
+        if args.program == "phenix":
+             params = os.path.join(out_dir, args.program, "multi-state-restraints.phenix.params")
+            
 
     prefix = "NUDT7A-x"
 
