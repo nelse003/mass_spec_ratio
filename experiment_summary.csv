@@ -1,319 +1,319 @@
 f_name,intended_ratio,experiment,low_signal
-180425_NUDT7A_p016_NUDT7A_p016_30min_1day,1,pre_xtal,FALSE
-180425_NUDT7A_p016_NUDT7A_p016_30min_1day_1_no_cov_9,0.9,pre_xtal,FALSE
-180425_NUDT7A_p016_NUDT7A_p016_30min_1day_2_no_cov_8,0.8,pre_xtal,FALSE
-180425_NUDT7A_p016_NUDT7A_p016_30min_1day_3_no_cov_7,0.7,pre_xtal,FALSE
-180425_NUDT7A_p016_NUDT7A_p016_30min_1day_4_no_cov_6,0.6,pre_xtal,FALSE
-180425_NUDT7A_p016_NUDT7A_p016_30min_1day_5_no_cov_5,0.5,pre_xtal,FALSE
-180425_NUDT7A_p016_NUDT7A_p016_30min_1day_6_no_cov_4,0.4,pre_xtal,FALSE
-180425_NUDT7A_p016_NUDT7A_p016_30min_1day_7_no_cov_3,0.3,pre_xtal,FALSE
-180425_NUDT7A_p016_NUDT7A_p016_30min_1day_8_no_cov_2,0.2,pre_xtal,FALSE
-180425_NUDT7A_p016_NUDT7A_p016_30min_1day_9_9_no_cov_0_1,0.01,pre_xtal,FALSE
-180425_NUDT7A_p016_NUDT7A_p016_30min_1day_9_no_cov_1,0.1,pre_xtal,FALSE
-180425_NUDT7A_p016_NUDT7A_p016_No_cov_1day,0,pre_xtal,FALSE
-190218_NUDT7A_p026_NUDT7A_p026_NU0000308a_30min_16ul,1,loading,FALSE
-190218_NUDT7A_p026_NUDT7A_p026_NU0000308a_30min_6ul,1,loading,FALSE
-190218_NUDT7A_p026_NUDT7A_p026_NU0000308a_70min_6ul,1,loading,FALSE
+180425_NUDT7A_p016_NUDT7A_p016_30min_1day,1.0,pre_xtal,False
+180425_NUDT7A_p016_NUDT7A_p016_30min_1day_1_no_cov_9,0.9,pre_xtal,False
+180425_NUDT7A_p016_NUDT7A_p016_30min_1day_2_no_cov_8,0.8,pre_xtal,False
+180425_NUDT7A_p016_NUDT7A_p016_30min_1day_3_no_cov_7,0.7,pre_xtal,False
+180425_NUDT7A_p016_NUDT7A_p016_30min_1day_4_no_cov_6,0.6,pre_xtal,False
+180425_NUDT7A_p016_NUDT7A_p016_30min_1day_5_no_cov_5,0.5,pre_xtal,False
+180425_NUDT7A_p016_NUDT7A_p016_30min_1day_6_no_cov_4,0.4,pre_xtal,False
+180425_NUDT7A_p016_NUDT7A_p016_30min_1day_7_no_cov_3,0.3,pre_xtal,False
+180425_NUDT7A_p016_NUDT7A_p016_30min_1day_8_no_cov_2,0.2,pre_xtal,False
+180425_NUDT7A_p016_NUDT7A_p016_30min_1day_9_9_no_cov_0_1,0.01,pre_xtal,False
+180425_NUDT7A_p016_NUDT7A_p016_30min_1day_9_no_cov_1,0.1,pre_xtal,False
+180425_NUDT7A_p016_NUDT7A_p016_No_cov_1day,0.0,pre_xtal,False
+190218_NUDT7A_p026_NUDT7A_p026_NU0000308a_30min_16ul,1.0,loading,False
+190218_NUDT7A_p026_NUDT7A_p026_NU0000308a_30min_6ul,1.0,loading,False
+190218_NUDT7A_p026_NUDT7A_p026_NU0000308a_70min_6ul,1.0,loading,False
 "190220 : ""+ESI Scan (rt: 0.744-1.058 min, 20 scans) Frag=250.0V NUDT7A_p026_20L_80U.d  Deconvoluted (Isotope Width=10.5)""
-",0.2,pre_xtal,FALSE
+",0.2,pre_xtal,False
 "190220 : ""+ESI Scan (rt: 0.744-1.058 min, 20 scans) Frag=250.0V NUDT7A_p026_40L_60U.d  Deconvoluted (Isotope Width=10.5)""
-",0.4,pre_xtal,FALSE
+",0.4,pre_xtal,False
 "190220 : ""+ESI Scan (rt: 0.746-1.060 min, 20 scans) Frag=250.0V NUDT7A_p026_100L_0U.d  Deconvoluted (Isotope Width=10.5)""
-",1,pre_xtal,FALSE
+",1.0,pre_xtal,False
 "190220 : ""+ESI Scan (rt: 0.746-1.061 min, 20 scans) Frag=250.0V NUDT7A_p026_0L_100U.d  Deconvoluted (Isotope Width=10.5)""
-",0,pre_xtal,FALSE
+",0.0,pre_xtal,False
 "190220 : ""+ESI Scan (rt: 0.746-1.061 min, 20 scans) Frag=250.0V NUDT7A_p026_80L_20U.d  Deconvoluted (Isotope Width=10.5)""
-",0.8,pre_xtal,FALSE
+",0.8,pre_xtal,False
 "190220 : ""+ESI Scan (rt: 0.748-1.062 min, 20 scans) Frag=250.0V NUDT7A_p026_60L_40U.d  Deconvoluted (Isotope Width=10.5)""
-",0.6,pre_xtal,FALSE
+",0.6,pre_xtal,False
 "190220 : ""+ESI Scan (rt: 0.748-1.063 min, 20 scans) Frag=250.0V NUDT7A_p026_30L_70U.d  Deconvoluted (Isotope Width=10.5)""
-",0.3,pre_xtal,FALSE
+",0.3,pre_xtal,False
 "190220 : ""+ESI Scan (rt: 0.748-1.063 min, 20 scans) Frag=250.0V NUDT7A_p026_50L_50U.d  Deconvoluted (Isotope Width=10.5)""
-",0.5,pre_xtal,FALSE
+",0.5,pre_xtal,False
 "190220 : ""+ESI Scan (rt: 0.750-1.047 min, 19 scans) Frag=250.0V NUDT7A_p026_90L_10U.d  Deconvoluted (Isotope Width=10.5)""
-",0.9,pre_xtal,FALSE
+",0.9,pre_xtal,False
 "190220 : ""+ESI Scan (rt: 0.751-1.048 min, 19 scans) Frag=250.0V NUDT7A_p026_70L_30U.d  Deconvoluted (Isotope Width=10.5)""
-",0.7,pre_xtal,FALSE
+",0.7,pre_xtal,False
 "190220 : ""+ESI Scan (rt: 0.752-1.050 min, 19 scans) Frag=250.0V NUDT7A_p026_NU0000308a_post_gel_filtration.d  Deconvoluted (Isotope Width=10.5)""
-",1,loading,FALSE
+",1.0,loading,False
 "190220 : ""+ESI Scan (rt: 0.753-1.051 min, 19 scans) Frag=250.0V NUDT7A_p026_10L_90U.d  Deconvoluted (Isotope Width=10.5)""
-",0.1,pre_xtal,FALSE
+",0.1,pre_xtal,False
 "190220 : ""+ESI Scan (rt: 0.785-1.033 min, 16 scans) Frag=250.0V NUDT7A_p026_NU0000308a_post_gel_filtration.d  Deconvoluted (Isotope Width=10.4)""
-",1,loading,FALSE
+",1.0,loading,False
 "190225 : ""+ESI Scan (rt: 7.208-7.986 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074433_H1a_single_xtal.d  Deconvoluted (Isotope Width=0.0)""
-",0.1,crystal_mass_spec,FALSE
+",0.1,crystal_mass_spec,False
 "190225 : ""+ESI Scan (rt: 7.212-7.989 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074433_H1c_single_xtal.d  Deconvoluted (Isotope Width=0.0)""
-",0.1,crystal_mass_spec,FALSE
+",0.1,crystal_mass_spec,False
 "190225 : ""+ESI Scan (rt: 7.215-7.992 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074433_H1d_multiple_xtal.d  Deconvoluted (Isotope Width=0.0)""
-",0.1,crystal_mass_spec,FALSE
+",0.1,crystal_mass_spec,False
 "190225 : ""+ESI Scan (rt: 7.216-7.993 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074433_H1a_multiple_xtal.d  Deconvoluted (Isotope Width=0.0)""
-",0.1,crystal_mass_spec,FALSE
+",0.1,crystal_mass_spec,False
 "190225 : ""+ESI Scan (rt: 7.217-7.995 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074433_H1c_multiple_xtal.d  Deconvoluted (Isotope Width=0.0)""
-",0.1,crystal_mass_spec,FALSE
+",0.1,crystal_mass_spec,False
 "190227 : ""+ESI Scan (rt: 7.204-7.998 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074437_D11c.d  Deconvoluted (Isotope Width=0.0)""
-",0.75,crystal_mass_spec,FALSE
+",0.75,crystal_mass_spec,False
 "190227 : ""+ESI Scan (rt: 7.206-8.000 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074437_E11c_1.d  Deconvoluted (Isotope Width=0.0)""
-",0.75,crystal_mass_spec,FALSE
+",0.75,crystal_mass_spec,False
 "190227 : ""+ESI Scan (rt: 7.211-7.989 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074437_E11c_2.d  Deconvoluted (Isotope Width=0.0)""
-",0.75,crystal_mass_spec,FALSE
+",0.75,crystal_mass_spec,False
 "190227 : ""+ESI Scan (rt: 7.213-7.990 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074437_D7c.d  Deconvoluted (Isotope Width=0.0)""
-",0.75,crystal_mass_spec,FALSE
+",0.75,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.199-7.993 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074435_H2a.d  Deconvoluted (Isotope Width=0.0)""
-",0.5,crystal_mass_spec,FALSE
+",0.5,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.200-7.994 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074435_B8c.d  Deconvoluted (Isotope Width=0.0)""
-",0.4,crystal_mass_spec,FALSE
+",0.4,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.200-7.994 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074435_H7a.d  Deconvoluted (Isotope Width=0.0)""
-",0.5,crystal_mass_spec,FALSE
+",0.5,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.200-7.994 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074438_B7c.d  Deconvoluted (Isotope Width=0.0)""
-",0.9,crystal_mass_spec,FALSE
+",0.9,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.200-7.994 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074438_D1c.d  Deconvoluted (Isotope Width=0.0)""
-",0.8,crystal_mass_spec,FALSE
+",0.8,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.201-7.995 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074438_H1a.d  Deconvoluted (Isotope Width=0.0)""
-",0.9,crystal_mass_spec,FALSE
+",0.9,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.203-7.997 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074435_D9a.d  Deconvoluted (Isotope Width=0.0)""
-",0.4,crystal_mass_spec,FALSE
+",0.4,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.203-7.997 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074435_F5a.d  Deconvoluted (Isotope Width=0.0)""
-",0.5,crystal_mass_spec,FALSE
+",0.5,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.203-7.997 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074438_E3a.d  Deconvoluted (Isotope Width=0.0)""
-",0.9,crystal_mass_spec,FALSE
+",0.9,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.204-7.998 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074438_H11a.d  Deconvoluted (Isotope Width=0.0)""
-",0.9,crystal_mass_spec,FALSE
+",0.9,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.206-8.000 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074435_H1a.d  Deconvoluted (Isotope Width=0.0)""
-",0.5,crystal_mass_spec,FALSE
+",0.5,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.207-7.985 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074435_D9d.d  Deconvoluted (Isotope Width=0.0)""
-",0.4,crystal_mass_spec,FALSE
+",0.4,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.207-8.000 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074438_B12c.d  Deconvoluted (Isotope Width=0.0)""
-",0.8,crystal_mass_spec,FALSE
+",0.8,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.208-7.985 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074438_E7a.d  Deconvoluted (Isotope Width=0.0)""
-",0.9,crystal_mass_spec,FALSE
+",0.9,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.209-7.986 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074438_H7a.d  Deconvoluted (Isotope Width=0.0)""
-",0.9,crystal_mass_spec,FALSE
+",0.9,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.211-7.988 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074435_D7c.d  Deconvoluted (Isotope Width=0.0)""
-",0.4,crystal_mass_spec,FALSE
+",0.4,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.212-7.989 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074435_D7c_multiple.d  Deconvoluted (Isotope Width=0.0)""
-",0.4,crystal_mass_spec,FALSE
+",0.4,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.212-7.989 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074435_H3a.d  Deconvoluted (Isotope Width=0.0)""
-",0.5,crystal_mass_spec,FALSE
+",0.5,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.212-7.989 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074438_B10c.d  Deconvoluted (Isotope Width=0.0)""
-",0.8,crystal_mass_spec,FALSE
+",0.8,crystal_mass_spec,False
 "190301 : ""+ESI Scan (rt: 7.215-7.992 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074438_B10c_2.d  Deconvoluted (Isotope Width=0.0)""
-",0.8,crystal_mass_spec,FALSE
+",0.8,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.199-7.992 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074434_D1c.d  Deconvoluted (Isotope Width=0.0)""
-",0.6,crystal_mass_spec,FALSE
+",0.6,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.199-7.992 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074437_A11c.d  Deconvoluted (Isotope Width=0.0)""
-",1,crystal_mass_spec,FALSE
+",1.0,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.200-7.994 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074434_E5a.d  Deconvoluted (Isotope Width=0.0)""
-",0.7,crystal_mass_spec,FALSE
+",0.7,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.200-7.994 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074436_F8a.d  Deconvoluted (Isotope Width=0.0)""
-",0.3,crystal_mass_spec,FALSE
+",0.3,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.200-7.994 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074437_F3a.d  Deconvoluted (Isotope Width=0.0)""
-",0.75,crystal_mass_spec,FALSE
+",0.75,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.201-7.995 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074434_D4d.d  Deconvoluted (Isotope Width=0.0)""
-",0.6,crystal_mass_spec,FALSE
+",0.6,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.202-7.996 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074433_B7c.d  Deconvoluted (Isotope Width=0.0)""
-",0,crystal_mass_spec,FALSE
+",0.0,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.202-7.996 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074433_C3c.d  Deconvoluted (Isotope Width=0.0)""
-",0,crystal_mass_spec,FALSE
+",0.0,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.202-7.996 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074433_C5c.d  Deconvoluted (Isotope Width=0.0)""
-",0,crystal_mass_spec,FALSE
+",0.0,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.203-7.996 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074434_G10a.d  Deconvoluted (Isotope Width=0.0)""
-",0.7,crystal_mass_spec,FALSE
+",0.7,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.203-7.996 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074436_E4a.d  Deconvoluted (Isotope Width=0.0)""
-",0.3,crystal_mass_spec,FALSE
+",0.3,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.203-7.997 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074436_C6c_2.d  Deconvoluted (Isotope Width=0.0)""
-",0.2,crystal_mass_spec,FALSE
+",0.2,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.204-7.998 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074433_B9c.d  Deconvoluted (Isotope Width=0.0)""
-",0,crystal_mass_spec,FALSE
+",0.0,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.204-7.998 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074436_E9c.d  Deconvoluted (Isotope Width=0.0)""
-",0.3,crystal_mass_spec,FALSE
+",0.3,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.206-7.999 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074434_G3a.d  Deconvoluted (Isotope Width=0.0)""
-",0.7,crystal_mass_spec,FALSE
+",0.7,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.206-8.000 min, 49 scans) Frag=250.0V NUDT7A_p026_CI074436_E3a.d  Deconvoluted (Isotope Width=0.0)""
-",0.3,crystal_mass_spec,FALSE
+",0.3,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.208-7.985 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074433_A6d.d  Deconvoluted (Isotope Width=0.0)""
-",0,crystal_mass_spec,FALSE
+",0.0,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.208-7.985 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074437_C8a.d  Deconvoluted (Isotope Width=0.0)""
-",1,crystal_mass_spec,FALSE
+",1.0,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.208-7.985 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074437_E5a.d  Deconvoluted (Isotope Width=0.0)""
-",0.75,crystal_mass_spec,FALSE
+",0.75,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.209-7.986 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074434_B10c.d  Deconvoluted (Isotope Width=0.0)""
-",0.6,crystal_mass_spec,FALSE
+",0.6,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.209-7.986 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074436_C10c.d  Deconvoluted (Isotope Width=0.0)""
-",0.2,crystal_mass_spec,FALSE
+",0.2,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.210-7.987 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074434_D4c.d  Deconvoluted (Isotope Width=0.0)""
-",0.6,crystal_mass_spec,FALSE
+",0.6,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.210-7.987 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074436_C12c.d  Deconvoluted (Isotope Width=0.0)""
-",0.2,crystal_mass_spec,FALSE
+",0.2,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.211-7.989 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074437_A10a.d  Deconvoluted (Isotope Width=0.0)""
-",1,crystal_mass_spec,FALSE
+",1.0,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.212-7.989 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074434_C2c.d  Deconvoluted (Isotope Width=0.0)""
-",0.6,crystal_mass_spec,FALSE
+",0.6,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.212-7.989 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074436_C6c.d  Deconvoluted (Isotope Width=0.0)""
-",0.2,crystal_mass_spec,FALSE
+",0.2,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.212-7.990 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074434_F11a.d  Deconvoluted (Isotope Width=0.0)""
-",0.7,crystal_mass_spec,FALSE
+",0.7,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.213-7.990 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074436_E6a.d  Deconvoluted (Isotope Width=0.0)""
-",0.3,crystal_mass_spec,FALSE
+",0.3,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.214-7.991 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074434_G9a.d  Deconvoluted (Isotope Width=0.0)""
-",0.7,crystal_mass_spec,FALSE
+",0.7,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 7.214-7.991 min, 48 scans) Frag=250.0V NUDT7A_p026_CI074436_D9c.d  Deconvoluted (Isotope Width=0.0)""
-",0.2,crystal_mass_spec,FALSE
+",0.2,crystal_mass_spec,False
 "190302 : ""+ESI Scan (rt: 8.307-8.886 min, 36 scans) Frag=250.0V NUDT7A_p026_CI074437_A11c.d  Deconvoluted (Isotope Width=0.0)""
-",1,crystal_mass_spec,FALSE
-190402_NUDT7A_p026_pre_xtal_0L_100U,0,pre_xtal,FALSE
-190402_NUDT7A_p026_pre_xtal_100L_0U,1,pre_xtal,FALSE
-190402_NUDT7A_p026_pre_xtal_10L_90U,0.1,pre_xtal,FALSE
-190402_NUDT7A_p026_pre_xtal_20L_80U,0.2,pre_xtal,FALSE
-190402_NUDT7A_p026_pre_xtal_30L_70U,0.3,pre_xtal,FALSE
-190402_NUDT7A_p026_pre_xtal_40L_60U,0.4,pre_xtal,FALSE
-190402_NUDT7A_p026_pre_xtal_50L_50U,0.5,pre_xtal,FALSE
-190402_NUDT7A_p026_pre_xtal_60L_40U,0.6,pre_xtal,FALSE
-190402_NUDT7A_p026_pre_xtal_70L_30U,0.7,pre_xtal,FALSE
-190402_NUDT7A_p026_pre_xtal_80L_20U,0.8,pre_xtal,FALSE
-190402_NUDT7A_p026_pre_xtal_90L_10U,0.9,pre_xtal,FALSE
-190506_NUDT7A_p026_NUDT7A_0_0,0,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_0_a,0,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_0_c,0,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_0_d,0,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_1,0.076,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_1_a,0.076,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_1_c,0.076,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_1_d,0.076,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_2,0.145,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_2_a,0.145,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_2_c,0.145,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_2_d,0.145,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_3,0.226,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_3_a,0.226,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_3_c,0.226,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_3_d,0.226,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_4,0.313,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_4_a,0.313,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_4_c,0.313,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_4_d,0.313,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_5,0.406,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_5_a,0.406,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_5_c,0.406,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_5_d,0.406,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_6,0.506,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_6_a,0.506,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_6_c,0.506,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_6_d,0.506,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_7,0.614,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_7_a,0.614,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_7_c,0.614,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_7_d,0.614,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_8,0.732,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_8_a,0.732,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_8_c,0.732,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_8_d,0.732,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_9,0.86,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_9_a,0.86,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_9_c,0.86,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_9_d,0.86,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_95_a,0.92,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_95_b,0.92,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_95_c,0.92,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_0_95_d,0.92,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_1_0,1,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_1_0_a,1,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_1_0_c,1,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_1_0_d,1,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_0_a,0,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_0_b,0,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_0_c,0,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_1_a,0.076,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_1_b,0.076,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_1_c,0.076,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_2_a,0.145,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_2_b,0.145,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_2_c,0.145,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_3_a,0.226,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_3_b,0.226,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_3_c,0.226,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_4_a,0.313,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_4_b,0.313,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_4_c,0.313,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_5_a,0.406,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_5_b,0.406,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_5_c,0.406,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_6_a,0.506,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_6_b,0.506,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_6_c,0.506,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_7_a,0.614,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_7_b,0.614,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_7_c,0.614,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_8_a,0.732,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_8_b,0.732,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_8_c,0.732,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_9_a,0.86,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_9_b,0.86,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_9_c,0.86,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_95_a,0.92,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_95_b,0.92,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_0_95_c,0.92,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_1_0_a,1,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_1_0_b,1,calibration,FALSE
-190506_NUDT7A_p026_NUDT7A_imp_1_0_c,1,calibration,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_0_0,0,pre_xtal,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_0_1,0.1,pre_xtal,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_0_2,0.2,pre_xtal,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_0_3,0.3,pre_xtal,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_0_4,0.4,pre_xtal,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_0_5,0.5,pre_xtal,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_0_6,0.6,pre_xtal,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_0_7,0.7,pre_xtal,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_0_8,0.8,pre_xtal,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_0_9,0.9,pre_xtal,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_1_0,1,pre_xtal,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_15,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_15.1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_D5a_1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_D5a_1.1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_D5a_2,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_D5a_2.1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_D5c_1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_D5c_1.1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_D5c_2,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_D5c_2.1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_D5c_3,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_D5c_3.1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_E6a_1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_E6a_1.1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_E6a_2,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_E6a_2.1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_F7a_1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_F7a_1.1,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_F7a_2,0,crystal_mass_spec_suppression,FALSE
-190510_NUDT7A_p026_NUDT7A_p026_xtal_F7a_2.1,0,crystal_mass_spec_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_0_000064_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_0_00032_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_0_0016_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_0_008_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_0_04_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_0_2_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_1_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_gly_0_000064_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_gly_0_00032_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_gly_0_0016_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_gly_0_008_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_gly_0_04_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_gly_0_2_mg_ml,0,signal_suppression,FALSE
-190511_NUDT7A_p026_NUDT7A_p026_gly_1_mg_ml,0,signal_suppression,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_A11a,0.8,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_A11c,0.8,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_A11d,0.7,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_B11a,0.7,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_B11c,0.7,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_D10c,0,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_D10d,0.3,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_E10c,0,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_F10a,0.2,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_F10c,0.2,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_F10d,0.2,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_G10a,0,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_G10c,0.3,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_G10d,0,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10a,0.9,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10c,0.8,post_diffraction,FALSE
-NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10d,0.8,post_diffraction,FALSE
+",1.0,crystal_mass_spec,False
+190402_NUDT7A_p026_pre_xtal_0L_100U,0.0,pre_xtal,False
+190402_NUDT7A_p026_pre_xtal_100L_0U,1.0,pre_xtal,False
+190402_NUDT7A_p026_pre_xtal_10L_90U,0.1,pre_xtal,False
+190402_NUDT7A_p026_pre_xtal_20L_80U,0.2,pre_xtal,False
+190402_NUDT7A_p026_pre_xtal_30L_70U,0.3,pre_xtal,False
+190402_NUDT7A_p026_pre_xtal_40L_60U,0.4,pre_xtal,False
+190402_NUDT7A_p026_pre_xtal_50L_50U,0.5,pre_xtal,False
+190402_NUDT7A_p026_pre_xtal_60L_40U,0.6,pre_xtal,False
+190402_NUDT7A_p026_pre_xtal_70L_30U,0.7,pre_xtal,False
+190402_NUDT7A_p026_pre_xtal_80L_20U,0.8,pre_xtal,False
+190402_NUDT7A_p026_pre_xtal_90L_10U,0.9,pre_xtal,False
+190506_NUDT7A_p026_NUDT7A_0_0,0.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_0_a,0.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_0_c,0.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_0_d,0.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_1,0.076,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_1_a,0.076,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_1_c,0.076,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_1_d,0.076,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_2,0.145,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_2_a,0.145,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_2_c,0.145,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_2_d,0.145,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_3,0.226,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_3_a,0.226,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_3_c,0.226,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_3_d,0.226,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_4,0.313,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_4_a,0.313,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_4_c,0.313,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_4_d,0.313,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_5,0.406,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_5_a,0.406,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_5_c,0.406,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_5_d,0.406,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_6,0.506,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_6_a,0.506,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_6_c,0.506,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_6_d,0.506,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_7,0.614,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_7_a,0.614,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_7_c,0.614,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_7_d,0.614,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_8,0.732,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_8_a,0.732,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_8_c,0.732,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_8_d,0.732,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_9,0.86,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_9_a,0.86,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_9_c,0.86,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_9_d,0.86,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_95_a,0.92,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_95_b,0.92,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_95_c,0.92,calibration,False
+190506_NUDT7A_p026_NUDT7A_0_95_d,0.92,calibration,False
+190506_NUDT7A_p026_NUDT7A_1_0,1.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_1_0_a,1.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_1_0_c,1.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_1_0_d,1.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_0_a,0.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_0_b,0.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_0_c,0.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_1_a,0.076,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_1_b,0.076,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_1_c,0.076,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_2_a,0.145,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_2_b,0.145,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_2_c,0.145,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_3_a,0.226,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_3_b,0.226,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_3_c,0.226,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_4_a,0.313,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_4_b,0.313,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_4_c,0.313,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_5_a,0.406,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_5_b,0.406,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_5_c,0.406,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_6_a,0.506,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_6_b,0.506,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_6_c,0.506,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_7_a,0.614,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_7_b,0.614,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_7_c,0.614,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_8_a,0.732,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_8_b,0.732,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_8_c,0.732,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_9_a,0.86,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_9_b,0.86,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_9_c,0.86,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_95_a,0.92,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_95_b,0.92,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_0_95_c,0.92,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_1_0_a,1.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_1_0_b,1.0,calibration,False
+190506_NUDT7A_p026_NUDT7A_imp_1_0_c,1.0,calibration,False
+190510_NUDT7A_p026_NUDT7A_p026_0_0,0.0,pre_xtal,False
+190510_NUDT7A_p026_NUDT7A_p026_0_1,0.1,pre_xtal,False
+190510_NUDT7A_p026_NUDT7A_p026_0_2,0.2,pre_xtal,False
+190510_NUDT7A_p026_NUDT7A_p026_0_3,0.3,pre_xtal,False
+190510_NUDT7A_p026_NUDT7A_p026_0_4,0.4,pre_xtal,False
+190510_NUDT7A_p026_NUDT7A_p026_0_5,0.5,pre_xtal,False
+190510_NUDT7A_p026_NUDT7A_p026_0_6,0.6,pre_xtal,False
+190510_NUDT7A_p026_NUDT7A_p026_0_7,0.7,pre_xtal,False
+190510_NUDT7A_p026_NUDT7A_p026_0_8,0.8,pre_xtal,False
+190510_NUDT7A_p026_NUDT7A_p026_0_9,0.9,pre_xtal,False
+190510_NUDT7A_p026_NUDT7A_p026_1_0,1.0,pre_xtal,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_15,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_15.1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_D5a_1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_D5a_1.1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_D5a_2,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_D5a_2.1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_D5c_1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_D5c_1.1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_D5c_2,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_D5c_2.1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_D5c_3,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_D5c_3.1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_E6a_1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_E6a_1.1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_E6a_2,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_E6a_2.1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_F7a_1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_F7a_1.1,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_F7a_2,0.0,crystal_mass_spec_suppression,False
+190510_NUDT7A_p026_NUDT7A_p026_xtal_F7a_2.1,0.0,crystal_mass_spec_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_0_000064_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_0_00032_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_0_0016_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_0_008_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_0_04_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_0_2_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_1_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_gly_0_000064_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_gly_0_00032_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_gly_0_0016_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_gly_0_008_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_gly_0_04_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_gly_0_2_mg_ml,0.0,signal_suppression,False
+190511_NUDT7A_p026_NUDT7A_p026_gly_1_mg_ml,0.0,signal_suppression,False
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_A11a,0.8,post_diffraction,True
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_A11c,0.8,post_diffraction,True
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_A11d,0.7,post_diffraction,False
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_B11a,0.7,post_diffraction,True
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_B11c,0.7,post_diffraction,False
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_D10c,0.0,post_diffraction,True
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_D10d,0.3,post_diffraction,False
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_E10c,0.0,post_diffraction,True
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_F10a,0.2,post_diffraction,True
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_F10c,0.2,post_diffraction,False
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_F10d,0.2,post_diffraction,False
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_G10a,0.0,post_diffraction,True
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_G10c,0.3,post_diffraction,False
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_G10d,0.0,post_diffraction,False
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10a,0.9,post_diffraction,False
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10c,0.8,post_diffraction,True
+NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10d,0.8,post_diffraction,False

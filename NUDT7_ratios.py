@@ -249,7 +249,9 @@ def ratios_from_csv(csv, df_dict):
     if os.path.exists(csv):
         ratio_df = pd.read_csv(csv)
     else:
-        ratio_df = pd.DataFrame(columns=["f_name", "intended_ratio", "experiment"])
+        ratio_df = pd.DataFrame(
+            columns=["f_name", "intended_ratio", "experiment", "low_signal"]
+        )
 
     for f_name, df in df_dict.items():
         print(f_name)
@@ -258,198 +260,17 @@ def ratios_from_csv(csv, df_dict):
             continue
         else:
             ratio_df = ratio_df.append(
-                {"f_name": f_name, "intended_ratio": np.nan, "experiment": "unknown"},
+                {
+                    "f_name": f_name,
+                    "intended_ratio": np.nan,
+                    "experiment": "unknown",
+                    "low_signal": FALSE,
+                },
                 ignore_index=True,
             )
 
     ratio_df.to_csv(csv, index=None, header=True)
     return ratio_df
-
-
-def ratios_from_filenames(df_dict):
-    """
-    Match the filename to the expected ratio
-
-    Parameters
-    ----------
-    df_dict: dict
-        dictionary of pandas.DataFrames
-        each containing mass spectroscopy data:
-        Y(Counts) vs X(Daltons) data
-
-    Returns
-    -------
-    intended_ratio: dict
-        dictionary of intended ratios
-
-    df_dict: dict
-        dictionary of pandas.DataFrames
-        each containing mass spectroscopy data:
-        Y(Counts) vs X(Daltons) data
-    """
-
-    intended_ratio = {}
-
-    key_to_remove = []
-    for key, df in df_dict.items():
-
-        A_D = ["_A", "_B", "_C", "_D"]
-        E_H = ["_E", "_F", "_G", "_H"]
-
-        post_diffract_df = pd.read_csv("post_diffraction_ratios.csv")
-
-        if "NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019" in key:
-            well = key.split("_")[-1]
-
-            intended_ratio[key] = float(
-                post_diffract_df.loc[post_diffract_df["Solubilisation Well"] == well][
-                    "Ratio"
-                ].values[0]
-            )
-
-            if np.isnan(intended_ratio[key]):
-                key_to_remove.append(key)
-
-        elif "180425" in key:
-            ratio_str = key.split("1day")[1]
-            if ratio_str == "":
-                if "30min" in key:
-                    intended_ratio[key] = 1.0
-                else:
-                    intended_ratio[key] = 0.0
-            elif "No_cov" in key:
-                intended_ratio[key] = 0.0
-            else:
-                print(ratio_str)
-                print(
-                    ratio_str.split("no_cov")[0]
-                    .lstrip("_")
-                    .rstrip("_")
-                    .replace("_", ".")
-                )
-                intended_ratio[key] = (
-                    float(
-                        ratio_str.split("no_cov")[0]
-                        .lstrip("_")
-                        .rstrip("_")
-                        .replace("_", ".")
-                    )
-                    / 10
-                )
-
-        elif "CI074433" in key:
-            if any(s in key for s in A_D):
-                intended_ratio[key] = 0
-            if any(s in key for s in E_H):
-                intended_ratio[key] = 0.10
-
-        elif "CI074436" in key:
-            if any(s in key for s in A_D):
-                intended_ratio[key] = 0.20
-            if any(s in key for s in E_H):
-                intended_ratio[key] = 0.30
-
-        elif "CI074435" in key:0.8
-            if any(s in key for s in A_D):
-                intended_ratio[key] = 0.40
-            if any(s in key for s in E_H):
-                intended_ratio[key] = 0.50
-
-        elif "CI074434" in key:
-            if any(s in key for s in A_D):
-                intended_ratio[key] = 0.60
-            if any(s in key for s in E_H):
-                intended_ratio[key] = 0.70
-
-        elif "CI074438" in key:
-            if any(s in key for s in A_D):
-                intended_ratio[key] = 0.80
-            if any(s in key for s in E_H):
-                intended_ratio[key] = 0.90
-
-        elif "CI074437" in key:
-            if any(s in key for s in A_D):
-                intended_ratio[key] = 1.00
-            if any(s in key for s in E_H):
-                intended_ratio[key] = 0.75
-
-        elif "0L_100U" in key:
-            intended_ratio[key] = 0
-
-        elif "10L_90U" in key:
-            intended_ratio[key] = 0.10
-
-        elif "20L_80U" in key:
-            intended_ratio[key] = 0.20
-
-        elif "30L_70U" in key:
-            intended_ratio[key] = 0.30
-
-        elif "40L_60U" in key:
-            intended_ratio[key] = 0.40
-
-        elif "50L_50U" in key:
-            intended_ratio[key] = 0.50
-
-        elif "60L_40U" in key:
-            intended_ratio[key] = 0.60
-
-        elif "70L_30U" in key:
-            intended_ratio[key] = 0.70
-
-        elif "80L_20U" in key:
-            intended_ratio[key] = 0.80
-
-        elif "90L_10U" in key:
-            intended_ratio[key] = 0.90
-
-        elif "100L_0U" in key:
-            intended_ratio[key] = 1.00
-
-        elif "0_0" in key:
-            intended_ratio[key] = 0.00
-
-        elif "0_1" in key:
-            intended_ratio[key] = 0.076
-
-        elif "0_2" in key:
-            intended_ratio[key] = 0.145
-
-        elif "0_3" in key:
-            intended_ratio[key] = 0.226
-
-        elif "0_4" in key:
-            intended_ratio[key] = 0.313
-
-        elif "0_5" in key:
-            intended_ratio[key] = 0.406
-
-        elif "0_6" in key:
-            intended_ratio[key] = 0.506
-
-        elif "0_7" in key:
-            intended_ratio[key] = 0.614
-
-        elif "0_8" in key:
-            intended_ratio[key] = 0.732
-
-        elif "0_9" in key:
-            intended_ratio[key] = 0.86
-
-        elif "0_95" in key:
-            intended_ratio[key] = 0.92
-
-        elif "1_0" in key:
-            intended_ratio[key] = 1.00
-
-        else:
-            raise ValueError("Key not recognised: {}".format(key))
-
-    for key in set(key_to_remove):
-        del df_dict[key]
-        del intended_ratio[key]
-
-    return intended_ratio, df_dict
 
 
 def remove_dataset_by_filename_content(df_dict, key_string):
@@ -807,42 +628,12 @@ if __name__ == "__main__":
         csv=os.path.join(args.path, "experiment_summary.csv"), df_dict=df_dict
     )
 
-    # Remove un-needed dataset
-    df_dict = remove_dataset_by_filename_content(
-        df_dict, key_string="NUDT7A_p026_NU0000308a"
-    )
-
+    low_signal_datasets = intended_ratio_df[intended_ratio_df.low_signal == True][
+        "f_name"
+    ]
     # Manual removal of low signal datasets
-    df_dict = remove_dataset_by_filename_content(
-        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10c"
-    )
-    df_dict = remove_dataset_by_filename_content(
-        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_A11a"
-    )
-    df_dict = remove_dataset_by_filename_content(
-        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_A11c"
-    )
-    df_dict = remove_dataset_by_filename_content(
-        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_B11a"
-    )
-    df_dict = remove_dataset_by_filename_content(
-        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_D10c"
-    )
-    df_dict = remove_dataset_by_filename_content(
-        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_E10c"
-    )
-    df_dict = remove_dataset_by_filename_content(
-        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_F10a"
-    )
-    df_dict = remove_dataset_by_filename_content(
-        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_F10c"
-    )
-    df_dict = remove_dataset_by_filename_content(
-        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_G10a"
-    )
-    df_dict = remove_dataset_by_filename_content(
-        df_dict, key_string="Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10c"
-    )
+    for dataset in low_signal_datasets:
+        df_dict = remove_dataset_by_filename_content(df_dict, key_string=dataset)
 
     # remove datasets that do not pass signal threshold
     # currently 1000 counts in interest area 22000-26000
