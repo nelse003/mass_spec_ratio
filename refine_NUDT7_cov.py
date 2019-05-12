@@ -54,7 +54,10 @@ if __name__ == "__main__":
 
     in_dir = "/dls/labxchem/data/2017/lb18145-49/processing/analysis/initial_model"
 
-    out_dir = os.path.join("/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms", args.program)
+    out_dir = os.path.join(
+        "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms",
+        args.program,
+    )
 
     refinement_script_dir = (
         "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/scripts"
@@ -78,7 +81,7 @@ if __name__ == "__main__":
         )
 
     elif args.program == "buster" or args.program == "phenix":
-	subprocess.call("chdir {}".format(out_dir))
+        subprocess.call("chdir {}".format(out_dir))
         subprocess.call(
             [
                 "/dls/science/groups/i04-1/elliot-dev/ccp4/ccp4-7.0/bin/giant.make_restraints",
