@@ -7,6 +7,7 @@ from io import StringIO
 
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
+import argparse
 
 plt.rcParams["figure.figsize"] = [10, 10]
 
@@ -226,6 +227,45 @@ def get_ratios_of_expected_peaks(
     return ratio_df
 
 
+def ratios_from_csv(csv, df_dict):
+
+    """
+    Get ratios and experiment type from
+
+    Parameters
+    ----------
+    csv: str
+        path to csv file defining the ratio and experiment type
+    df_dict: dict
+        dictionary of pandas.DataFrames
+        each containing mass spectroscopy data:
+        Y(Counts) vs X(Daltons) data
+
+    Returns
+    -------
+
+    """
+
+    if os.path.exists(csv):
+        ratio_df = pd.read_csv(csv)
+    else:
+        ratio_df = pd.DataFrame(columns=["f_name", "intended_ratio", "experiment"])
+
+    for f_name, df in df_dict.items():
+        print(f_name)
+
+        if f_name in ratio_df.f_name.values:
+            continue
+        else:
+            ratio_df = ratio_df.append(
+                {"f_name": f_name, "intended_ratio": np.nan, "experiment": "unknown"},
+                ignore_index=True,
+            )
+
+    ratio_df.to_csv(csv, index=None, header=True)
+    return ratio_df
+
+
 def ratios_from_filenames(df_dict):
     """
     Match the filename to the expected ratio
@@ -309,7 +349,7 @@ def ratios_from_filenames(df_dict):
             if any(s in key for s in E_H):
                 intended_ratio[key] = 0.30
 
-        elif "CI074435" in key:
+        elif "CI074435" in key:0.8
             if any(s in key for s in A_D):
                 intended_ratio[key] = 0.40
             if any(s in key for s in E_H):
@@ -528,43 +568,6 @@ def marker_match(row, match, marker):
         return row["marker"]
 
 
-def mscatter(x, y, ax=None, m=None, **kw):
-    """
-    2D Scatterplot with markers suppliable as list
-    Parameters
-    ----------
-    x
-    y
-    ax
-    m
-    kw
-
-    Returns
-    -------
-
-    Notes
-    -----
-    https://stackoverflow.com/questions/51810492/how-can-i-add-a-list-of-marker-styles-in-matplotlib
-
-    """
-
-    import matplotlib.markers as mmarkers
-
-    ax = ax or plt.gca()
-    sc = ax.scatter(x, y, **kw)
-    if (m is not None) and (len(m) == len(x)):
-        paths = []
-        for marker in m:
-            if isinstance(marker, mmarkers.MarkerStyle):
-                marker_obj = marker
-            else:
-                marker_obj = mmarkers.MarkerStyle(marker)
-            path = marker_obj.get_path().transformed(marker_obj.get_transform())
-            paths.append(path)
-        sc.set_paths(paths)
-    return sc
-
-
 def pre_crystal_plot(df):
 
     df["marker"] = "o"
@@ -708,27 +711,40 @@ def post_crystal_calibrated_plot(df, diffract_df):
 if __name__ == "__main__":
 
     """
+    Parse csv containign the deconvolutions for mass spectroscopy 
+    data into plots to look at pre-crystallisation calibration
+    
     Notes
     ------
-    conda create --name mass_spec_ratio numpy scipy matplotlib pandas notebook python=3.6
+    conda create --name mass_spec_ratio numpy scipy\
+     matplotlib pandas statsmodels notebook python=3.6
     """
 
-    #data_dir = "/hdlocal/enelson/mass_spec_ratio/NUDT7_Data"
-    data_dir = "/home/nelse003/PycharmProjects/mass_spec_ratio/NUDT7_Data"
-    # data_dir = "/dls/science/groups/i04-1/elliot-dev/mass_spec_ratio/NUDT7_Data"
+    # Add ability to parse command line arguments
+    parser = argparse.ArgumentParser(description="Plot NUDT7 mass spectroscopy ratios")
+    # Add path argument
+    parser.add_argument("--path", action="store", dest="path")
+    # resolve the parser
+    args = parser.parse_args()
+
+    # Get file paths from input path
+    data_dir = os.path.join(args.path, "NUDT7_Data")
+    output_dir = os.path.join(args.path, "Output")
+
+    # Create output directory if missing
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
     # Parse csv and folders of csv.
-    # If folder, expect these csv to represent one dataset
-    # If file, expect to represent multiple datasets
-
     df_dict = {}
+
+    # If folder, expect these csv to represent one dataset
     for f in os.listdir(data_dir):
         print(f)
+
         if os.path.isdir(os.path.join(data_dir, f)):
             for csv in os.listdir(os.path.join(data_dir, f)):
                 print(csv)
-                if csv == "NUDT7A_imp_0_95_a.CSV":
-                    print("AAA")
                 df_dict.update(
                     {
                         "{}_{}".format(f, csv.rstrip(".CSV")): pd.read_csv(
@@ -736,6 +752,8 @@ if __name__ == "__main__":
                         )
                     }
                 )
+
+        # If file, expect to represent multiple datasets
         else:
             csv = os.path.join(data_dir, f)
             df_dict.update(read_grouped_csv(csv))
@@ -743,12 +761,11 @@ if __name__ == "__main__":
     # Plot the deconvolution
     for key, df in df_dict.items():
 
-        interest_plot = "/hdlocal/enelson/mass_spec_ratio/Output/interest_{}.png".format(
-            key
-        )
-        plot = "/hdlocal/enelson/mass_spec_ratio/Output/{}.png".format(key)
+        interest_plot = os.path.join(output_dir, "interest_{}.png".format(key))
 
-        tight_plot = "/hdlocal/enelson/mass_spec_ratio/Output/tight_{}.png".format(key)
+        plot = os.path.join(output_dir, "{}.png".format(key))
+
+        tight_plot = os.path.join(output_dir, "tight_{}.png".format(key))
 
         if not os.path.exists(tight_plot):
             df.plot(
@@ -782,6 +799,13 @@ if __name__ == "__main__":
 
     # Remove blank datasets
     df_dict = remove_dataset_by_filename_content(df_dict, key_string="blank")
+
+    # Translate keys (filenames) into ratios
+    # Split across two dicitionaries to parse
+    # intended ratio and expected ratio
+    intended_ratio_df = ratios_from_csv(
+        csv=os.path.join(args.path, "experiment_summary.csv"), df_dict=df_dict
+    )
 
     # Remove un-needed dataset
     df_dict = remove_dataset_by_filename_content(
@@ -830,11 +854,6 @@ if __name__ == "__main__":
     expected_unlabelled_peaks = np.array([25125, 24218, 23525, 22786])
     expected_labelled_peaks = expected_unlabelled_peaks + 354
 
-    # Translate keys (filenames) into ratios
-    # Split across two dicitionaries to parse
-    # intended ratio and expected ratio
-    intended_ratio_dict, df_dict = ratios_from_filenames(df_dict)
-
     # Process all deconvolutions to ratios of peaks
     ratio_df_list = []
     for key, df in df_dict.items():
@@ -865,7 +884,9 @@ if __name__ == "__main__":
         ratio_df["area_weights"] = area_weight
         ratio_df["weighted_height_ratio"] = weighted_height_ratio
         ratio_df["weighted_area_ratio"] = weighted_area_ratio
-        ratio_df["intended_ratio"] = intended_ratio_dict[key]
+        ratio_df["intended_ratio"] = intended_ratio_df.loc[
+            intended_ratio_df["f_name"] == key, "intended_ratio"
+        ].iloc[0]
         ratio_df["key"] = key
 
         # For concatenating results
