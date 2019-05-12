@@ -44,6 +44,11 @@ if __name__ == "__main__":
     NUDT7A-x2146 fails to refine as low-res therefore incorrect spacegroup
     
     """
+    # Add ability to parse command line arguments
+    parser = argparse.ArgumentParser(description="Plot NUDT7 mass spectroscopy ratios")
+    # Add path argument
+    parser.add_argument("--program", action="store", dest="program", default="refmac")
+    args = parser.parse_args()
 
     in_dir = "/dls/labxchem/data/2017/lb18145-49/processing/analysis/initial_model"
 
@@ -63,10 +68,25 @@ if __name__ == "__main__":
         "covalent_ratios_refine/NUDT7A-x1907/NUDT7A-x1907_LIG_CYS.cif"
     )
 
-    params = (
-        "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/"
-        "covalent_ratios_refine/NUDT7A-x1907/refine_0004/input.params"
-    )
+    if args.program == "refmac":
+
+        params = (
+            "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/"
+            "covalent_ratios_refine/NUDT7A-x1907/refine_0004/input.params"
+        )
+
+    elif args.program == "buster":
+        subprocess.call(
+            [
+                "/dls/science/groups/i04-1/elliot-dev/ccp4/ccp4-7.0/bin/giant.make_restraints",
+                pdb,
+            ]
+        )
+
+    elif args.program == "phenix":
+        pass
+
+    exit()
 
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
