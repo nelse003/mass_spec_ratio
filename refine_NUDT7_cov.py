@@ -95,8 +95,9 @@ if __name__ == "__main__":
             params = os.path.join(out_dir, args.program, "params.gelly")
 
         if args.program == "phenix":
-             params = os.path.join(out_dir, args.program, "multi-state-restraints.phenix.params")
-            
+            params = os.path.join(
+                out_dir, args.program, "multi-state-restraints.phenix.params"
+            )
 
     prefix = "NUDT7A-x"
 

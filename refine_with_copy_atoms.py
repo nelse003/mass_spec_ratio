@@ -1,8 +1,6 @@
 import sys
-
-sys.path.append("/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search")
-from copy_atoms.copy_atoms import copy_atoms
-from copy_atoms.copy_phil import copy_phil
+from copy_atoms import copy_atoms
+from copy_phil import copy_phil
 
 """
 Refine crystals from visits:
@@ -42,9 +40,9 @@ copy_params.input.link_record_list = [
     "LINKR        D  CLIG E   1                 SG ACYS A  73                LIG-CYS\n",
 ]
 
-copy_params.output.out_dir = (
-    "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms"
-)
+copy_params.output.out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms/phenix"
 copy_params.input.extra_params = "NCYC 50"
+copy_params.settings.program = "phenix"
+copy_params.settings.qsub = False
 
 copy_atoms(copy_params)
