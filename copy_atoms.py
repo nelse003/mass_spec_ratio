@@ -195,6 +195,12 @@ def copy_atoms(copy_params):
 
                 modified.write(multi_model)
 
+	# Add extra params
+        if copy_params.input.extra_params is not None:
+            with open("multi-state-restraints.{}.params".format(copy_params.settings.program),"a+") as param_file:
+                if copy_params.input.extra_params not in param_file.read():
+                    param_file.write(copy_params.input.extra_params)
+                
         # Run giant.quick_refine
         cmds = "source {}".format(copy_params.settings.ccp4_path)
 

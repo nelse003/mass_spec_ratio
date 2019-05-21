@@ -43,31 +43,26 @@ copy_params.input.link_record_list = [
 copy_params.output.out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190521"
 copy_params.input.extra_params = "NCYC 50"
 copy_params.settings.program = "refmac"
-copy_params.settings.qsub = False
+copy_params.settings.qsub = True
 
 # Run multiple times for different ranges of crystals
-copy_params.input.start_xtal_number = 2160
-copy_params.input.end_xtal_number = 2160
+
+copy_params.input.start_xtal_number = 2074
+copy_params.input.end_xtal_number = 2121
 
 copy_atoms(copy_params)
 
+copy_params.input.start_xtal_number = 2130
+copy_params.input.end_xtal_number = 2154
 
-# copy_params.input.start_xtal_number = 2074
-# copy_params.input.end_xtal_number = 2121
-#
-# copy_atoms(copy_params)
-#
-# copy_params.input.start_xtal_number = 2130
-# copy_params.input.end_xtal_number = 2154
-#
-# copy_atoms(copy_params)
+copy_atoms(copy_params)
 
-# copy_params.input.start_xtal_number = 2160
-# copy_params.input.end_xtal_number = 2232
-#
-# copy_atoms(copy_params)
-#
-# copy_params.input.start_xtal_number = 2157
-# copy_params.input.end_xtal_number = 2319
-#
-# copy_atoms(copy_params)
+copy_params.input.start_xtal_number = 2160
+copy_params.input.end_xtal_number = 2232
+
+copy_atoms(copy_params)
+
+copy_params.input.start_xtal_number = 2157
+copy_params.input.end_xtal_number = 2319
+
+copy_atoms(copy_params)
