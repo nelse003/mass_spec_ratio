@@ -47,16 +47,11 @@ copy_params.settings.qsub = False
 
 # Run multiple times for different ranges of crystals
 copy_params.input.start_xtal_number = 2160
-copy_params.input.start_xtal_number = 2160
+copy_params.input.end_xtal_number = 2160
 
 copy_atoms(copy_params)
 
 
-# copy_params.input.start_xtal_number = 2160
-# copy_params.input.end_xtal_number = 2232
-#
-# copy_atoms(copy_params)
-#
 # copy_params.input.start_xtal_number = 2074
 # copy_params.input.end_xtal_number = 2121
 #
@@ -66,6 +61,13 @@ copy_atoms(copy_params)
 # copy_params.input.end_xtal_number = 2154
 #
 # copy_atoms(copy_params)
+
+# copy_params.input.start_xtal_number = 2160
+# copy_params.input.end_xtal_number = 2232
+#
+# copy_atoms(copy_params)
 #
 # copy_params.input.start_xtal_number = 2157
 # copy_params.input.end_xtal_number = 2319
+#
+# copy_atoms(copy_params)
