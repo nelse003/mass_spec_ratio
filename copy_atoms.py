@@ -202,7 +202,12 @@ def copy_atoms(copy_params):
                     param_file.write(copy_params.input.extra_params)
                 
         # Run giant.quick_refine
-        cmds = "source {}".format(copy_params.settings.ccp4_path)
+        cmds = "source {}\n".format(copy_params.settings.ccp4_path)
+
+        if copy_params.settings.program == "phenix":
+            cmds += "module load phenix\n"
+        elif copy_params.settings.program == "buster":
+            cmds += "module load buster\n"
 
         cmds += "giant.quick_refine {} {} {} params={} program={}\n".format(
             os.path.join(
