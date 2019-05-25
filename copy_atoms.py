@@ -227,6 +227,7 @@ def copy_atoms(copy_params):
             ),
             copy_params.settings.program,
         )
+        cmds += "giant.split_conformations refine.pdb"
 
         if copy_params.settings.qsub:
             f = open(

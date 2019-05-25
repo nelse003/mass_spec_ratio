@@ -139,6 +139,20 @@ def plot_ratio_occupancy(
 
 if __name__ == "__main__":
 
+    ref_dif = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_refmac"
+
+    for refinement_folder in os.listdir(ref_dir):
+        if os.path.is_dir(os.path.join(ref_dif,refinement_folder)):
+
+            bound_state = os.path.join(ref_dif, refinement_folder, "refine.split.bound-state")
+
+            if os.path.isfile(bound_state):
+                os.system('ccp4-python ccp4/occ_b {} occ.txt E 1 '.format(bound_state))
+                with open("occ.txt") as f:
+                    print(f.readline().split())
+
+    exit()
+
     occ_correct = "occ_correct.csv"
     occ_correct_df = pd.read_csv(occ_correct)
     mounted_df = pd.read_csv("mounted_ratios.csv")
