@@ -7,9 +7,7 @@ from utils.filesystem import parse_refinement_folder
 from tasks.plotting import PlotBoundOccHistogram
 from path_config import Path
 
-refinement_dir = (
-    "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms"
-)
+refinement_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190523_refmac"
 refinement_csv = os.path.join(refinement_dir, "NUDT7A_cov_log_pdb_mtz.csv")
 
 parse_refinement_folder(

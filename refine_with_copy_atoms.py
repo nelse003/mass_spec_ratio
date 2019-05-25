@@ -34,15 +34,27 @@ copy_params.input.path = (
 )
 copy_params.input.prefix = "NUDT7A-x"
 copy_params.input.base_pdb = pdb
-copy_params.input.atoms_new = [["E", "1"],["A","73"]]
-copy_params.input.atoms_remove = [["A","73"],["B","208"],["B","151"],["B","60"],["B","189"],["B","33"],["B","40"],["B","11"],["B", "196"]]
+copy_params.input.atoms_new = [["E", "1"], ["A", "73"]]
+copy_params.input.atoms_remove = [
+    ["A", "73"],
+    ["B", "208"],
+    ["B", "151"],
+    ["B", "60"],
+    ["B", "189"],
+    ["B", "33"],
+    ["B", "40"],
+    ["B", "11"],
+    ["B", "196"],
+]
 copy_params.input.cif = cif
 copy_params.input.link_record_list = [
     "LINKR        C  FLIG E   1                 SG  FCYS A  73                LIG-CYS\n",
     "LINKR        C  ELIG E   1                 SG  ECYS A  73                LIG-CYS\n"
     "LINK         SG FCYS A  73                 C  FLIG E   1     1555   1555  1.93\n",
 ]
-copy_params.settings.ccp4_path = "/dls/science/groups/i04-1/elliot-dev/ccp4/ccp4-7.0/bin/ccp4.setup-sh"
+copy_params.settings.ccp4_path = (
+    "/dls/science/groups/i04-1/elliot-dev/ccp4/ccp4-7.0/bin/ccp4.setup-sh"
+)
 
 copy_params.output.out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190523_refmac"
 copy_params.input.extra_params = "NCYC 50"
