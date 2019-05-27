@@ -57,17 +57,12 @@ copy_params.settings.ccp4_path = (
 )
 
 copy_params.output.out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_refmac"
-copy_params.input.extra_params = "NCYC 5"
+copy_params.input.extra_params = "NCYC 50"
 copy_params.settings.program = "refmac"
 copy_params.settings.qsub = True
 
 # Run multiple times for different ranges of crystals
 
-copy_params.input.start_xtal_number = 2160
-copy_params.input.end_xtal_number = 2160
-
-copy_atoms(copy_params)
-
 # copy_params.input.start_xtal_number = 2074
 # copy_params.input.end_xtal_number = 2121
 #
@@ -83,46 +78,45 @@ copy_atoms(copy_params)
 #
 # copy_atoms(copy_params)
 #
-# copy_atoms(copy_params)
 
 # Phenix
-copy_params.output.out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190523_phenix"
+copy_params.output.out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_phenix"
 copy_params.settings.program = "phenix"
 copy_params.settings.param_file = "multi-state-restraints.phenix.params"
 copy_params.input.extra_params = "refinement.main.number_of_macro_cycles=20"
 
-# copy_params.input.start_xtal_number = 2074
-# copy_params.input.end_xtal_number = 2121
-#
-# copy_atoms(copy_params)
-#
-# copy_params.input.start_xtal_number = 2130
-# copy_params.input.end_xtal_number = 2154
-#
-# copy_atoms(copy_params)
-#
-# copy_params.input.start_xtal_number = 2157
-# copy_params.input.end_xtal_number = 2367
-#
-# copy_atoms(copy_params)
+copy_params.input.start_xtal_number = 2074
+copy_params.input.end_xtal_number = 2121
+
+copy_atoms(copy_params)
+
+copy_params.input.start_xtal_number = 2130
+copy_params.input.end_xtal_number = 2154
+
+copy_atoms(copy_params)
+
+copy_params.input.start_xtal_number = 2157
+copy_params.input.end_xtal_number = 2367
+
+copy_atoms(copy_params)
 
 # Buster
-copy_params.output.out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190524_buster"
+copy_params.output.out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_buster"
 copy_params.settings.program = "buster"
 copy_params.settings.param_file = "params.gelly"
 copy_params.input.extra_params = ""
 
-# copy_params.input.start_xtal_number = 2074
-# copy_params.input.end_xtal_number = 2121
-#
-# copy_atoms(copy_params)
-#
-# copy_params.input.start_xtal_number = 2130
-# copy_params.input.end_xtal_number = 2154
-#
-# copy_atoms(copy_params)
-#
-# copy_params.input.start_xtal_number = 2157
-# copy_params.input.end_xtal_number = 2367
-#
-# copy_atoms(copy_params)
+copy_params.input.start_xtal_number = 2074
+copy_params.input.end_xtal_number = 2121
+
+copy_atoms(copy_params)
+
+copy_params.input.start_xtal_number = 2130
+copy_params.input.end_xtal_number = 2154
+
+copy_atoms(copy_params)
+
+copy_params.input.start_xtal_number = 2157
+copy_params.input.end_xtal_number = 2367
+
+copy_atoms(copy_params)

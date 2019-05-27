@@ -98,6 +98,13 @@ def plot_ratio_occupancy(
     # Linear fit (mx+c) to occupancy vs ratio when occ >= min_cond
     fit = sm.OLS(yFit, sm.add_constant(xFit)).fit()
 
+    print(x)
+    print(y)
+    print(fit.summary())
+    print(fit.params[1])
+    print(np.linspace(0, 1, 100) * fit.params[1])
+    print(np.linspace(0, 1, 100) * fit.params[1] + fit.params[0])
+
     # Plot of linear fit
     fit_line = plt.plot(
         np.linspace(0, 1, 100), np.linspace(0, 1, 100) * fit.params[1] + fit.params[0]
@@ -140,8 +147,9 @@ def plot_ratio_occupancy(
 
 if __name__ == "__main__":
 
-    ref_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_refmac"
+    ref_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_buster"
 
+    occupancies = {}
     for refinement_folder in os.listdir(ref_dir):
         if os.path.isdir(os.path.join(ref_dir, refinement_folder)):
 
@@ -149,28 +157,30 @@ if __name__ == "__main__":
                 ref_dir, refinement_folder, "refine.split.bound-state.pdb"
             )
 
-            if os.path.isfile(bound_state):
-                print("ccp4-python ccp4/occ_b {} occ.txt E 1 ".format(bound_state))
-                os.system("ccp4-python ccp4/occ_b {} occ.txt E 1 ".format(bound_state))
-                with open("occ.txt") as f:
-                    print(f.readline().split())
+            occ_file =  os.path.join(ref_dir, refinement_folder, "occ.txt")
 
-    exit()
+            if os.path.isfile(bound_state):
+                os.system("ccp4-python ccp4/occ_b.py {} {} E 1 ".format(bound_state,occ_file))
+                with open(occ_file) as f:
+                    mean_occ, mean_b, std_b =  f.readline().split(',')
+                    occupancies[refinement_folder] = (float(mean_occ), float(mean_b), float(std_b))
+
+
+    occ_df = pd.DataFrame.from_dict(occupancies, orient='index',columns=["occupancy", "b_mean", "b_std"])
+    occ_df['crystal'] = occ_df.index
 
     occ_correct = "occ_correct.csv"
     occ_correct_df = pd.read_csv(occ_correct)
     mounted_df = pd.read_csv("mounted_ratios.csv")
 
     occ_df = pd.merge(
-        occ_correct_df, mounted_df, right_on="  Mounted Crystal ID ", left_on="crystal"
+        occ_df, mounted_df, right_on="  Mounted Crystal ID ", left_on="crystal"
     )
-    occ_df = occ_df[occ_df.state == "bound"]
-    occ_df = occ_df[occ_df.resname == "LIG"]
-    occ_df = occ_df[occ_df["occupancy group"] == 5]
 
     plot_ratio_occupancy(
         occ_df=occ_df,
-        f_name="Occupancy_B_factor_refmac_5.png",
-        xlabel="Crystallographic Occupancy (REFMAC5)",
-        occ_column_name="state occupancy",
+        f_name="Occupancy_B_factor_buster.png",
+        xlabel="Crystallographic Occupancy (buster)",
+        occ_column_name="occupancy",
+        b_col_name="b_mean"
     )
