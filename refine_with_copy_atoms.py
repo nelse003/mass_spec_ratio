@@ -85,18 +85,18 @@ copy_params.settings.program = "phenix"
 copy_params.settings.param_file = "multi-state-restraints.phenix.params"
 copy_params.input.extra_params = "refinement.main.number_of_macro_cycles=20"
 
-copy_params.input.start_xtal_number = 2074
-copy_params.input.end_xtal_number = 2121
-
-copy_atoms(copy_params)
-
-copy_params.input.start_xtal_number = 2130
-copy_params.input.end_xtal_number = 2154
-
-copy_atoms(copy_params)
-
-copy_params.input.start_xtal_number = 2157
-copy_params.input.end_xtal_number = 2367
+# copy_params.input.start_xtal_number = 2074
+# copy_params.input.end_xtal_number = 2121
+#
+# copy_atoms(copy_params)
+#
+# copy_params.input.start_xtal_number = 2130
+# copy_params.input.end_xtal_number = 2154
+#
+# copy_atoms(copy_params)
+#
+# copy_params.input.start_xtal_number = 2157
+# copy_params.input.end_xtal_number = 2367
 
 copy_atoms(copy_params)
 

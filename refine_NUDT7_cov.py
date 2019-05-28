@@ -2,10 +2,13 @@ import os
 import sys
 import argparse
 import subprocess
+import datetime
 
 sys.path.append("/dls/science/groups/i04-1/elliot-dev/parse_xchemdb")
-from refinement.prepare_scripts import write_quick_refine_csh
-
+from refinement.prepare_scripts import write_refmac_csh
+from refinement.prepare_scripts import write_exhaustive_csh
+from refinement.prepare_scripts import write_phenix_csh
+from refinement.prepare_scripts import write_buster_csh
 
 if __name__ == "__main__":
 
@@ -13,8 +16,10 @@ if __name__ == "__main__":
     Refine crystals from visits:
     
     mx19301-17 x2074 - x2121
-    mx19301-18 x2130 -x2154
+    mx19301-18 x2130 - x2154
     mx19301-20 x2160 - x2232
+    mx19301-26 x2157 - x2319
+    lb19758-25 x2297 - x2367
     
     using the same pdb and cif file, and param file from same folder. 
     Note that the compound numbering has been superseeded in scarab
@@ -46,6 +51,7 @@ if __name__ == "__main__":
     NUDT7A-x2146 fails to refine as low-res therefore incorrect spacegroup
     
     """
+
     # Add ability to parse command line arguments
     parser = argparse.ArgumentParser(description="Plot NUDT7 mass spectroscopy ratios")
     # Add path argument
@@ -57,15 +63,11 @@ if __name__ == "__main__":
     out_dir = os.path.join(
         "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms",
         args.program,
+        str(datetime.date.today())
     )
 
     refinement_script_dir = (
         "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/scripts"
-    )
-
-    pdb = (
-        "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/"
-        "covalent_ratios_refine/NUDT7A-x1907/refine.pdb"
     )
 
     cif = (
@@ -78,26 +80,20 @@ if __name__ == "__main__":
     os.chdir(out_dir)
 
     if args.program == "refmac":
+        input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_refmac"
+        params_fname = "multi-state-restraints.refmac.params"
 
-        params = (
-            "/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search_data/"
-            "covalent_ratios_refine/NUDT7A-x1907/refine_0004/input.params"
-        )
+    elif args.program == "buster":
+        input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_buster"
+        params_fname = "params.gelly"
 
-    elif args.program == "buster" or args.program == "phenix":
-        subprocess.call(
-            [
-                "/dls/science/groups/i04-1/elliot-dev/ccp4/ccp4-7.0/bin/giant.make_restraints",
-                pdb,
-            ]
-        )
-        if args.program == "buster":
-            params = os.path.join(out_dir, args.program, "params.gelly")
+    elif args.program == "phenix":
+        input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_phenix"
+        params_fname = "multi-state-restraints.phenix.params"
 
-        if args.program == "phenix":
-            params = os.path.join(
-                out_dir, args.program, "multi-state-restraints.phenix.params"
-            )
+    elif args.program == "exhaustive":
+        input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_buster"
+        params_fname = ""
 
     prefix = "NUDT7A-x"
 
@@ -110,32 +106,77 @@ if __name__ == "__main__":
         xtal_name = prefix + "{0:0>4}".format(num)
         xtals.append(xtal_name)
 
-    for num in range(2160, 2232 + 1):
+    for num in range(2157, 2367 + 1):
         xtal_name = prefix + "{0:0>4}".format(num)
         xtals.append(xtal_name)
 
     mtz_to_check = []
     for xtal in xtals:
 
-        mtz = os.path.join(in_dir, xtal, "{}.mtz".format(xtal))
+        mtz = os.path.join(in_dir, xtal, "dimple.mtz")
+        params = os.path.join(input_folder, xtal, params_fname )
+        pdb = os.path.join(input_folder, xtal, "refine.split.bound-state.pdb" )
+        pdb_adj = os.path.join(input_folder, xtal, "refine.split-bound-state_new_link_record.pdb" )
 
-        if not os.path.exists(mtz):
-            print("mtz does not exist: {}".format(mtz))
-            mtz_to_check.append(xtal)
+        if not os.path.isfile(pdb):
             continue
 
-        crystal_dir = os.path.join(out_dir, xtal)
-        if not os.path.exists(crystal_dir):
-            os.makedirs(crystal_dir)
+        with open(pdb, 'r') as pdb_file:
+            lines = pdb_file.readlines()
+        with open(pdb_adj,'w') as pdb_adj_file:
+            for line in lines:
+                if line.strip("\n").startswith("LINK"):
+                    pdb_adj_file.write("LINK         SG ACYS A  73                 C   LIG E   1     1555   1555  1.80\n")
+                    pdb_adj_file.write("LINK         SG BCYS A  73                 C   LIG E   1     1555   1555  1.77\n")
+                if not line.strip("\n").startswith("LINK"):
+                    pdb_adj_file.write(line)
 
-        write_quick_refine_csh(
-            crystal=xtal,
-            refine_pdb=pdb,
-            cif=cif,
-            out_dir=crystal_dir,
-            refinement_params=params,
-            refinement_script_dir=refinement_script_dir,
-            free_mtz=mtz,
-        )
 
-    print(mtz_to_check)
+        if not os.path.isfile(mtz):
+            continue
+
+        if not os.path.isfile(params):
+            continue
+
+        if args.program == "refmac":
+            write_refmac_csh(
+                pdb=pdb_adj,
+                crystal=xtal,
+                cif=cif,
+                mtz=mtz,
+                out_dir=os.path.join(out_dir,xtal),
+                refinement_script_dir=refinement_script_dir,
+                script_dir="/dls/science/groups/i04-1/elliot-dev/parse_xchemdb",
+                ncyc=50,
+                ccp4_path="/dls/science/groups/i04-1/elliot-dev/ccp4/ccp4-7.0/bin/ccp4.setup-sh",
+            )
+
+        elif args.program == "phenix":
+            write_phenix_csh(
+                pdb=pdb_adj,
+                mtz=mtz,
+                cif=cif,
+                script_dir="/dls/science/groups/i04-1/elliot-dev/parse_xchemdb",
+                refinement_script_dir=refinement_script_dir,
+                out_dir=os.path.join(out_dir,xtal),
+                crystal=xtal,
+                ncyc=20
+            )
+
+        elif args.program == "buster":
+            write_buster_csh(
+                pdb=pdb_adj,
+                mtz=mtz,
+                cif=cif,
+                out_dir=os.path.join(out_dir,xtal),
+                script_dir="/dls/science/groups/i04-1/elliot-dev/parse_xchemdb",
+                refinement_script_dir=refinement_script_dir,
+                crystal=xtal,
+            )
+            print(xtal)
+            exit()
+        # elif args.program == "exhaustive":
+        #     write_exhaustive_csh()
+
+
+
