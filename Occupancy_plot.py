@@ -147,14 +147,14 @@ def plot_ratio_occupancy(
 
 if __name__ == "__main__":
 
-    ref_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_buster"
+    ref_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms/refmac/2019-05-29/"
 
     occupancies = {}
     for refinement_folder in os.listdir(ref_dir):
         if os.path.isdir(os.path.join(ref_dir, refinement_folder)):
 
             bound_state = os.path.join(
-                ref_dir, refinement_folder, "refine.split.bound-state.pdb"
+                ref_dir, refinement_folder, "refine.pdb"
             )
 
             occ_file =  os.path.join(ref_dir, refinement_folder, "occ.txt")
@@ -179,8 +179,8 @@ if __name__ == "__main__":
 
     plot_ratio_occupancy(
         occ_df=occ_df,
-        f_name="Occupancy_B_factor_buster.png",
-        xlabel="Crystallographic Occupancy (buster)",
+        f_name="Occupancy_B_factor_refmac_single.png",
+        xlabel="Crystallographic Occupancy (refmac: non-superposed)",
         occ_column_name="occupancy",
         b_col_name="b_mean"
     )

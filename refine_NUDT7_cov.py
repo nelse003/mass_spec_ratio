@@ -115,6 +115,7 @@ if __name__ == "__main__":
 
         mtz = os.path.join(in_dir, xtal, "dimple.mtz")
         params = os.path.join(input_folder, xtal, params_fname )
+        refine_pdb = os.path.join(input_folder, xtal, "refine.pdb")
         pdb = os.path.join(input_folder, xtal, "refine.split.bound-state.pdb" )
         pdb_adj = os.path.join(input_folder, xtal, "refine.split-bound-state_new_link_record.pdb" )
 
@@ -135,8 +136,9 @@ if __name__ == "__main__":
         if not os.path.isfile(mtz):
             continue
 
-        if not os.path.isfile(params):
-            continue
+        if not args.program == "exhaustive":
+            if not os.path.isfile(params):
+                continue
 
         if args.program == "refmac":
             write_refmac_csh(
@@ -150,6 +152,9 @@ if __name__ == "__main__":
                 ncyc=50,
                 ccp4_path="/dls/science/groups/i04-1/elliot-dev/ccp4/ccp4-7.0/bin/ccp4.setup-sh",
             )
+            csh_file = os.path.join(
+                refinement_script_dir, "{}_{}.csh".format(xtal, "bound")
+            )
 
         elif args.program == "phenix":
             write_phenix_csh(
@@ -162,6 +167,9 @@ if __name__ == "__main__":
                 crystal=xtal,
                 ncyc=20
             )
+            csh_file = os.path.join(
+                refinement_script_dir, "{}_{}.csh".format(xtal, "phenix")
+            )
 
         elif args.program == "buster":
             write_buster_csh(
@@ -173,10 +181,27 @@ if __name__ == "__main__":
                 refinement_script_dir=refinement_script_dir,
                 crystal=xtal,
             )
-            print(xtal)
-            exit()
-        # elif args.program == "exhaustive":
-        #     write_exhaustive_csh()
+            csh_file = os.path.join(
+                refinement_script_dir, "{}_{}.csh".format(xtal, "buster")
+            )
+
+        elif args.program == "exhaustive":
+             write_exhaustive_csh(
+                 pdb=refine_pdb,
+                 mtz=mtz,
+                 script_dir="/dls/science/groups/i04-1/elliot-dev/parse_xchemdb",
+                 refinement_script_dir=refinement_script_dir,
+                 out_dir=os.path.join(out_dir,xtal),
+                 crystal=xtal,
+                 exhaustive_multiple_sampling="/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search/exhaustive/exhaustive_multiple_sampling.py",
+                 ccp4_path="/dls/science/groups/i04-1/elliot-dev/ccp4/ccp4-7.0/bin/ccp4.setup-sh",
+             )
+             csh_file = os.path.join(
+                 refinement_script_dir, "{}_{}.csh".format(xtal, "exhaustive")
+             )
+
+        os.system("qsub {}".format(csh_file))
+
 
 
 
