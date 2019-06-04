@@ -147,14 +147,21 @@ def plot_ratio_occupancy(
 
 if __name__ == "__main__":
 
-    ref_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms/refmac/2019-05-29/"
+    ref_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms/phenix/2019-06-01/"
+
+    folders = {"copy_atoms/phenix/2019-06-01": ("refine_001.pdb", "refine_001.mtz", "phenix"),
+               "copy_atoms/refmac/2019-05-29": ("refine.pdb", "refine.mtz", "refmac"),
+               "copy_atoms/buster/2019-05-29": ("refine.pdb", "refine.mtz", "buster"),
+               "copy_atoms_190525_buster": ("refine.pdb", "refine.mtz", "buster_superposed"),
+               "copy_atoms_190525_refmac": ("refine.pdb", "refine.mtz", "refmac_superposed"),
+               "copy_atoms_190525_phenix": ("refine.pdb", "refine.mtz", "phenix_superposed")}
 
     occupancies = {}
     for refinement_folder in os.listdir(ref_dir):
         if os.path.isdir(os.path.join(ref_dir, refinement_folder)):
 
             bound_state = os.path.join(
-                ref_dir, refinement_folder, "refine.pdb"
+                ref_dir, refinement_folder, "refine_001.pdb"
             )
 
             occ_file =  os.path.join(ref_dir, refinement_folder, "occ.txt")
@@ -176,11 +183,15 @@ if __name__ == "__main__":
     occ_df = pd.merge(
         occ_df, mounted_df, right_on="  Mounted Crystal ID ", left_on="crystal"
     )
+    residue_csv = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/residue_scores.csv"
+    pd.read_csv()
+
+    occ_df = pd.merge(occ_df,)
 
     plot_ratio_occupancy(
         occ_df=occ_df,
-        f_name="Occupancy_B_factor_refmac_single.png",
-        xlabel="Crystallographic Occupancy (refmac: non-superposed)",
+        f_name="test_occupancy_B_factor_phenix_single.png",
+        xlabel="Crystallographic Occupancy (phenix: non-superposed)",
         occ_column_name="occupancy",
         b_col_name="b_mean"
     )

@@ -201,7 +201,3 @@ if __name__ == "__main__":
              )
 
         os.system("qsub {}".format(csh_file))
-
-
-
-
