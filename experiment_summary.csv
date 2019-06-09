@@ -317,3 +317,45 @@ NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_G10d,0.0,post_diffra
 NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10a,0.9,post_diffraction,False
 NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10c,0.8,post_diffraction,True
 NUDT7A_Post_diffraction_crystal_mass_spectra_apr_14_16_2019_H10d,0.8,post_diffraction,False
+"NUDT7A : ""+ESI Scan (rt: 0.746-1.061 min, 20 scans) Frag=250.0V NUDT7A_p026_0L_100U.d  Deconvoluted (Isotope Width=10.5)""
+",,unknown,False
+"NUDT7A : ""+ESI Scan (rt: 0.746-1.060 min, 20 scans) Frag=250.0V NUDT7A_p026_100L_0U.d  Deconvoluted (Isotope Width=10.5)""
+",,unknown,False
+"NUDT7A : ""+ESI Scan (rt: 0.753-1.051 min, 19 scans) Frag=250.0V NUDT7A_p026_10L_90U.d  Deconvoluted (Isotope Width=10.5)""
+",,unknown,False
+"NUDT7A : ""+ESI Scan (rt: 0.744-1.058 min, 20 scans) Frag=250.0V NUDT7A_p026_20L_80U.d  Deconvoluted (Isotope Width=10.5)""
+",,unknown,False
+"NUDT7A : ""+ESI Scan (rt: 0.748-1.063 min, 20 scans) Frag=250.0V NUDT7A_p026_30L_70U.d  Deconvoluted (Isotope Width=10.5)""
+",,unknown,False
+"NUDT7A : ""+ESI Scan (rt: 0.744-1.058 min, 20 scans) Frag=250.0V NUDT7A_p026_40L_60U.d  Deconvoluted (Isotope Width=10.5)""
+",,unknown,False
+"NUDT7A : ""+ESI Scan (rt: 0.748-1.063 min, 20 scans) Frag=250.0V NUDT7A_p026_50L_50U.d  Deconvoluted (Isotope Width=10.5)""
+",,unknown,False
+"NUDT7A : ""+ESI Scan (rt: 0.748-1.062 min, 20 scans) Frag=250.0V NUDT7A_p026_60L_40U.d  Deconvoluted (Isotope Width=10.5)""
+",,unknown,False
+"NUDT7A : ""+ESI Scan (rt: 0.751-1.048 min, 19 scans) Frag=250.0V NUDT7A_p026_70L_30U.d  Deconvoluted (Isotope Width=10.5)""
+",,unknown,False
+"NUDT7A : ""+ESI Scan (rt: 0.746-1.061 min, 20 scans) Frag=250.0V NUDT7A_p026_80L_20U.d  Deconvoluted (Isotope Width=10.5)""
+",,unknown,False
+"NUDT7A : ""+ESI Scan (rt: 0.750-1.047 min, 19 scans) Frag=250.0V NUDT7A_p026_90L_10U.d  Deconvoluted (Isotope Width=10.5)""
+",,unknown,False
+"NUDT7A : ""+ESI Scan (rt: 0.785-1.033 min, 16 scans) Frag=250.0V NUDT7A_p026_NU0000308a_post_gel_filtration.d  Deconvoluted (Isotope Width=10.4)""
+",,unknown,False
+"NUDT7A : ""+ESI Scan (rt: 0.752-1.050 min, 19 scans) Frag=250.0V NUDT7A_p026_NU0000308a_post_gel_filtration.d  Deconvoluted (Isotope Width=10.5)""
+",,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_CI076587-A10c,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_CI076587-A10c_1,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_CI076587-A9c,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_CI076587-A9c_1,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_CI076587-A9d,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_sgc90_10,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_sgc90_11,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_sgc90_14,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_sgc90_15,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_sgc90_16,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_sgc90_3,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_sgc90_4,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_sgc90_5,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_sgc90_7,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_sgc90_8,,unknown,False
+190520_NUDT7A_p026_post_xtal_NUDT7A_p026_sgc90_9,,unknown,False

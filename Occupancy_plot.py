@@ -4,10 +4,7 @@ import pandas as pd
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
-
-plt.rcParams.update({"font.size": 18})
-plt.rcParams["figure.figsize"] = [10, 10]
-
+import seaborn as sns
 
 def plot_ratio_occupancy(
     occ_df, xlabel, f_name, occ_column_name, b_col_name="B_mean", min_cond=0.4
@@ -91,9 +88,9 @@ def plot_ratio_occupancy(
     xFit = x[cond]
     yFit = y[cond]
 
-    # Split the markers into those that have been fitted and those that haven't
-    marker_area_fit = marker_area[cond]
-    marker_area_other = marker_area[~cond]
+    # # Split the markers into those that have been fitted and those that haven't
+    # marker_area_fit = marker_area[cond]
+    # marker_area_other = marker_area[~cond]
 
     # Linear fit (mx+c) to occupancy vs ratio when occ >= min_cond
     fit = sm.OLS(yFit, sm.add_constant(xFit)).fit()
@@ -111,8 +108,8 @@ def plot_ratio_occupancy(
     )
 
     # Scatter plots showing the occupancy vs ratio data
-    scatter_1 = ax.scatter(xFit, yFit, s=marker_area_fit)
-    scatter_2 = ax.scatter(x[~cond], y[~cond], marker_area_other, color="C0", alpha=0.3)
+    scatter_1 = ax.scatter(xFit, yFit, s=marker_area)
+    #scatter_2 = ax.scatter(x[~cond], y[~cond], marker_area_other, color="C0", alpha=0.3)
 
     # Artist objects for use with the legend
     blue_circ = mlines.Line2D(
@@ -127,71 +124,343 @@ def plot_ratio_occupancy(
         [], [], color="C0", marker="o", linestyle="None", markersize=10, alpha=0.3
     )
 
+    # Shrink current axis's height by 20% on the bottom
+    box = ax.get_position()
+
     # legend usind defined artist objects and x=y line and fit_line
     legend = plt.legend(
-        (xy_line, trans_blue_circ, fit_line, blue_circ, blue_circ_2),
+        (xy_line, blue_circ, blue_circ_2),
         (
-            "Refined Occupancy = Ratio of Labelled Species",
-            "Data not fitted",
-            "Fit to ratio >= {}\n {:.2f}x{:+.2f}. \n R-squared {:.3f}".format(
-                min_cond, fit.params[1], fit.params[0], fit.rsquared
-            ),
+            "Refined Occupancy\n= Ratio of Labelled Species",
             "B factor = 50",
             "B factor = 100",
         ),
         prop={"size": 12},
+        loc='upper left',
+        frameon=False
+
     )
 
     plt.savefig(f_name, dpi=600)
 
 
+def plot_occ_df(occ_df,
+                occ_column_name,
+                b_col_name,
+                f_name,
+                xlabel,
+                metric="RSZO/OCC"):
+
+    x = occ_df[occ_column_name]
+    y = occ_df["Expected Ratio"]
+
+    # Colour bar axis
+    c = occ_df[metric]
+
+    # Independent scale for the B factor
+    # marker 10 = B factor 50
+    # marker 20 = B factor 100
+    # Squaring is used so the scaling is in area
+    marker_area = (occ_df[b_col_name] / 5) ** 2
+
+    # Define figure
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    ax.spines["bottom"].set_position("zero")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.xaxis.set_label_coords(0.5, -0.05)
+    plt.xlim(0, 1.1)
+    plt.ylim(-0.1, 1.1)
+
+    # Plot x=y
+    xline = np.linspace(0, 1, 100)
+    yline = xline
+    xy_line, = ax.plot(xline, yline, "k:")
+
+    # Plot scatter
+    scatter = ax.scatter(x=x, y=y, c=c, s=marker_area)
+
+    if metric == "RSZO/OCC":
+        scatter.set_clim(0,3)
+    elif metric == "RSCC":
+        scatter.set_clim(0.5,1)
+    else:
+        # Min / max of metric will be used
+        pass
+
+    cb = fig.colorbar(scatter, label=metric, shrink=0.75)
+
+    blue_circ = mlines.Line2D(
+        [], [], color="C0", marker="o", linestyle="None", markersize=10
+    )
+
+    blue_circ_2 = mlines.Line2D(
+        [], [], color="C0", marker="o", linestyle="None", markersize=20
+    )
+
+    # Shrink current axis's height by 10% on the bottom
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                     box.width, box.height * 0.8])
+
+    legend = ax.legend(
+        (xy_line, blue_circ, blue_circ_2),
+        (
+            "Refined Occupancy = Ratio of Labelled Species",
+            "B factor = 50",
+            "B factor = 100",
+        ),
+        loc='upper center',
+        bbox_to_anchor=(0.5, -0.15),
+        prop={"size": 12},
+    )
+
+    plt.xlabel(xlabel)
+    plt.ylabel("Ratio of labelled species")
+
+    plt.savefig(f_name, dpi=600)
+
+def plot_occ_colour(occ_df, method, colour='r'):
+
+    occ_with_std = occ_df[occ_df.mean_weighted_area_ratio.notnull()]['Occupancy']
+    ratio_with_std = occ_df[occ_df.mean_weighted_area_ratio.notnull()]['mean_weighted_area_ratio']
+    b_with_std = occ_df[occ_df.mean_weighted_area_ratio.notnull()]['Average B-factor (Residue)']
+    std = occ_df[occ_df.mean_weighted_area_ratio.notnull()]['std_weighted_area_ratio']
+
+    occ = occ_df[occ_df.mean_weighted_area_ratio.isnull()]['Occupancy']
+    ratio = occ_df[occ_df.mean_weighted_area_ratio.isnull()]['Expected Ratio']
+
+    # Define figure
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    ax.spines["bottom"].set_position("zero")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.xaxis.set_label_coords(0.5, -0.05)
+    plt.xlim(0, 1.1)
+    plt.ylim(-0.1, 1.1)
+
+    # Plot x=y
+    xline = np.linspace(0, 1, 100)
+    yline = xline
+    xy_line, = ax.plot(xline, yline, "k:")
+
+    plt.errorbar(x=occ_with_std,
+                 y=ratio_with_std,
+                 yerr=std,
+                 fmt='none',
+                 ecolor='lightgray',
+                 alpha=0.5)
+
+    plt.scatter(x=occ_with_std,
+                y=ratio_with_std,
+                c=b_with_std,
+                )
+
+    plt.scatter(x=occ, y=ratio, marker='d')
+
+    plt.savefig("test_{}".format(method),dpi=600)
+
+def plot_all_regression_plots(occ_df, method_colours):
+
+    # Define figure
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    ax.spines["bottom"].set_position("zero")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.xaxis.set_label_coords(0.5, -0.05)
+    ax.set(xlim=(0, 1), ylim=(0,1))
+
+    xline = np.linspace(0, 1, 100)
+    yline = xline
+    xy_line, = ax.plot(xline, yline, "k:", label="Crystal occupancy\n= Ratio of labelling")
+
+    for method, method_df in occ_df.groupby('method'):
+
+        print("AAA: {}".format(method))
+
+        x = method_df["Occupancy"]
+        y = method_df["Ratio"]
+
+        if method== "exhaustive_search":
+            print(x)
+            print(y)
+
+        if method != "refmac_superposed":
+            continue
+
+        # Remove label to plot simpler legend
+        ax = sns.regplot(x=x,
+                         y=y,
+                         scatter=False,
+                         label=method.replace("_"," ").capitalize(),
+                         line_kws={"alpha":0.8},
+                         truncate=True,
+                         color=method_colours[method])
+
+    plt.ylabel("Ratio of covalently labelled protein")
+    plt.legend((xy_line,),("Crystal occupancy =\nRatio of labelling",), loc='upper left', frameon=False)
+    plt.tight_layout()
+    plt.savefig("regression_plot_buster",dpi=600)
+
+def violin_plot_b_factor(occ_df, method_colours):
+
+    fig = plt.figure(figsize=(8,4.5))
+
+    ax = sns.violinplot(x="method",
+                   y='Average B-factor (Residue)',
+                   data=occ_df,
+                   palette=method_colours,
+                        )
+
+    ax.yaxis.tick_right()
+    ax.spines["top"].set_visible(False)
+    ax.spines["left"].set_visible(False)
+    ax.yaxis.set_label_position("right")
+
+    method_labels = [method.capitalize().replace("_","\n")
+                     for method
+                     in occ_df.method.unique()]
+
+    ax.set_xticklabels(labels=method_labels)
+    plt.setp(ax.collections, alpha=.8)
+    plt.xlabel("")
+    plt.ylabel("Mean B factor of covalent ligand")
+    plt.savefig("b_factor_violin", dpi=600)
+
+def get_plate(key_string):
+
+    """
+    parse key to get plate in string
+    """
+    plate = "CI0" + key_string.split("CI0")[1].split('.d')[0].split('_')[0]
+    return plate
+
+def get_well(key_string):
+    """
+    Parse key yot get well in string
+
+    Parameters
+    ----------
+    key_string
+
+    Returns
+    -------
+
+    """
+    well = key_string.split("CI0")[1].split('.d')[0].split('_')[1]
+    if len(well) == 3:
+        well = well[0] + "0" + well[1:]
+    return well
+
 if __name__ == "__main__":
 
-    ref_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms/phenix/2019-06-01/"
+    residue_csv = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/residue_scores.csv"
+    residue_df = pd.read_csv(residue_csv)
 
-    folders = {"copy_atoms/phenix/2019-06-01": ("refine_001.pdb", "refine_001.mtz", "phenix"),
-               "copy_atoms/refmac/2019-05-29": ("refine.pdb", "refine.mtz", "refmac"),
-               "copy_atoms/buster/2019-05-29": ("refine.pdb", "refine.mtz", "buster"),
-               "copy_atoms_190525_buster": ("refine.pdb", "refine.mtz", "buster_superposed"),
-               "copy_atoms_190525_refmac": ("refine.pdb", "refine.mtz", "refmac_superposed"),
-               "copy_atoms_190525_phenix": ("refine.pdb", "refine.mtz", "phenix_superposed")}
+    exhaustive_csv = "/dls/science/groups/i04-1/elliot-dev/Work/" \
+    "NUDT7A_mass_spec_refinements/copy_atoms/exhaustive/2019-05-29/exhaustive_minima.csv"
 
-    occupancies = {}
-    for refinement_folder in os.listdir(ref_dir):
-        if os.path.isdir(os.path.join(ref_dir, refinement_folder)):
+    exh_df = pd.read_csv(exhaustive_csv)
 
-            bound_state = os.path.join(
-                ref_dir, refinement_folder, "refine_001.pdb"
-            )
+    exh_df = exh_df.rename(index=str, columns={"b_factor":"Average B-factor (Residue)",
+                   "occupancy":"Occupancy"})
+    exh_df['method']="exhaustive_search"
 
-            occ_file =  os.path.join(ref_dir, refinement_folder, "occ.txt")
+    residue_df = pd.merge(residue_df,
+                      exh_df,
+                      on=["crystal",
+                          "method",
+                          "Average B-factor (Residue)",
+                          "Occupancy"],
+                      how='outer')
 
-            if os.path.isfile(bound_state):
-                os.system("ccp4-python ccp4/occ_b.py {} {} E 1 ".format(bound_state,occ_file))
-                with open(occ_file) as f:
-                    mean_occ, mean_b, std_b =  f.readline().split(',')
-                    occupancies[refinement_folder] = (float(mean_occ), float(mean_b), float(std_b))
-
-
-    occ_df = pd.DataFrame.from_dict(occupancies, orient='index',columns=["occupancy", "b_mean", "b_std"])
-    occ_df['crystal'] = occ_df.index
-
-    occ_correct = "occ_correct.csv"
-    occ_correct_df = pd.read_csv(occ_correct)
     mounted_df = pd.read_csv("mounted_ratios.csv")
 
-    occ_df = pd.merge(
-        occ_df, mounted_df, right_on="  Mounted Crystal ID ", left_on="crystal"
-    )
-    residue_csv = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/residue_scores.csv"
-    pd.read_csv()
+    occ_df = pd.merge(residue_df, mounted_df, right_on="  Mounted Crystal ID ", left_on="crystal")
 
-    occ_df = pd.merge(occ_df,)
+    occ_df.to_csv("mounted_residue.csv")
 
-    plot_ratio_occupancy(
-        occ_df=occ_df,
-        f_name="test_occupancy_B_factor_phenix_single.png",
-        xlabel="Crystallographic Occupancy (phenix: non-superposed)",
-        occ_column_name="occupancy",
-        b_col_name="b_mean"
-    )
+    ratio_df = pd.read_csv("post_crystal_data.csv")
+    cio_df = ratio_df[ratio_df['key'].str.contains('CI0')]
+    cio_df['plate'] = cio_df.key.apply(get_plate)
+    cio_df['well'] = cio_df.key.apply(get_well)
+
+    cio_df.to_csv("post_crystal_data_plate_well.csv")
+
+    unique_cio_df = cio_df.drop_duplicates(subset='key')
+
+    df_list = []
+    for group, df in unique_cio_df.groupby(['plate','intended_ratio']):
+        print(group)
+        df['mean_weighted_area_ratio'] = df['weighted_area_ratio'].mean()
+        df['std_weighted_area_ratio'] = df['weighted_area_ratio'].std()
+        df_list.append(df)
+
+    df_with_summary = pd.concat(df_list)
+    df_with_summary_short = df_with_summary[['plate',
+                                             'intended_ratio',
+                                             'mean_weighted_area_ratio',
+                                             'std_weighted_area_ratio']]
+    df_with_summary_short = df_with_summary_short.drop_duplicates()
+    df_with_summary_short = df_with_summary_short.rename(columns={"intended_ratio":"Expected Ratio"})
+
+    print(df_with_summary_short)
+    print(occ_df.columns.values)
+
+    print(occ_df["  Crystal to be Mounted "])
+
+    occ_df['plate'] = occ_df["  Crystal to be Mounted "].apply(lambda s:s.split('-')[0])
+
+    occ_df = pd.merge(occ_df, df_with_summary_short, on=["plate","Expected Ratio"], how='outer')
+    occ_df['Ratio'] = occ_df["mean_weighted_area_ratio"].fillna(occ_df["Expected Ratio"])
+
+    occ_df.to_csv("mounted_residue_with_error.csv")
+
+    print(occ_df.shape)
+
+    colours = sns.husl_palette(7)
+    method_colours = {"phenix": colours[0],
+                      "phenix_superposed": colours[1],
+                      "buster":colours[2],
+                      "buster_superposed": colours[3],
+                      "refmac": colours[4],
+                      "refmac_superposed": colours[5],
+                      "exhaustive_search": colours[6],
+                      }
+
+    violin_plot_b_factor(occ_df, method_colours)
+    plot_all_regression_plots(occ_df, method_colours)
+
+    for method, method_df in occ_df.groupby('method'):
+
+        plot_ratio_occupancy(
+            occ_df=method_df,
+            f_name="test_occupancy_{}.png".format(method),
+            xlabel="Crystallographic Occupancy ({})".format(method),
+            occ_column_name="Occupancy",
+            b_col_name="Average B-factor (Residue)",
+            min_cond = 0,
+        )
+        #plot_occ_colour(occ_df=method_df, method=method)
+
+
+        # plot_occ_df(
+        #     occ_df=method_df,
+        #     occ_column_name ="Occupancy",
+        #     b_col_name="Average B-factor (Residue)",
+        #     xlabel="Crystallographic Occupancy ({})".format(method),
+        #     f_name="RSZO_Occ_scatter_{}.png".format(method),
+        #     metric="RSZO/OCC",
+        # )
+        #
+        # plot_occ_df(
+        #     occ_df=method_df,
+        #     occ_column_name ="Occupancy",
+        #     b_col_name="Average B-factor (Residue)",
+        #     xlabel="Crystallographic Occupancy ({})".format(method),
+        #     f_name="RSCC_{}.png".format(method),
+        #     metric="RSCC",
+        # )

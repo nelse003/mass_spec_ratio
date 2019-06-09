@@ -5,6 +5,7 @@ from scipy.signal import find_peaks
 import re
 from io import StringIO
 
+import matplotlib
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import argparse
@@ -264,7 +265,7 @@ def ratios_from_csv(csv, df_dict):
                     "f_name": f_name,
                     "intended_ratio": np.nan,
                     "experiment": "unknown",
-                    "low_signal": FALSE,
+                    "low_signal": False,
                 },
                 ignore_index=True,
             )
@@ -391,6 +392,8 @@ def marker_match(row, match, marker):
 
 def pre_crystal_plot(df):
 
+    matplotlib.rcParams.update({'font.size': 16})
+
     df["marker"] = "o"
 
     date_m = {
@@ -447,11 +450,10 @@ def pre_crystal_plot(df):
         label="y={}x+{}".format(fit_area.params[1], fit_area.params[0]),
     )
 
-    plt.legend()
     plt.ylabel("Measured Ratio of Labelled Species")
     plt.xlabel("Intended Ratio of Labelled Species")
     plt.title("Pre Crystallisation Calibration Curve")
-    plt.savefig("Output/pre_crystal_ratio.png")
+    plt.savefig("Output/pre_crystal_ratio.png",dpi=600)
 
 
 def post_crystal_plot(df):
