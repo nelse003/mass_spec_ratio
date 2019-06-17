@@ -96,7 +96,7 @@ if __name__ == "__main__":
         input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_exhaustive"
         params_fname = ""
 
-    elif args.program == "buster_b_none":
+    elif args.program == "exhaustive_b_fix":
         input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_buster"
         params_fname = "params.gelly"
 
@@ -117,8 +117,6 @@ if __name__ == "__main__":
 
     mtz_to_check = []
 
-    xtals = ["NUDT7A-x2272"]
-
     for xtal in xtals:
 
         mtz = os.path.join(in_dir, xtal, "dimple.mtz")
@@ -130,7 +128,24 @@ if __name__ == "__main__":
         if not os.path.isdir(os.path.dirname(pdb)):
             continue
 
-        if args.program == "buster_b_none":
+        # Does not work. Due to buster parameters.
+
+        # if args.program == "buster_b_none":
+        #
+        #     # Reference pdb from which to copy b factor profile of the ligand
+        #     ref_pdb = "/dls/science/groups/i04-1/elliot-dev/Work/" \
+        #               "NUDT7A_mass_spec_refinements/copy_atoms_190525_buster/" \
+        #               "NUDT7A-x2160/refine.split.bound-state.pdb"
+        #     # Place to write
+        #     out_pdb = os.path.join(out_dir, xtal, "b_none.pdb")
+        #
+        #     if not os.path.isfile(pdb):
+        #         refine_pdb = os.path.join(os.path.dirname(pdb), "refine.pdb")
+        #         os.system("cd {}; giant.split_conformations {} ".format(os.path.join(input_folder, xtal), refine_pdb))
+        #
+        #     os.system("ccp4-python /dls/science/groups/i04-1/elliot-dev/mass_spec_ratio/prepare_b_none_pdbs.py --ref_pdb {} --pdb {} --out_pdb {}".format(ref_pdb, pdb, out_pdb))
+
+        if args.program == "exhaustive_b_fix":
 
             # Reference pdb from which to copy b factor profile of the ligand
             ref_pdb = "/dls/science/groups/i04-1/elliot-dev/Work/" \
@@ -141,9 +156,10 @@ if __name__ == "__main__":
 
             if not os.path.isfile(pdb):
                 refine_pdb = os.path.join(os.path.dirname(pdb), "refine.pdb")
-                os.system("cd {}; giant.split_conformations {} ".format(os.path.join(input_folder, xtal), refine_pdb))
+                os.system("cd {}; giant.split_conformations {} ".format(
+                    os.path.join(input_folder, xtal), refine_pdb))
 
-            os.system("ccp4-python /dls/science/groups/i04-1/elliot-dev/mass_spec_ratio/prepare_b_none_pdbs.py --ref_pdb {} --pdb {} --out_pdb {}".format(ref_pdb, pdb, out_pdb))
+            os.system("ccp4-python /dls/science/groups/i04-1/elliot-dev/mass_spec_ratio/prepare_b_none_pdbs.py --ref_pdb {} --pdb {} --out_pdb {}".format(ref_pdb, refine_pdb, out_pdb))
 
         if not os.path.isfile(pdb):
             continue
@@ -211,22 +227,23 @@ if __name__ == "__main__":
                 refinement_script_dir, "{}_{}.csh".format(xtal, "buster")
             )
 
-        elif args.program == "buster_b_none":
-            print(out_dir)
-            write_buster_csh(
-                pdb=pdb_adj,
-                mtz=mtz,
-                cif=cif,
-                out_dir=os.path.join(out_dir,xtal),
-                script_dir="/dls/science/groups/i04-1/elliot-dev/parse_xchemdb",
-                refinement_script_dir=refinement_script_dir,
-                crystal=xtal,
-                template_name="buster_b_none_template.csh"
-            )
-            csh_file = os.path.join(
-                refinement_script_dir, "{}_{}.csh".format(xtal, "buster")
-            )
+        # Does not work. Due to buster parameters.
 
+        # elif args.program == "buster_b_none":
+        #     print(out_dir)
+        #     write_buster_csh(
+        #         pdb=pdb_adj,
+        #         mtz=mtz,
+        #         cif=cif,
+        #         out_dir=os.path.join(out_dir,xtal),
+        #         script_dir="/dls/science/groups/i04-1/elliot-dev/parse_xchemdb",
+        #         refinement_script_dir=refinement_script_dir,
+        #         crystal=xtal,
+        #         template_name="buster_b_none_template.csh"
+        #     )
+        #     csh_file = os.path.join(
+        #         refinement_script_dir, "{}_{}.csh".format(xtal, "buster")
+        #     )
 
         elif args.program == "exhaustive":
              write_exhaustive_csh(
@@ -243,6 +260,24 @@ if __name__ == "__main__":
                  refinement_script_dir, "{}_{}.csh".format(xtal, "exhaustive")
              )
 
+        elif args.program == "exhaustive_b_fix":
+            write_exhaustive_csh(
+                pdb=out_pdb,
+                mtz=mtz,
+                script_dir="/dls/science/groups/i04-1/elliot-dev/parse_xchemdb",
+                refinement_script_dir=refinement_script_dir,
+                out_dir=os.path.join(out_dir, xtal),
+                crystal=xtal,
+                template_name="exhaustive_b_fix_template.csh",
+                exhaustive_multiple_sampling="/dls/science/groups/i04-1/elliot-dev/Work/exhaustive_search/exhaustive/exhaustive_multiple_sampling.py",
+                ccp4_path="/dls/science/groups/i04-1/elliot-dev/ccp4/ccp4-7.0/bin/ccp4.setup-sh",
+                lower_u_iso=0.3,
+                upper_u_iso=0.3,
+                vary_b=False,
+            )
+            csh_file = os.path.join(
+                refinement_script_dir, "{}_{}.csh".format(xtal, "exhaustive")
+            )
+
+
         os.system("qsub {}".format(csh_file))
-        print(csh_file)
-        exit()

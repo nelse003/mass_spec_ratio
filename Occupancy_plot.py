@@ -284,11 +284,14 @@ def plot_all_regression_plots(occ_df, method_colours):
         x = method_df["Occupancy"]
         y = method_df["Ratio"]
 
-        if method== "exhaustive_search":
-            print(x)
-            print(y)
+        # if method== "exhaustive_search":
+        #     print(x)
+        #     print(y)
 
-        if method != "refmac_superposed":
+        # if method != "refmac_superposed":
+        #     continue
+
+        if "exhaustive" not in method:
             continue
 
         # Remove label to plot simpler legend
@@ -301,9 +304,10 @@ def plot_all_regression_plots(occ_df, method_colours):
                          color=method_colours[method])
 
     plt.ylabel("Ratio of covalently labelled protein")
-    plt.legend((xy_line,),("Crystal occupancy =\nRatio of labelling",), loc='upper left', frameon=False)
+    #plt.legend((xy_line,),("Crystal occupancy =\nRatio of labelling",), loc='upper left', frameon=False)
+    plt.legend(loc='upper left', frameon=False)
     plt.tight_layout()
-    plt.savefig("regression_plot_buster",dpi=600)
+    plt.savefig("regression_plot_exh_b_fix",dpi=600)
 
 def violin_plot_b_factor(occ_df, method_colours):
 
@@ -328,7 +332,7 @@ def violin_plot_b_factor(occ_df, method_colours):
     plt.setp(ax.collections, alpha=.8)
     plt.xlabel("")
     plt.ylabel("Mean B factor of covalent ligand")
-    plt.savefig("b_factor_violin", dpi=600)
+    plt.savefig("b_factor_violin_a", dpi=600)
 
 def get_plate(key_string):
 
@@ -369,11 +373,34 @@ if __name__ == "__main__":
                    "occupancy":"Occupancy"})
     exh_df['method']="exhaustive_search"
 
+    del exh_df['fo_fc']
+
     residue_df = pd.merge(residue_df,
                       exh_df,
                       on=["crystal",
                           "method",
                           "Average B-factor (Residue)",
+                          "Occupancy"],
+                      how='outer')
+
+    # For exhaustive B fix
+    exhaustive_b_fix_csv = "/dls/science/groups/i04-1/elliot-dev/Work/" \
+                           "NUDT7A_mass_spec_refinements/copy_atoms/" \
+                           "exhaustive_b_fix/2019-06-17/exhaustive_minima.csv"
+
+    exh_b_fix_df = pd.read_csv(exhaustive_b_fix_csv)
+
+    exh_b_fix_df = exh_b_fix_df.rename(index=str, columns={"occupancy": "Occupancy"})
+
+    del exh_b_fix_df["b_factor"]
+    del exh_b_fix_df['fo_fc']
+
+    exh_b_fix_df['method'] = "exhaustive_search_b_fix"
+
+    residue_df = pd.merge(residue_df,
+                      exh_b_fix_df,
+                      on=["crystal",
+                          "method",
                           "Occupancy"],
                       how='outer')
 
@@ -421,7 +448,7 @@ if __name__ == "__main__":
 
     print(occ_df.shape)
 
-    colours = sns.husl_palette(7)
+    colours = sns.husl_palette(8)
     method_colours = {"phenix": colours[0],
                       "phenix_superposed": colours[1],
                       "buster":colours[2],
@@ -429,6 +456,7 @@ if __name__ == "__main__":
                       "refmac": colours[4],
                       "refmac_superposed": colours[5],
                       "exhaustive_search": colours[6],
+                      "exhaustive_search_b_fix" : colours[7],
                       }
 
     violin_plot_b_factor(occ_df, method_colours)
