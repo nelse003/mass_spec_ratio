@@ -392,7 +392,7 @@ def marker_match(row, match, marker):
 
 def pre_crystal_plot(df):
 
-    matplotlib.rcParams.update({'font.size': 16})
+    matplotlib.rcParams.update({"font.size": 16})
 
     df["marker"] = "o"
 
@@ -453,7 +453,7 @@ def pre_crystal_plot(df):
     plt.ylabel("Measured Ratio of Labelled Species")
     plt.xlabel("Intended Ratio of Labelled Species")
     plt.title("Pre Crystallisation Calibration Curve")
-    plt.savefig("Output/pre_crystal_ratio.png",dpi=600)
+    plt.savefig("Output/pre_crystal_ratio.png", dpi=600)
 
 
 def post_crystal_plot(df):
