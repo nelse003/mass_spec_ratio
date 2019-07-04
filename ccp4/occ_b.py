@@ -3,7 +3,8 @@ import numpy as np
 from iotbx.pdb import hierarchy
 import argparse
 
-def get_occ_b(pdb, chain, resid, altloc=''):
+
+def get_occ_b(pdb, chain, resid, altloc=""):
     """
     Get occupancy and b factor of a single residue
 
@@ -40,10 +41,8 @@ def get_occ_b(pdb, chain, resid, altloc=''):
     sel_cache = pdb_in.hierarchy.atom_selection_cache()
 
     # Get selection object which corresponds to supplied chain residue id and altloc
-    if altloc == '':
-        sel = sel_cache.selection(
-            "chain {} resid {}".format(chain, resid)
-        )
+    if altloc == "":
+        sel = sel_cache.selection("chain {} resid {}".format(chain, resid))
 
     else:
         sel = sel_cache.selection(
@@ -71,19 +70,28 @@ def get_occ_b(pdb, chain, resid, altloc=''):
 
                 return mean_occ, mean_b, std_b
 
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("pdb", help="path to pdb file", type=str)
     parser.add_argument("out", help="output file name", type=str)
-    parser.add_argument("chain", help="chain of pdb file to get occ and b from", type=str)
-    parser.add_argument("resid", help="resid of pdb file to get occ and b from", type=str)
-    parser.add_argument("--altloc", help="resid of pdb file to get occ and b from", type=str, default='')
+    parser.add_argument(
+        "chain", help="chain of pdb file to get occ and b from", type=str
+    )
+    parser.add_argument(
+        "resid", help="resid of pdb file to get occ and b from", type=str
+    )
+    parser.add_argument(
+        "--altloc", help="resid of pdb file to get occ and b from", type=str, default=""
+    )
 
     args = parser.parse_args()
 
-    with open(args.out,"w") as f:
+    with open(args.out, "w") as f:
 
-        mean_occ, mean_b, std_b = get_occ_b(pdb=args.pdb, chain=args.chain, resid=args.resid, altloc=args.altloc)
+        mean_occ, mean_b, std_b = get_occ_b(
+            pdb=args.pdb, chain=args.chain, resid=args.resid, altloc=args.altloc
+        )
 
         f.write("{},{},{}".format(mean_occ, mean_b, std_b))
