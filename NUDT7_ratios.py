@@ -392,16 +392,18 @@ def marker_match(row, match, marker):
 
 def pre_crystal_plot(df):
 
-    matplotlib.rcParams.update({"font.size": 16})
+    matplotlib.rcParams.update({"font.size": 20})
+    plt.rcParams["xtick.labelsize"] = 20
+    plt.rcParams["ytick.labelsize"] = 20
 
     df["marker"] = "o"
 
     date_m = {
-        "190402": "x",
+        "190402": "s",
         "190220": "*",
         "180425": "+",
         "190225": "v",
-        "190506": "s",
+        "190506": "x",
         "imp": "1",
     }
 
@@ -415,8 +417,10 @@ def pre_crystal_plot(df):
 
         # To plot just recent stuff
         if date == "190506":
+            label_text="3.5 minute MS method"
             pass
         elif date == "imp":
+            label_text = "12 minute MS method"
             pass
         else:
             continue
@@ -425,12 +429,19 @@ def pre_crystal_plot(df):
         x = df_plot["intended_ratio"]
         y_h = df_plot["weighted_height_ratio"]
         y_a = df_plot["weighted_area_ratio"]
+
+        df_plot.to_csv("{}.csv".format(marker))
+
         ax.scatter(
-            x, y_h, color="red", label="Height Ratio: {}".format(date), marker=marker
+            x, y_h, color="red", label="Height ratio: {}".format(label_text), marker=marker
         )
         ax.scatter(
-            x, y_a, color="blue", label="Area Ratio: {}".format(date), marker=marker
+            x, y_a, color="blue", label="Area ratio: {}".format(label_text), marker=marker
         )
+
+        ax.spines["right"].set_visible(False)
+        ax.spines["top"].set_visible(False)
+
         if summary_df.empty:
             summary_df = df_plot
         else:
@@ -447,12 +458,12 @@ def pre_crystal_plot(df):
     plt.plot(
         np.linspace(0, 1, 100),
         np.linspace(0, 1, 100) * fit_area.params[1] + fit_area.params[0],
-        label="y={}x+{}".format(fit_area.params[1], fit_area.params[0]),
+        label="Fit to area ratio",
     )
 
     plt.ylabel("Measured Ratio of Labelled Species")
     plt.xlabel("Intended Ratio of Labelled Species")
-    plt.title("Pre Crystallisation Calibration Curve")
+    plt.legend(loc='upper left', fontsize=14)
     plt.savefig("Output/pre_crystal_ratio.png", dpi=600)
 
 
@@ -591,6 +602,10 @@ if __name__ == "__main__":
         tight_plot = os.path.join(output_dir, "tight_{}.png".format(key))
 
         if not os.path.exists(tight_plot):
+
+            plt.rcParams["xtick.labelsize"] = 14
+            plt.rcParams["ytick.labelsize"] = 14
+
             df.plot(
                 x="X(Daltons)",
                 y="Y(Counts)",
@@ -598,11 +613,22 @@ if __name__ == "__main__":
                 xlim=(24500, 26000),
                 legend=False,
             )
-            plt.ylabel("Y(Counts)")
-            plt.savefig(tight_plot)
+
+            ax = plt.subplot(111)
+
+            ax.spines["right"].set_visible(False)
+            ax.spines["top"].set_visible(False)
+
+            plt.xlabel("Deconvoluted mass (Da)", fontsize=18)
+            plt.ylabel("Counts", fontsize=18)
+            plt.savefig(tight_plot, dpi=600)
             plt.close()
 
         if not os.path.exists(interest_plot):
+
+            plt.rcParams["xtick.labelsize"] = 14
+            plt.rcParams["ytick.labelsize"] = 14
+
             df.plot(
                 x="X(Daltons)",
                 y="Y(Counts)",
@@ -610,8 +636,16 @@ if __name__ == "__main__":
                 xlim=(22000, 26000),
                 legend=False,
             )
-            plt.ylabel("Y(Counts)")
-            plt.savefig(interest_plot)
+
+            ax = plt.subplot(111)
+
+            ax.spines["right"].set_visible(False)
+            ax.spines["top"].set_visible(False)
+
+            plt.xlabel("Deconvoluted mass (Da)", fontsize=18)
+            plt.ylabel("Counts", fontsize=18)
+
+            plt.savefig(interest_plot, dpi=600)
             plt.close()
 
         if not os.path.exists(plot):
@@ -698,7 +732,12 @@ if __name__ == "__main__":
         zip(pre_crystal_df["intended_ratio"], pre_crystal_df["weighted_height_ratio"])
     )
 
+    print(pre_crystal_df)
+
     pre_crystal_plot(pre_crystal_df)
+
+    exit()
+
     post_crystal_plot(post_crystal_df)
 
     # Add calibration from pre crystal to post crystal

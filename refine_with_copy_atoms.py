@@ -56,27 +56,27 @@ copy_params.settings.ccp4_path = (
     "/dls/science/groups/i04-1/elliot-dev/ccp4/ccp4-7.0/bin/ccp4.setup-sh"
 )
 
-copy_params.output.out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_refmac"
+copy_params.output.out_dir = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms/refmac_superposed/190706/"
 copy_params.input.extra_params = "NCYC 50"
 copy_params.settings.program = "refmac"
 copy_params.settings.qsub = True
 
 # Run multiple times for different ranges of crystals
 
-# copy_params.input.start_xtal_number = 2074
-# copy_params.input.end_xtal_number = 2121
-#
-# copy_atoms(copy_params)
-#
-# copy_params.input.start_xtal_number = 2130
-# copy_params.input.end_xtal_number = 2154
-#
-# copy_atoms(copy_params)
-#
-# copy_params.input.start_xtal_number = 2157
-# copy_params.input.end_xtal_number = 2367
-#
-# copy_atoms(copy_params)
+copy_params.input.start_xtal_number = 2074
+copy_params.input.end_xtal_number = 2121
+
+copy_atoms(copy_params)
+
+copy_params.input.start_xtal_number = 2130
+copy_params.input.end_xtal_number = 2154
+
+copy_atoms(copy_params)
+
+copy_params.input.start_xtal_number = 2157
+copy_params.input.end_xtal_number = 2367
+
+copy_atoms(copy_params)
 #
 
 # Phenix
@@ -106,17 +106,17 @@ copy_params.settings.program = "buster"
 copy_params.settings.param_file = "params.gelly"
 copy_params.input.extra_params = ""
 
-copy_params.input.start_xtal_number = 2074
-copy_params.input.end_xtal_number = 2121
-
-copy_atoms(copy_params)
-
-copy_params.input.start_xtal_number = 2130
-copy_params.input.end_xtal_number = 2154
-
-copy_atoms(copy_params)
-
-copy_params.input.start_xtal_number = 2157
-copy_params.input.end_xtal_number = 2367
-
-copy_atoms(copy_params)
+# copy_params.input.start_xtal_number = 2074
+# copy_params.input.end_xtal_number = 2121
+#
+# copy_atoms(copy_params)
+#
+# copy_params.input.start_xtal_number = 2130
+# copy_params.input.end_xtal_number = 2154
+#
+# copy_atoms(copy_params)
+#
+# copy_params.input.start_xtal_number = 2157
+# copy_params.input.end_xtal_number = 2367
+#
+# copy_atoms(copy_params)

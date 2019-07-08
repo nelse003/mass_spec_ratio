@@ -73,7 +73,7 @@ def plot_ratio_occupancy(
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.xaxis.set_label_coords(0.5, -0.05)
-    plt.xlim(0, 1.0)
+    plt.xlim(0, 1.2)
     plt.ylim(-0.1, 1.1)
 
     plt.xlabel(xlabel)
@@ -129,20 +129,20 @@ def plot_ratio_occupancy(
     box = ax.get_position()
 
     # legend usind defined artist objects and x=y line and fit_line
-    legend = plt.legend(
-        (xy_line, blue_circ, blue_circ_2),
-        (
-            "Refined Occupancy\n= Ratio of Labelled Species",
-            "B factor = 50",
-            "B factor = 100",
-        ),
-        prop={"size": 12},
-        loc="upper left",
-        frameon=False,
-    )
+    # legend = plt.legend(
+    #     (xy_line, blue_circ, blue_circ_2),
+    #     (
+    #         "Refined Occupancy\n= Ratio of Labelled Species",
+    #         "B factor = 50",
+    #         "B factor = 100",
+    #     ),
+    #     prop={"size": 12},
+    #     loc="upper left",
+    #     frameon=False,
+    # )
 
     plt.savefig(f_name, dpi=600)
-
+    plt.close()
 
 def plot_occ_df(occ_df, occ_column_name, b_col_name, f_name, xlabel, metric="RSZO/OCC"):
 
@@ -214,7 +214,7 @@ def plot_occ_df(occ_df, occ_column_name, b_col_name, f_name, xlabel, metric="RSZ
     plt.ylabel("Ratio of labelled species")
 
     plt.savefig(f_name, dpi=600)
-
+    plt.close()
 
 def plot_occ_colour(occ_df, method, colour="r"):
 
@@ -259,7 +259,7 @@ def plot_occ_colour(occ_df, method, colour="r"):
     plt.scatter(x=occ, y=ratio, marker="d")
 
     plt.savefig("test_{}".format(method), dpi=600)
-
+    plt.close()
 
 def plot_all_regression_plots(occ_df, method_colours):
 
@@ -312,7 +312,7 @@ def plot_all_regression_plots(occ_df, method_colours):
     )
     plt.tight_layout()
     plt.savefig("regression_plot_buster", dpi=600)
-
+    plt.close()
 
 def violin_plot_b_factor(occ_df, method_colours):
 
@@ -336,7 +336,7 @@ def violin_plot_b_factor(occ_df, method_colours):
     plt.xlabel("")
     plt.ylabel("Mean B factor of covalent ligand")
     plt.savefig("b_factor_violin", dpi=600)
-
+    plt.close()
 
 def get_plate(key_string):
 
@@ -364,6 +364,42 @@ def get_well(key_string):
         well = well[0] + "0" + well[1:]
     return well
 
+def plot_delta_occ(df, df1, df2, df3, df4, df5):
+
+    joint_df = df.merge(df1, on='crystal')
+
+    joint_df1 = df2.merge(df3,on='crystal')
+
+    joint_df2 = df4.merge(df5, on='crystal')
+
+    print(joint_df.columns.values)
+    ax = plt.subplot(111)
+    occ_diff = joint_df['Occupancy_x'] - joint_df['Occupancy_y']
+    occ_diff_1 = joint_df1['Occupancy_x'] - joint_df1['Occupancy_y']
+    occ_diff_2 = joint_df2['Occupancy_x'] - joint_df2['Occupancy_y']
+
+    sns.distplot(occ_diff, rug=False, hist=False, label="phenix")
+    sns.distplot(occ_diff_1, rug=False, hist=False, label="buster")
+    sns.distplot(occ_diff_2, rug=False, hist=False, label="refmac")
+    plt.legend()
+    ax.set_xlim([0,0.6])
+
+    print("Phenix Mean: {} std_dev: {}".format(np.mean(occ_diff), np.std(occ_diff)))
+    print("buster Mean: {} std_dev: {}".format(np.mean(occ_diff_1), np.std(occ_diff_1)))
+    print("refmac mean: {} std_dev: {}".format(np.mean(occ_diff_2), np.std(occ_diff_2)))
+
+    ocd = occ_diff.append(occ_diff_1, ignore_index=True)
+    ocd = ocd.append(occ_diff_2, ignore_index=True)
+
+    print("mean {} std {}".format(np.mean(ocd),
+                                  np.std(ocd)))
+
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+
+    plt.xlabel("Non superposed occupancy - superposed occupancy")
+    plt.ylabel("Frequency")
+    plt.savefig("delta_occupancy", dpi=600)
 
 if __name__ == "__main__":
 
@@ -466,7 +502,7 @@ if __name__ == "__main__":
 
         plot_ratio_occupancy(
             occ_df=method_df,
-            f_name="test_occupancy_{}.png".format(method),
+            f_name="no_legend_occupancy_{}.png".format(method),
             xlabel="Crystallographic Occupancy ({})".format(method),
             occ_column_name="Occupancy",
             b_col_name="Average B-factor (Residue)",
@@ -491,3 +527,17 @@ if __name__ == "__main__":
         #     f_name="RSCC_{}.png".format(method),
         #     metric="RSCC",
         # )
+
+    # Difference between superposed and non superposed
+    phenix_df = occ_df[occ_df['method']=="phenix"]
+    phenix_superposed_df = occ_df[occ_df['method']=="phenix_superposed"]
+
+    buster_df = occ_df[occ_df['method']=="buster"]
+    buster_superposed_df = occ_df[occ_df['method']=="buster_superposed"]
+
+    refmac_df = occ_df[occ_df['method']=="refmac"]
+    refmac_superposed_df = occ_df[occ_df['method']=="refmac_superposed"]
+
+    plot_delta_occ(phenix_df, phenix_superposed_df,
+                   buster_df, buster_superposed_df,
+                    refmac_df, refmac_superposed_df)

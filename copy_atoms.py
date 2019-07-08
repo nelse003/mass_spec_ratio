@@ -65,6 +65,7 @@ def copy_atoms(copy_params):
             )
             and not copy_params.settings.overwrite
         ):
+            print("Skipping {}, as attempted".format(xtal_name))
             continue
 
         # Run only if sufficent input data
@@ -79,6 +80,8 @@ def copy_atoms(copy_params):
                 )
             )
             continue
+
+        print("Trying to run {}".format(xtal_name))
 
         pdb_in_refine = hierarchy.input(
             file_name=os.path.join(
@@ -208,6 +211,8 @@ def copy_atoms(copy_params):
             cmds = "module load phenix\n"
         elif copy_params.settings.program == "buster":
             cmds = "module load buster\n"
+        else:
+            cmds = "\n"
 
         cmds += "source {}\n".format(copy_params.settings.ccp4_path)
 

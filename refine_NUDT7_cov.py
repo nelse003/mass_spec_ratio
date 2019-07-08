@@ -117,8 +117,6 @@ if __name__ == "__main__":
 
     mtz_to_check = []
 
-    xtals = ["NUDT7A-x2272"]
-
     for xtal in xtals:
 
         mtz = os.path.join(in_dir, xtal, "dimple.mtz")
