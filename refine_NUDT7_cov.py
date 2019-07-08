@@ -81,7 +81,7 @@ if __name__ == "__main__":
     os.chdir(out_dir)
 
     if args.program == "refmac":
-        input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_refmac"
+        input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms/refmac_superposed/190706"
         params_fname = "multi-state-restraints.refmac.params"
 
     elif args.program == "buster":
@@ -257,4 +257,4 @@ if __name__ == "__main__":
 
         os.system("qsub {}".format(csh_file))
         print(csh_file)
-        exit()
+

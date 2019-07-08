@@ -502,7 +502,7 @@ if __name__ == "__main__":
 
         plot_ratio_occupancy(
             occ_df=method_df,
-            f_name="no_legend_occupancy_{}.png".format(method),
+            f_name="refmac_new_method_occupancy_{}.png".format(method),
             xlabel="Crystallographic Occupancy ({})".format(method),
             occ_column_name="Occupancy",
             b_col_name="Average B-factor (Residue)",

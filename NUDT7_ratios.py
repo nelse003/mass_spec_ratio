@@ -463,7 +463,7 @@ def pre_crystal_plot(df):
 
     plt.ylabel("Measured Ratio of Labelled Species")
     plt.xlabel("Intended Ratio of Labelled Species")
-    plt.legend(loc='upper left', fontsize=14)
+    plt.legend(loc='upper left', fontsize=14, frameon=False)
     plt.savefig("Output/pre_crystal_ratio.png", dpi=600)
 
 

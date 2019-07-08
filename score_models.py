@@ -9,7 +9,7 @@ folders = {
     "copy_atoms/refmac/2019-05-29": ("refine.pdb", "refine.mtz", "refmac"),
     "copy_atoms/buster/2019-05-29": ("refine.pdb", "refine.mtz", "buster"),
     "copy_atoms_190525_buster": ("refine.pdb", "refine.mtz", "buster_superposed"),
-    "copy_atoms_190525_refmac": ("refine.pdb", "refine.mtz", "refmac_superposed"),
+    "copy_atoms/refmac_superposed/190706": ("refine.pdb", "refine.mtz", "refmac_superposed"),
     "copy_atoms_190525_phenix": ("refine.pdb", "refine.mtz", "phenix_superposed"),
 }
 
@@ -23,6 +23,7 @@ for folder in folders:
             )
 
             if not os.path.isfile(residue_csv):
+
                 os.chdir(os.path.join(root, folder, crystal_folder))
                 os.system(
                     "giant.score_model {} {}".format(
