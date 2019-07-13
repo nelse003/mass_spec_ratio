@@ -30,7 +30,7 @@ cif = (
 copy_params = copy_phil.extract()
 
 copy_params.input.path = (
-    "/dls/labxchem/data/2017/lb18145-49/processing/analysis/initial_model"
+    "/dls/labxchem/data/2017/lb18145-3/processing/analysis/initial_model"
 )
 copy_params.input.prefix = "NUDT7A-x"
 copy_params.input.base_pdb = pdb

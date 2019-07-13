@@ -6,12 +6,13 @@ root = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/"
 # Define the file name and the folders to loop over
 folders = {
     "copy_atoms/phenix/2019-06-01": ("refine_001.pdb", "refine_001.mtz", "phenix"),
-    "copy_atoms/refmac/2019-05-29": ("refine.pdb", "refine.mtz", "refmac"),
+    "copy_atoms/refmac/2019-07-08": ("refine.pdb", "refine.mtz", "refmac"),
     "copy_atoms/buster/2019-05-29": ("refine.pdb", "refine.mtz", "buster"),
     "copy_atoms_190525_buster": ("refine.pdb", "refine.mtz", "buster_superposed"),
     "copy_atoms/refmac_superposed/190706": ("refine.pdb", "refine.mtz", "refmac_superposed"),
     "copy_atoms_190525_phenix": ("refine.pdb", "refine.mtz", "phenix_superposed"),
 }
+
 
 scores_df_list = []
 for folder in folders:
