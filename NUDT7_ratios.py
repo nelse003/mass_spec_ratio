@@ -417,7 +417,7 @@ def pre_crystal_plot(df):
 
         # To plot just recent stuff
         if date == "190506":
-            label_text="3.5 minute MS method"
+            label_text = "3.5 minute MS method"
             pass
         elif date == "imp":
             label_text = "12 minute MS method"
@@ -433,10 +433,18 @@ def pre_crystal_plot(df):
         df_plot.to_csv("{}.csv".format(marker))
 
         ax.scatter(
-            x, y_h, color="red", label="Height ratio: {}".format(label_text), marker=marker
+            x,
+            y_h,
+            color="red",
+            label="Height ratio: {}".format(label_text),
+            marker=marker,
         )
         ax.scatter(
-            x, y_a, color="blue", label="Area ratio: {}".format(label_text), marker=marker
+            x,
+            y_a,
+            color="blue",
+            label="Area ratio: {}".format(label_text),
+            marker=marker,
         )
 
         ax.spines["right"].set_visible(False)
@@ -463,7 +471,7 @@ def pre_crystal_plot(df):
 
     plt.ylabel("Measured Ratio of Labelled Species")
     plt.xlabel("Intended Ratio of Labelled Species")
-    plt.legend(loc='upper left', fontsize=14, frameon=False)
+    plt.legend(loc="upper left", fontsize=14, frameon=False)
     plt.savefig("Output/pre_crystal_ratio.png", dpi=600)
 
 

@@ -144,6 +144,7 @@ def plot_ratio_occupancy(
     plt.savefig(f_name, dpi=600)
     plt.close()
 
+
 def plot_occ_df(occ_df, occ_column_name, b_col_name, f_name, xlabel, metric="RSZO/OCC"):
 
     x = occ_df[occ_column_name]
@@ -216,6 +217,7 @@ def plot_occ_df(occ_df, occ_column_name, b_col_name, f_name, xlabel, metric="RSZ
     plt.savefig(f_name, dpi=600)
     plt.close()
 
+
 def plot_occ_colour(occ_df, method, colour="r"):
 
     occ_with_std = occ_df[occ_df.mean_weighted_area_ratio.notnull()]["Occupancy"]
@@ -260,6 +262,7 @@ def plot_occ_colour(occ_df, method, colour="r"):
 
     plt.savefig("test_{}".format(method), dpi=600)
     plt.close()
+
 
 def plot_all_regression_plots(occ_df, method_colours):
 
@@ -314,6 +317,7 @@ def plot_all_regression_plots(occ_df, method_colours):
     plt.savefig("regression_plot_buster", dpi=600)
     plt.close()
 
+
 def violin_plot_b_factor(occ_df, method_colours):
 
     fig = plt.figure(figsize=(8, 4.5))
@@ -337,6 +341,7 @@ def violin_plot_b_factor(occ_df, method_colours):
     plt.ylabel("Mean B factor of covalent ligand")
     plt.savefig("b_factor_violin", dpi=600)
     plt.close()
+
 
 def get_plate(key_string):
 
@@ -364,25 +369,26 @@ def get_well(key_string):
         well = well[0] + "0" + well[1:]
     return well
 
+
 def plot_delta_occ(df, df1, df2, df3, df4, df5):
 
-    joint_df = df.merge(df1, on='crystal')
+    joint_df = df.merge(df1, on="crystal")
 
-    joint_df1 = df2.merge(df3,on='crystal')
+    joint_df1 = df2.merge(df3, on="crystal")
 
-    joint_df2 = df4.merge(df5, on='crystal')
+    joint_df2 = df4.merge(df5, on="crystal")
 
     print(joint_df.columns.values)
     ax = plt.subplot(111)
-    occ_diff = joint_df['Occupancy_x'] - joint_df['Occupancy_y']
-    occ_diff_1 = joint_df1['Occupancy_x'] - joint_df1['Occupancy_y']
-    occ_diff_2 = joint_df2['Occupancy_x'] - joint_df2['Occupancy_y']
+    occ_diff = joint_df["Occupancy_x"] - joint_df["Occupancy_y"]
+    occ_diff_1 = joint_df1["Occupancy_x"] - joint_df1["Occupancy_y"]
+    occ_diff_2 = joint_df2["Occupancy_x"] - joint_df2["Occupancy_y"]
 
     sns.distplot(occ_diff, rug=False, hist=False, label="phenix")
     sns.distplot(occ_diff_1, rug=False, hist=False, label="buster")
     sns.distplot(occ_diff_2, rug=False, hist=False, label="refmac")
     plt.legend()
-    ax.set_xlim([0,0.6])
+    ax.set_xlim([0, 0.6])
 
     print("Phenix Mean: {} std_dev: {}".format(np.mean(occ_diff), np.std(occ_diff)))
     print("buster Mean: {} std_dev: {}".format(np.mean(occ_diff_1), np.std(occ_diff_1)))
@@ -391,8 +397,7 @@ def plot_delta_occ(df, df1, df2, df3, df4, df5):
     ocd = occ_diff.append(occ_diff_1, ignore_index=True)
     ocd = ocd.append(occ_diff_2, ignore_index=True)
 
-    print("mean {} std {}".format(np.mean(ocd),
-                                  np.std(ocd)))
+    print("mean {} std {}".format(np.mean(ocd), np.std(ocd)))
 
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
@@ -400,6 +405,7 @@ def plot_delta_occ(df, df1, df2, df3, df4, df5):
     plt.xlabel("Non superposed occupancy - superposed occupancy")
     plt.ylabel("Frequency")
     plt.savefig("delta_occupancy", dpi=600)
+
 
 if __name__ == "__main__":
 
@@ -529,15 +535,20 @@ if __name__ == "__main__":
         # )
 
     # Difference between superposed and non superposed
-    phenix_df = occ_df[occ_df['method']=="phenix"]
-    phenix_superposed_df = occ_df[occ_df['method']=="phenix_superposed"]
+    phenix_df = occ_df[occ_df["method"] == "phenix"]
+    phenix_superposed_df = occ_df[occ_df["method"] == "phenix_superposed"]
 
-    buster_df = occ_df[occ_df['method']=="buster"]
-    buster_superposed_df = occ_df[occ_df['method']=="buster_superposed"]
+    buster_df = occ_df[occ_df["method"] == "buster"]
+    buster_superposed_df = occ_df[occ_df["method"] == "buster_superposed"]
 
-    refmac_df = occ_df[occ_df['method']=="refmac"]
-    refmac_superposed_df = occ_df[occ_df['method']=="refmac_superposed"]
+    refmac_df = occ_df[occ_df["method"] == "refmac"]
+    refmac_superposed_df = occ_df[occ_df["method"] == "refmac_superposed"]
 
-    plot_delta_occ(phenix_df, phenix_superposed_df,
-                   buster_df, buster_superposed_df,
-                    refmac_df, refmac_superposed_df)
+    plot_delta_occ(
+        phenix_df,
+        phenix_superposed_df,
+        buster_df,
+        buster_superposed_df,
+        refmac_df,
+        refmac_superposed_df,
+    )

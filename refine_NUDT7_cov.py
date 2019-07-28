@@ -117,9 +117,17 @@ if __name__ == "__main__":
 
     mtz_to_check = []
 
-    xtals = ['NUDT7A-x2109','NUDT7A-x2216','NUDT7A-x2219',
-             'NUDT7A-x2258', 'NUDT7A-x2274','NUDT7A-x2288',
-             'NUDT7A-x2323','NUDT7A-x2324','NUDT7A-x2335']
+    xtals = [
+        "NUDT7A-x2109",
+        "NUDT7A-x2216",
+        "NUDT7A-x2219",
+        "NUDT7A-x2258",
+        "NUDT7A-x2274",
+        "NUDT7A-x2288",
+        "NUDT7A-x2323",
+        "NUDT7A-x2324",
+        "NUDT7A-x2335",
+    ]
 
     for xtal in xtals:
 
@@ -261,4 +269,3 @@ if __name__ == "__main__":
 
         os.system("qsub {}".format(csh_file))
         print(csh_file)
-

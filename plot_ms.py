@@ -21,9 +21,10 @@ def plot_chromatogram(csv_path, file_name):
     plt.xlabel("Aquistion time (Minutes)", fontsize=22)
     plt.ylabel("Counts", fontsize=22)
     plt.savefig(dpi=600, fname=file_name)
+    plt.close()
 
 
-def plot_m_z(csv_path, file_name, min_x=None, max_x=None):
+def plot_m_z(csv_path, file_name, min_x=None, max_x=None, min_y=None, max_y=None):
 
     df = pd.read_csv(csv_path, skiprows=[0])
 
@@ -37,13 +38,16 @@ def plot_m_z(csv_path, file_name, min_x=None, max_x=None):
     ax = plt.subplot(111)
 
     ax.set_xlim(left=min_x, right=max_x)
+    ax.set_ylim(bottom=min_y, top=max_y)
 
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
 
     plt.xlabel("Mass to charge (Da/e)", fontsize=22)
     plt.ylabel("Counts", fontsize=22)
+    plt.tight_layout()
     plt.savefig(dpi=600, fname=file_name)
+    plt.close()
 
 
 def plot_deconvolution(csv_path, file_name, min_x=None, max_x=None):
@@ -65,6 +69,7 @@ def plot_deconvolution(csv_path, file_name, min_x=None, max_x=None):
     plt.xlabel("Deconvoluted mass (Da)", fontsize=22)
     plt.ylabel("Counts", fontsize=22)
     plt.savefig(dpi=600, fname=file_name)
+    plt.close()
 
 
 if __name__ == "__main__":
@@ -78,6 +83,7 @@ if __name__ == "__main__":
     for folder in chromatograms:
         for f in os.listdir(folder):
             if ".CSV" in f:
+
                 plot_chromatogram(
                     csv_path=os.path.join(folder, f),
                     file_name=os.path.join(
@@ -94,12 +100,21 @@ if __name__ == "__main__":
     for folder in m_z:
         for f in os.listdir(folder):
             if ".CSV" in f:
+
+                if folder == "/home/nelse003/peg_test/M_Z" and "0_05" in f:
+                    max_y = 0.08
+                    min_y = 0.00
+                else:
+                    max_y = None
+                    min_y = None
+
                 plot_m_z(
                     csv_path=os.path.join(folder, f),
                     file_name=os.path.join(
                         folder, "m_z_{}".format(f.replace(".CSV", ".png"))
                     ),
                     min_x=600,
+                    max_y=max_y,
                 )
 
     peg_test_deconv = "/home/nelse003/peg_test/deconvolutions"
