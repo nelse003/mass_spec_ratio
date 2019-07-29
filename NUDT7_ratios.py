@@ -404,7 +404,7 @@ def pre_crystal_plot(df):
         "180425": "+",
         "190225": "v",
         "190506": "x",
-        "imp": "1",
+        "imp": "^",
     }
 
     for date, marker in date_m.items():
@@ -593,66 +593,66 @@ if __name__ == "__main__":
             df_dict.update(read_grouped_csv(csv))
 
     # Plot the deconvolution
-    for key, df in df_dict.items():
-
-        interest_plot = os.path.join(output_dir, "interest_{}.png".format(key))
-
-        plot = os.path.join(output_dir, "{}.png".format(key))
-
-        tight_plot = os.path.join(output_dir, "tight_{}.png".format(key))
-
-        if not os.path.exists(tight_plot):
-
-            plt.rcParams["xtick.labelsize"] = 14
-            plt.rcParams["ytick.labelsize"] = 14
-
-            df.plot(
-                x="X(Daltons)",
-                y="Y(Counts)",
-                kind="line",
-                xlim=(24500, 26000),
-                legend=False,
-            )
-
-            ax = plt.subplot(111)
-
-            ax.spines["right"].set_visible(False)
-            ax.spines["top"].set_visible(False)
-
-            plt.xlabel("Deconvoluted mass (Da)", fontsize=18)
-            plt.ylabel("Counts", fontsize=18)
-            plt.savefig(tight_plot, dpi=600)
-            plt.close()
-
-        if not os.path.exists(interest_plot):
-
-            plt.rcParams["xtick.labelsize"] = 14
-            plt.rcParams["ytick.labelsize"] = 14
-
-            df.plot(
-                x="X(Daltons)",
-                y="Y(Counts)",
-                kind="line",
-                xlim=(22000, 26000),
-                legend=False,
-            )
-
-            ax = plt.subplot(111)
-
-            ax.spines["right"].set_visible(False)
-            ax.spines["top"].set_visible(False)
-
-            plt.xlabel("Deconvoluted mass (Da)", fontsize=18)
-            plt.ylabel("Counts", fontsize=18)
-
-            plt.savefig(interest_plot, dpi=600)
-            plt.close()
-
-        if not os.path.exists(plot):
-            df.plot(x="X(Daltons)", y="Y(Counts)", kind="line", legend=False)
-            plt.ylabel("Y(Counts)")
-            plt.savefig(plot)
-            plt.close()
+    # for key, df in df_dict.items():
+    #
+    #     interest_plot = os.path.join(output_dir, "interest_{}.png".format(key))
+    #
+    #     plot = os.path.join(output_dir, "{}.png".format(key))
+    #
+    #     tight_plot = os.path.join(output_dir, "tight_{}.png".format(key))
+    #
+    #     if not os.path.exists(tight_plot):
+    #
+    #         plt.rcParams["xtick.labelsize"] = 14
+    #         plt.rcParams["ytick.labelsize"] = 14
+    #
+    #         df.plot(
+    #             x="X(Daltons)",
+    #             y="Y(Counts)",
+    #             kind="line",
+    #             xlim=(24500, 26000),
+    #             legend=False,
+    #         )
+    #
+    #         ax = plt.subplot(111)
+    #
+    #         ax.spines["right"].set_visible(False)
+    #         ax.spines["top"].set_visible(False)
+    #
+    #         plt.xlabel("Deconvoluted mass (Da)", fontsize=18)
+    #         plt.ylabel("Counts", fontsize=18)
+    #         plt.savefig(tight_plot, dpi=600)
+    #         plt.close()
+    #
+    #     if not os.path.exists(interest_plot):
+    #
+    #         plt.rcParams["xtick.labelsize"] = 14
+    #         plt.rcParams["ytick.labelsize"] = 14
+    #
+    #         df.plot(
+    #             x="X(Daltons)",
+    #             y="Y(Counts)",
+    #             kind="line",
+    #             xlim=(22000, 26000),
+    #             legend=False,
+    #         )
+    #
+    #         ax = plt.subplot(111)
+    #
+    #         ax.spines["right"].set_visible(False)
+    #         ax.spines["top"].set_visible(False)
+    #
+    #         plt.xlabel("Deconvoluted mass (Da)", fontsize=18)
+    #         plt.ylabel("Counts", fontsize=18)
+    #
+    #         plt.savefig(interest_plot, dpi=600)
+    #         plt.close()
+    #
+    #     if not os.path.exists(plot):
+    #         df.plot(x="X(Daltons)", y="Y(Counts)", kind="line", legend=False)
+    #         plt.ylabel("Y(Counts)")
+    #         plt.savefig(plot)
+    #         plt.close()
 
     # Remove blank datasets
     df_dict = remove_dataset_by_filename_content(df_dict, key_string="blank")
@@ -732,13 +732,10 @@ if __name__ == "__main__":
         zip(pre_crystal_df["intended_ratio"], pre_crystal_df["weighted_height_ratio"])
     )
 
-    print(pre_crystal_df)
+    post_crystal_df.to_csv("post_crystal_pre_calibrate.csv")
 
     pre_crystal_plot(pre_crystal_df)
-
-    exit()
-
-    post_crystal_plot(post_crystal_df)
+    #post_crystal_plot(post_crystal_df)
 
     # Add calibration from pre crystal to post crystal
     df = pre_crystal_df[["intended_ratio", "weighted_height_ratio"]]
