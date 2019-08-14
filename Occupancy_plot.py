@@ -136,10 +136,23 @@ def plot_ratio_occupancy(
     #         "B factor = 50",
     #         "B factor = 100",
     #     ),
-    #     prop={"size": 12},
+    #     prop={"size": 8},
     #     loc="upper left",
     #     frameon=False,
     # )
+
+    # Single point in legend
+    # legend = plt.legend(
+    #     (xy_line, blue_circ),
+    #     (
+    #         "Refined Occupancy\n= Ratio of Labelled Species",
+    #         "B factor = 50",
+    #     ),
+    #     prop={"size": 8},
+    #     loc="upper left",
+    #     frameon=False,
+    # )
+
 
     plt.savefig(f_name, dpi=600)
     plt.close()
@@ -412,10 +425,16 @@ if __name__ == "__main__":
     residue_csv = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/residue_scores.csv"
     residue_df = pd.read_csv(residue_csv)
 
-    exhaustive_csv = (
+    # exhaustive_csv = (
         "/dls/science/groups/i04-1/elliot-dev/Work/"
         "NUDT7A_mass_spec_refinements/copy_atoms/exhaustive/2019-05-29/exhaustive_minima.csv"
     )
+
+    # b_fix
+    # exhaustive_csv = (
+    #     "/dls/science/groups/i04-1/elliot-dev/Work/"
+    #     "NUDT7A_mass_spec_refinements/copy_atoms/exhaustive_b_fix/2019-06-17/exhaustive_minima.csv"
+    # )
 
     exh_df = pd.read_csv(exhaustive_csv)
 
@@ -443,7 +462,7 @@ if __name__ == "__main__":
     ratio_df = pd.read_csv("post_crystal_data.csv")
     cio_df = ratio_df[ratio_df["key"].str.contains("CI0")]
     cio_df["plate"] = cio_df.key.apply(get_plate)
-    cio_df["well"] = cio_df.key.apply(get_well)
+    #cio_df["well"] = cio_df.key.apply(get_well)
 
     cio_df.to_csv("post_crystal_data_plate_well.csv")
 
@@ -508,8 +527,8 @@ if __name__ == "__main__":
 
         plot_ratio_occupancy(
             occ_df=method_df,
-            f_name="refmac_new_method_occupancy_{}.png".format(method),
-            xlabel="Crystallographic Occupancy ({})".format(method),
+            f_name="LEGEND_method_occupancy_{}.png".format(method),
+            xlabel="Crystallographic Occupancy".format(method),
             occ_column_name="Occupancy",
             b_col_name="Average B-factor (Residue)",
             min_cond=0,
