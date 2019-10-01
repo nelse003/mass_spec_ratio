@@ -72,7 +72,7 @@ def plot_deconvolution(csv_path, file_name, min_x=None, max_x=None):
     plt.close()
 
 
-if __name__ == "__main__":
+def plot_peg_tio_zip():
 
     peg_test_chromatograms = "/home/nelse003/peg_test/Chromatograms"
     tio_chromatograms = "/home/nelse003/tio_removal/chromatograms"
@@ -142,3 +142,64 @@ if __name__ == "__main__":
                     min_x=25000,
                     max_x=26000,
                 )
+
+
+if __name__ == "__main__":
+
+    chromatogram_folder = "/home/enelson/uHPLC_method/chromatogram"
+
+    for f in os.listdir(chromatogram_folder):
+        if ".CSV" in f:
+            plot_chromatogram(
+                csv_path=os.path.join(chromatogram_folder, f),
+                file_name=os.path.join(
+                    chromatogram_folder,
+                    "Chromatogram_{}".format(f.replace(".CSV", ".png")),
+                ),
+            )
+
+    m_z_folder = "/home/enelson/uHPLC_method/m_z"
+
+    for f in os.listdir(m_z_folder):
+        if ".CSV" in f:
+            plot_m_z(
+                csv_path=os.path.join(m_z_folder, f),
+                file_name=os.path.join(
+                    m_z_folder, "m_z_{}".format(f.replace(".CSV", ".png"))
+                ),
+                min_x=600,
+                max_y=None,
+            )
+
+    deconvolution_folder = "/home/enelson/uHPLC_method/deconvolution"
+
+    for f in os.listdir(deconvolution_folder):
+        if ".CSV" in f:
+            plot_deconvolution(
+                csv_path=os.path.join(deconvolution_folder, f),
+                file_name=os.path.join(
+                    deconvolution_folder, "deconv_{}".format(f.replace(".CSV", ".png"))
+                ),
+            )
+
+            plot_deconvolution(
+                csv_path=os.path.join(deconvolution_folder, f),
+                file_name=os.path.join(
+                    deconvolution_folder,
+                    "tight_deconv_{}".format(f.replace(".CSV", ".png")),
+                ),
+                min_x=25000,
+                max_x=26000,
+            )
+
+    plot_deconvolution(
+        csv_path="/home/enelson/ion_suppression/NUDT7A_p026_cps086_12.1.CSV",
+        file_name="/home/enelson/ion_suppression/deconv_NUDT7A_p026_cps086_12.png",
+    )
+
+    plot_deconvolution(
+        csv_path="/home/enelson/ion_suppression/NUDT7A_p026_cps086_12.1.CSV",
+        file_name="/home/enelson/ion_suppression/tight_deconv_NUDT7A_p026_cps086_12.png",
+        min_x=22000,
+        max_x=26000,
+    )
