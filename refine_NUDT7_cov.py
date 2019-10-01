@@ -8,6 +8,7 @@ sys.path.append("/dls/science/groups/i04-1/elliot-dev/parse_xchemdb")
 from refinement.prepare_scripts import write_refmac_csh
 from refinement.prepare_scripts import write_exhaustive_csh
 from refinement.prepare_scripts import write_phenix_csh
+from refinement.prepare_scripts import write_phenix_b_fix_csh
 from refinement.prepare_scripts import write_buster_csh
 
 
@@ -91,13 +92,28 @@ if __name__ == "__main__":
     elif args.program == "phenix":
         input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_phenix"
         params_fname = "multi-state-restraints.phenix.params"
+    
+    elif args.program == "phenix_b_fix":
+        
+        input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_phenix"
 
-    elif args.program == "exhaustive":
+        pdb_b = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/" \
+                       "copy_atoms_190525_phenix/NUDT7A-x2100/multi-state-model.pdb"
+
+        params = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/" \
+                       "copy_atoms_190525_phenix/NUDT7A-x2100/" \
+                       "multi-state-restraints.phenix.params"
+        
+        cif = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/" \
+              "copy_atoms_190525_phenix/NUDT7A-x2100/multi-state-model.split.bound-state.ligands.cif"
+
+        
+    elif args.program == "exhaustive":       
         input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_exhaustive"
         params_fname = ""
 
     elif args.program == "buster_b_none":
-        input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_buster"
+        input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_buster_b_none"
         params_fname = "params.gelly"
 
     prefix = "NUDT7A-x"
@@ -117,31 +133,24 @@ if __name__ == "__main__":
 
     mtz_to_check = []
 
-    xtals = [
-        "NUDT7A-x2109",
-        "NUDT7A-x2216",
-        "NUDT7A-x2219",
-        "NUDT7A-x2258",
-        "NUDT7A-x2274",
-        "NUDT7A-x2288",
-        "NUDT7A-x2323",
-        "NUDT7A-x2324",
-        "NUDT7A-x2335",
-    ]
-
     for xtal in xtals:
-
-        mtz = os.path.join(in_dir, xtal, "dimple.mtz")
-        params = os.path.join(input_folder, xtal, params_fname)
+        print(xtal, args.program)
+        mtz = os.path.join(input_folder, xtal, "dimple.mtz")
+        
+        if args.program != "phenix_b_fix":
+            params = os.path.join(input_folder, xtal, params_fname)
+            
         refine_pdb = os.path.join(input_folder, xtal, "refine.pdb")
+
         pdb = os.path.join(input_folder, xtal, "refine.split.bound-state.pdb")
         pdb_adj = os.path.join(
             input_folder, xtal, "refine.split-bound-state_new_link_record.pdb"
         )
-
+        
         if not os.path.isdir(os.path.dirname(pdb)):
+            print(f"Skipping because path to {pdb} not a dir")
             continue
-
+        print("AAASAA1")
         if args.program == "buster_b_none":
 
             # Reference pdb from which to copy b factor profile of the ligand
@@ -161,36 +170,43 @@ if __name__ == "__main__":
                     )
                 )
 
+            print("Running prepare B none")
             os.system(
-                "ccp4-python /dls/science/groups/i04-1/elliot-dev/mass_spec_ratio/prepare_b_none_pdbs.py --ref_pdb {} --pdb {} --out_pdb {}".format(
+                "ccp4-python /dls/science/groups/i04-1/elliot-dev/mass_spec_ratio/prepare_b_none_pdbs.py "
+                "--ref_pdb {} --pdb {} --out_pdb {}".format(
                     ref_pdb, pdb, out_pdb
                 )
             )
 
         if not os.path.isfile(pdb):
+            print(f"pdb {pdb} missing")
             continue
-
-        with open(pdb, "r") as pdb_file:
-            lines = pdb_file.readlines()
-        with open(pdb_adj, "w") as pdb_adj_file:
-            for line in lines:
-                if line.strip("\n").startswith("LINK"):
-                    pdb_adj_file.write(
-                        "LINK         SG ACYS A  73                 C   LIG E   1     1555   1555  1.80\n"
-                    )
-                    pdb_adj_file.write(
-                        "LINK         SG BCYS A  73                 C   LIG E   1     1555   1555  1.77\n"
-                    )
-                if not line.strip("\n").startswith("LINK"):
-                    pdb_adj_file.write(line)
+            
+        if args.program != "phenix_b_fix":
+            with open(pdb, "r") as pdb_file:
+                lines = pdb_file.readlines()
+            with open(pdb_adj, "w") as pdb_adj_file:
+                for line in lines:
+                    if line.strip("\n").startswith("LINK"):
+                        pdb_adj_file.write(
+                            "LINK         SG ACYS A  73                 C   LIG E   1     1555   1555  1.80\n"
+                        )
+                        pdb_adj_file.write(
+                            "LINK         SG BCYS A  73                 C   LIG E   1     1555   1555  1.77\n"
+                        )
+                    if not line.strip("\n").startswith("LINK"):
+                        pdb_adj_file.write(line)
 
         if not os.path.isfile(mtz):
+            print(f"mtz {mtz} missing")
             continue
 
         if not args.program == "exhaustive":
+            print("ASSD")
+            print(params)
             if not os.path.isfile(params):
                 continue
-
+        print("AAASAA")
         if args.program == "refmac":
             write_refmac_csh(
                 pdb=pdb_adj,
@@ -221,6 +237,26 @@ if __name__ == "__main__":
             csh_file = os.path.join(
                 refinement_script_dir, "{}_{}.csh".format(xtal, "phenix")
             )
+        elif args.program == "phenix_b_fix":
+                  
+            csh_file = os.path.join(
+                refinement_script_dir, "{}_{}.csh".format(xtal, "phenix_b_fix")
+            )
+            
+            print(f"trying to write {csh_file}")
+            
+            write_phenix_b_fix_csh(
+                pdb=pdb_b,
+                mtz=mtz,
+                cif=cif,
+                params=params,
+                script_dir="/dls/science/groups/i04-1/elliot-dev/parse_xchemdb",
+                refinement_script_dir=refinement_script_dir,
+                out_dir=os.path.join(out_dir, xtal),
+                crystal=xtal,
+                ncyc=20,
+            )
+
 
         elif args.program == "buster":
             write_buster_csh(
@@ -239,7 +275,7 @@ if __name__ == "__main__":
         elif args.program == "buster_b_none":
             print(out_dir)
             write_buster_csh(
-                pdb=pdb_adj,
+                pdb=out_pdb,
                 mtz=mtz,
                 cif=cif,
                 out_dir=os.path.join(out_dir, xtal),
