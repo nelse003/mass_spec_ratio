@@ -85,8 +85,9 @@ def plot_ratio_occupancy(
     xy_line, = ax.plot(xline, yline, "k:")
 
     # Set up condition for occupancy given the min_cond
-    cond = (y <= 1.0) & (y >= min_cond)
+    cond = (x <= 1.0) & (x >= 0.5)
     xFit = x[cond]
+    #cond = (y <= 1.0) & (y >= min_cond)
     yFit = y[cond]
 
     # # Split the markers into those that have been fitted and those that haven't
@@ -425,7 +426,7 @@ if __name__ == "__main__":
     residue_csv = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/residue_scores.csv"
     residue_df = pd.read_csv(residue_csv)
 
-    # exhaustive_csv = (
+    exhaustive_csv = (
         "/dls/science/groups/i04-1/elliot-dev/Work/"
         "NUDT7A_mass_spec_refinements/copy_atoms/exhaustive/2019-05-29/exhaustive_minima.csv"
     )
@@ -509,7 +510,7 @@ if __name__ == "__main__":
 
     print(occ_df.shape)
 
-    colours = sns.husl_palette(7)
+    colours = sns.husl_palette(8)
     method_colours = {
         "phenix": colours[0],
         "phenix_superposed": colours[1],
@@ -518,6 +519,7 @@ if __name__ == "__main__":
         "refmac": colours[4],
         "refmac_superposed": colours[5],
         "exhaustive_search": colours[6],
+        "phenix_b_fix": colours[7]
     }
 
     violin_plot_b_factor(occ_df, method_colours)
@@ -531,7 +533,7 @@ if __name__ == "__main__":
             xlabel="Crystallographic Occupancy".format(method),
             occ_column_name="Occupancy",
             b_col_name="Average B-factor (Residue)",
-            min_cond=0,
+            min_cond=0.0,
         )
         # plot_occ_colour(occ_df=method_df, method=method)
 
