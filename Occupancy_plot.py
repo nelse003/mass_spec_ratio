@@ -8,7 +8,16 @@ import seaborn as sns
 
 
 def plot_ratio_occupancy(
-    occ_df, xlabel, f_name, occ_column_name, b_col_name="B_mean", min_cond=0.4
+    occ_df,
+    xlabel,
+    f_name,
+    occ_column_name,
+    col='b',
+    b_col_name="B_mean",
+    min_cond=0.0,
+    plot_fit=True,
+    two_legend=True,
+    single_legend=False,
 ):
     """
     Plot occupancy vs ratio, with marker scaled by b factor
@@ -85,74 +94,100 @@ def plot_ratio_occupancy(
     xy_line, = ax.plot(xline, yline, "k:")
 
     # Set up condition for occupancy given the min_cond
-    cond = (x <= 1.0) & (x >= 0.5)
-    xFit = x[cond]
-    #cond = (y <= 1.0) & (y >= min_cond)
-    yFit = y[cond]
+    #cond = (x <= 1.0) & (x >= 0.5) & (y <= 1.0) & (y >= 0)
+    #xFit = x[cond]
+    #yFit = y[cond]
+
+    yFit=y
+    xFit=x
 
     # # Split the markers into those that have been fitted and those that haven't
     # marker_area_fit = marker_area[cond]
     # marker_area_other = marker_area[~cond]
 
     # Linear fit (mx+c) to occupancy vs ratio when occ >= min_cond
-    fit = sm.OLS(yFit, sm.add_constant(xFit)).fit()
 
-    print(x)
-    print(y)
-    print(fit.summary())
-    print(fit.params[1])
-    print(np.linspace(0, 1, 100) * fit.params[1])
-    print(np.linspace(0, 1, 100) * fit.params[1] + fit.params[0])
+    fit = sm.OLS(yFit, sm.add_constant(xFit)).fit()
+    print(fit.params)
 
     # Plot of linear fit
-    fit_line = plt.plot(
-        np.linspace(0, 1, 100), np.linspace(0, 1, 100) * fit.params[1] + fit.params[0]
-    )
+    if plot_fit:
+        try:
+            fit_line = plt.plot(
+                np.linspace(0, 1, 100), np.linspace(0, 1, 100) * fit.params[1] + fit.params[0],
+                color='k'
+            )
+        except IndexError:
+            fit_line = plt.plot(
+                np.linspace(0, 1, 100), np.linspace(0, 1, 100) * fit.params[0],
+                color='k'
+            )
 
     # Scatter plots showing the occupancy vs ratio data
-    scatter_1 = ax.scatter(xFit, yFit, s=marker_area)
+    scatter_1 = ax.scatter(x, y, s=marker_area, color=col)
+
+
+    # print("ALLA")
+    # print(fit.params[0], fit.params[1])
+    # from scipy.stats import linregress
+    # print(linregress(x,y))
+    # print(linregress(x,y).slope)
+    #
+    # fit_line_2 = plt.plot(
+    #     np.linspace(0, 1, 100), np.linspace(0, 1, 100) * (linregress(x,y).slope + linregress(x,y).intercept),
+    #     color='g'
+    # )
+
+    #ax.plot(np.unique(x), np.poly1d(np.polyfit(x, y, 1))(np.unique(x)), color='r')
+
     # scatter_2 = ax.scatter(x[~cond], y[~cond], marker_area_other, color="C0", alpha=0.3)
 
     # Artist objects for use with the legend
     blue_circ = mlines.Line2D(
-        [], [], color="C0", marker="o", linestyle="None", markersize=10
+        [], [], color=col, marker="o", linestyle="None", markersize=10
+    )
+
+    blue_circ_small = mlines.Line2D(
+        [], [], color=col, marker="o", linestyle="None", markersize=4.8
     )
 
     blue_circ_2 = mlines.Line2D(
-        [], [], color="C0", marker="o", linestyle="None", markersize=20
+        [], [], color=col, marker="o", linestyle="None", markersize=20
     )
 
     trans_blue_circ = mlines.Line2D(
-        [], [], color="C0", marker="o", linestyle="None", markersize=10, alpha=0.3
+        [], [], color=col, marker="o", linestyle="None", markersize=10, alpha=0.3
     )
 
     # Shrink current axis's height by 20% on the bottom
     box = ax.get_position()
 
     # legend usind defined artist objects and x=y line and fit_line
-    # legend = plt.legend(
-    #     (xy_line, blue_circ, blue_circ_2),
-    #     (
-    #         "Refined Occupancy\n= Ratio of Labelled Species",
-    #         "B factor = 50",
-    #         "B factor = 100",
-    #     ),
-    #     prop={"size": 8},
-    #     loc="upper left",
-    #     frameon=False,
-    # )
+    if two_legend:
+        legend = plt.legend(
+            (xy_line, blue_circ, blue_circ_2),
+            (
+                "Refined Occupancy\n= Ratio of Labelled Species",
+                "B factor = 50",
+                "\nB factor = 100",
+            ),
+            prop={"size": 8},
+            loc="upper left",
+            frameon=False,
+        )
 
     # Single point in legend
-    # legend = plt.legend(
-    #     (xy_line, blue_circ),
-    #     (
-    #         "Refined Occupancy\n= Ratio of Labelled Species",
-    #         "B factor = 50",
-    #     ),
-    #     prop={"size": 8},
-    #     loc="upper left",
-    #     frameon=False,
-    # )
+    elif single_legend:
+        legend = plt.legend(
+            (xy_line, blue_circ_small),
+            (
+                "Refined Occupancy\n= Ratio of Labelled Species",
+                "B factor = 24",
+            ),
+            prop={"size": 8},
+            loc="upper left",
+            frameon=False,
+        )
 
 
     plt.savefig(f_name, dpi=600)
@@ -280,6 +315,8 @@ def plot_occ_colour(occ_df, method, colour="r"):
 
 def plot_all_regression_plots(occ_df, method_colours):
 
+
+
     # Define figure
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
@@ -398,9 +435,9 @@ def plot_delta_occ(df, df1, df2, df3, df4, df5):
     occ_diff_1 = joint_df1["Occupancy_x"] - joint_df1["Occupancy_y"]
     occ_diff_2 = joint_df2["Occupancy_x"] - joint_df2["Occupancy_y"]
 
-    sns.distplot(occ_diff, rug=False, hist=False, label="phenix")
-    sns.distplot(occ_diff_1, rug=False, hist=False, label="buster")
-    sns.distplot(occ_diff_2, rug=False, hist=False, label="refmac")
+    sns.distplot(occ_diff, rug=False, hist=False, label="phenix", color='navy')
+    sns.distplot(occ_diff_1, rug=False, hist=False, label="buster", color='forestgreen')
+    sns.distplot(occ_diff_2, rug=False, hist=False, label="refmac", color='crimson')
     plt.legend()
     ax.set_xlim([0, 0.6])
 
@@ -418,6 +455,7 @@ def plot_delta_occ(df, df1, df2, df3, df4, df5):
 
     plt.xlabel("Non superposed occupancy - superposed occupancy")
     plt.ylabel("Frequency")
+    plt.legend(frameon=False)
     plt.savefig("delta_occupancy", dpi=600)
 
 
@@ -518,22 +556,76 @@ if __name__ == "__main__":
         "buster_superposed": colours[3],
         "refmac": colours[4],
         "refmac_superposed": colours[5],
-        "exhaustive_search": colours[6],
-        "phenix_b_fix": colours[7]
+        "exhaustive": colours[6],
+        "phenix_b_fix": colours[7],
+        'phenix_b_fix_non_superposed':'darkcyan',
     }
 
-    violin_plot_b_factor(occ_df, method_colours)
-    plot_all_regression_plots(occ_df, method_colours)
+    cols = {'buster': 'darkgreen',
+            'buster_superposed': 'limegreen',
+            'exhaustive': 'k',
+            'phenix': 'navy',
+            'phenix_superposed': 'cornflowerblue',
+            'refmac':'crimson',
+            'refmac_superposed':'lightcoral',
+            'phenix_b_fix':'darkcyan',
+            'phenix_b_fix_non_superposed': 'darkcyan',
+            }
+
+    #violin_plot_b_factor(occ_df, method_colours)
+    #plot_all_regression_plots(occ_df, method_colours)
 
     for method, method_df in occ_df.groupby("method"):
 
+        if method == "exhaustive_search":
+            method = "exhaustive"
+
         plot_ratio_occupancy(
             occ_df=method_df,
-            f_name="LEGEND_method_occupancy_{}.png".format(method),
+            f_name="no_legend_method_occupancy_{}.png".format(method),
             xlabel="Crystallographic Occupancy".format(method),
             occ_column_name="Occupancy",
             b_col_name="Average B-factor (Residue)",
             min_cond=0.0,
+            col=cols[method],
+            two_legend=False,
+            single_legend=False,
+        )
+        plot_ratio_occupancy(
+            occ_df=method_df,
+            f_name="no_fit_no_leg_method_occupancy_{}.png".format(method),
+            xlabel="Crystallographic Occupancy".format(method),
+            occ_column_name="Occupancy",
+            b_col_name="Average B-factor (Residue)",
+            min_cond=0.0,
+            col=cols[method],
+            plot_fit=False,
+            two_legend=False,
+            single_legend=False,
+        )
+        plot_ratio_occupancy(
+            occ_df=method_df,
+            f_name="leg_method_occupancy_{}.png".format(method),
+            xlabel="Crystallographic Occupancy".format(method),
+            occ_column_name="Occupancy",
+            b_col_name="Average B-factor (Residue)",
+            min_cond=0.0,
+            col=cols[method],
+            plot_fit=True,
+            two_legend=True,
+            single_legend=False,
+        )
+        plot_ratio_occupancy(
+            occ_df=method_df,
+            f_name="single_leg_method_occupancy_{}.png".format(method),
+            xlabel="Crystallographic Occupancy".format(method),
+            occ_column_name="Occupancy",
+            b_col_name="Average B-factor (Residue)",
+            min_cond=0.0,
+            col=cols[method],
+            plot_fit=True,
+            two_legend=False,
+            single_legend=True,
         )
         # plot_occ_colour(occ_df=method_df, method=method)
 

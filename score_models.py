@@ -15,7 +15,10 @@ folders = {
         "refmac_superposed",
     ),
     "copy_atoms_190525_phenix": ("refine.pdb", "refine.mtz", "phenix_superposed"),
-    "copy_atoms/phenix_b_fix/2019-10-01": ("refine.pdb", "refine.mtz","phenix_b_fix"),
+    "copy_atoms/phenix_b_fix/2019-10-05": ("refine.pdb", "refine.mtz","phenix_b_fix"),
+    "copy_atoms/phenix_b_fix_non_superposed/2019-10-04":("refine_001.pdb",
+                                                         "refine_001.mtz",
+                                                         "phenix_b_fix_non_superposed")
 
 }
 

@@ -107,6 +107,15 @@ if __name__ == "__main__":
         cif = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/" \
               "copy_atoms_190525_phenix/NUDT7A-x2100/multi-state-model.split.bound-state.ligands.cif"
 
+    elif args.program == "phenix_b_fix_non_superposed":
+
+        input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_phenix"
+
+        pdb_b = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/" \
+                "copy_atoms_190525_phenix/NUDT7A-x2100/multi-state-model.split.bound-state.pdb"
+
+        cif = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/" \
+              "copy_atoms_190525_phenix/NUDT7A-x2100/multi-state-model.split.bound-state.ligands.cif"
         
     elif args.program == "exhaustive":       
         input_folder = "/dls/science/groups/i04-1/elliot-dev/Work/NUDT7A_mass_spec_refinements/copy_atoms_190525_exhaustive"
@@ -136,9 +145,6 @@ if __name__ == "__main__":
     for xtal in xtals:
         print(xtal, args.program)
         mtz = os.path.join(input_folder, xtal, "dimple.mtz")
-        
-        if args.program != "phenix_b_fix":
-            params = os.path.join(input_folder, xtal, params_fname)
             
         refine_pdb = os.path.join(input_folder, xtal, "refine.pdb")
 
@@ -182,7 +188,10 @@ if __name__ == "__main__":
             print(f"pdb {pdb} missing")
             continue
             
-        if args.program != "phenix_b_fix":
+        if args.program not in ["phenix_b_fix","phenix_b_fix_non_superposed"]:
+
+            params = os.path.join(input_folder, xtal, params_fname)
+
             with open(pdb, "r") as pdb_file:
                 lines = pdb_file.readlines()
             with open(pdb_adj, "w") as pdb_adj_file:
@@ -201,11 +210,10 @@ if __name__ == "__main__":
             print(f"mtz {mtz} missing")
             continue
 
-        if not args.program == "exhaustive":
-            print("ASSD")
-            print(params)
-            if not os.path.isfile(params):
-                continue
+        # if not args.program == "exhaustive":
+        #     if not os.path.isfile(params):
+        #         continue
+
         print("AAASAA")
         if args.program == "refmac":
             write_refmac_csh(
@@ -256,7 +264,26 @@ if __name__ == "__main__":
                 crystal=xtal,
                 ncyc=20,
             )
+        elif args.program == "phenix_b_fix_non_superposed":
 
+            print("AGAGGAHSHAHHAHA")
+
+            csh_file = os.path.join(
+                refinement_script_dir, "{}_{}.csh".format(xtal, "phenix_b_fix_non_superposed")
+            )
+
+            write_phenix_csh(
+                pdb=pdb_b,
+                mtz=mtz,
+                cif=cif,
+                script_dir="/dls/science/groups/i04-1/elliot-dev/parse_xchemdb",
+                refinement_script_dir=refinement_script_dir,
+                out_dir=os.path.join(out_dir, xtal),
+                crystal=xtal,
+                ncyc=20,
+                script_filename="phenix_b_fix_non_superposed.csh",
+                refinement_type="b_fix_non_superposed",
+            )
 
         elif args.program == "buster":
             write_buster_csh(
