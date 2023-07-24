@@ -15,7 +15,7 @@ folders = {
         "refmac_superposed",
     ),
     "copy_atoms_190525_phenix": ("refine.pdb", "refine.mtz", "phenix_superposed"),
-    "copy_atoms/phenix_b_fix/2019-10-05": ("refine.pdb", "refine.mtz","phenix_b_fix"),
+    "copy_atoms/phenix_b_fix/2019-10-04": ("refine.pdb", "refine.mtz","phenix_b_fix"),
     "copy_atoms/phenix_b_fix_non_superposed/2019-10-04":("refine_001.pdb",
                                                          "refine_001.mtz",
                                                          "phenix_b_fix_non_superposed")
@@ -31,7 +31,15 @@ for folder in folders:
             residue_csv = os.path.join(
                 root, folder, crystal_folder, "residue_scores.csv"
             )
+            # fix to re-run for b_fix_24
+            if folder == "copy_atoms/phenix_b_fix_non_superposed/2019-10-04":
 
+                os.chdir(os.path.join(root, folder, crystal_folder))
+                os.system(
+                    "giant.score_model {} {}".format(
+                        folders[folder][0], folders[folder][1]
+                    )
+                )
             if not os.path.isfile(residue_csv):
 
                 os.chdir(os.path.join(root, folder, crystal_folder))
@@ -40,6 +48,7 @@ for folder in folders:
                         folders[folder][0], folders[folder][1]
                     )
                 )
+
 
             if not os.path.isfile(residue_csv):
                 continue

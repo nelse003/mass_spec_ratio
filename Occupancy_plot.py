@@ -93,6 +93,21 @@ def plot_ratio_occupancy(
     yline = xline
     xy_line, = ax.plot(xline, yline, "k:")
 
+    # print(xline)
+    # print(type(xline))
+    # print(y.values)
+    # print(type(y.values))
+
+    print("------------")
+    #print(y.values)
+    #print(x.values)
+    print(np.mean(np.sqrt((y.values-x.values)**2)))
+    print("------------")
+    #exit()
+
+    #rmsd = np.sqrt(x^2-y^2)
+    #mean_rmsd = np.mean(rmsd)
+
     # Set up condition for occupancy given the min_cond
     #cond = (x <= 1.0) & (x >= 0.5) & (y <= 1.0) & (y >= 0)
     #xFit = x[cond]
@@ -108,7 +123,7 @@ def plot_ratio_occupancy(
     # Linear fit (mx+c) to occupancy vs ratio when occ >= min_cond
 
     fit = sm.OLS(yFit, sm.add_constant(xFit)).fit()
-    print(fit.params)
+    #print(fit.params)
 
     # Plot of linear fit
     if plot_fit:
@@ -126,6 +141,10 @@ def plot_ratio_occupancy(
     # Scatter plots showing the occupancy vs ratio data
     scatter_1 = ax.scatter(x, y, s=marker_area, color=col)
 
+    #fill region
+    per = np.percentile(x,5)
+    print(f'percentile {per}')
+    ax.axvspan(0,np.percentile(x,5),facecolor='grey',alpha=0.3)
 
     # print("ALLA")
     # print(fit.params[0], fit.params[1])
@@ -334,14 +353,15 @@ def plot_all_regression_plots(occ_df, method_colours):
 
     for method, method_df in occ_df.groupby("method"):
 
-        print("AAA: {}".format(method))
+        #print("AAA: {}".format(method))
 
         x = method_df["Occupancy"]
         y = method_df["Ratio"]
 
         if method == "exhaustive_search":
-            print(x)
-            print(y)
+            #print(x)
+            #print(y)
+            pass
 
         if method != "refmac_superposed":
             continue
@@ -429,7 +449,7 @@ def plot_delta_occ(df, df1, df2, df3, df4, df5):
 
     joint_df2 = df4.merge(df5, on="crystal")
 
-    print(joint_df.columns.values)
+    #print(joint_df.columns.values)
     ax = plt.subplot(111)
     occ_diff = joint_df["Occupancy_x"] - joint_df["Occupancy_y"]
     occ_diff_1 = joint_df1["Occupancy_x"] - joint_df1["Occupancy_y"]
@@ -441,14 +461,14 @@ def plot_delta_occ(df, df1, df2, df3, df4, df5):
     plt.legend()
     ax.set_xlim([0, 0.6])
 
-    print("Phenix Mean: {} std_dev: {}".format(np.mean(occ_diff), np.std(occ_diff)))
-    print("buster Mean: {} std_dev: {}".format(np.mean(occ_diff_1), np.std(occ_diff_1)))
-    print("refmac mean: {} std_dev: {}".format(np.mean(occ_diff_2), np.std(occ_diff_2)))
+    #print("Phenix Mean: {} std_dev: {}".format(np.mean(occ_diff), np.std(occ_diff)))
+    #print("buster Mean: {} std_dev: {}".format(np.mean(occ_diff_1), np.std(occ_diff_1)))
+    #print("refmac mean: {} std_dev: {}".format(np.mean(occ_diff_2), np.std(occ_diff_2)))
 
     ocd = occ_diff.append(occ_diff_1, ignore_index=True)
     ocd = ocd.append(occ_diff_2, ignore_index=True)
 
-    print("mean {} std {}".format(np.mean(ocd), np.std(ocd)))
+    #print("mean {} std {}".format(np.mean(ocd), np.std(ocd)))
 
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
@@ -470,10 +490,10 @@ if __name__ == "__main__":
     )
 
     # b_fix
-    # exhaustive_csv = (
-    #     "/dls/science/groups/i04-1/elliot-dev/Work/"
-    #     "NUDT7A_mass_spec_refinements/copy_atoms/exhaustive_b_fix/2019-06-17/exhaustive_minima.csv"
-    # )
+    exhaustive_csv = (
+        "/dls/science/groups/i04-1/elliot-dev/Work/"
+        "NUDT7A_mass_spec_refinements/copy_atoms/exhaustive_b_fix/2019-06-17/exhaustive_minima.csv"
+    )
 
     exh_df = pd.read_csv(exhaustive_csv)
 
@@ -509,7 +529,7 @@ if __name__ == "__main__":
 
     df_list = []
     for group, df in unique_cio_df.groupby(["plate", "intended_ratio"]):
-        print(group)
+        #print(group)
         df["mean_weighted_area_ratio"] = df["weighted_area_ratio"].mean()
         df["std_weighted_area_ratio"] = df["weighted_area_ratio"].std()
         df_list.append(df)
@@ -528,10 +548,10 @@ if __name__ == "__main__":
         columns={"intended_ratio": "Expected Ratio"}
     )
 
-    print(df_with_summary_short)
-    print(occ_df.columns.values)
+    #print(df_with_summary_short)
+    #print(occ_df.columns.values)
 
-    print(occ_df["  Crystal to be Mounted "])
+    #print(occ_df["  Crystal to be Mounted "])
 
     occ_df["plate"] = occ_df["  Crystal to be Mounted "].apply(
         lambda s: s.split("-")[0]
@@ -546,7 +566,7 @@ if __name__ == "__main__":
 
     occ_df.to_csv("mounted_residue_with_error.csv")
 
-    print(occ_df.shape)
+    #print(occ_df.shape)
 
     colours = sns.husl_palette(8)
     method_colours = {
@@ -579,7 +599,7 @@ if __name__ == "__main__":
 
         if method == "exhaustive_search":
             method = "exhaustive"
-
+        print(method)
         plot_ratio_occupancy(
             occ_df=method_df,
             f_name="no_legend_method_occupancy_{}.png".format(method),
